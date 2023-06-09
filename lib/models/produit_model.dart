@@ -1,0 +1,30 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+class ProduitModel {
+  String nom;
+  String description;
+  double prix;
+  String image;
+  int qteStock;
+  String? firebaseToken;
+
+  ProduitModel(
+      {required this.nom,
+      required this.description,
+      required this.prix,
+      required this.image,
+      required this.qteStock,
+      this.firebaseToken});
+
+  factory ProduitModel.fromSnapshot(
+      DocumentSnapshot<Map<String, dynamic>> data) {
+    final file = data.data();
+    return ProduitModel(
+        firebaseToken: data.id,
+        nom: file!["Nom"],
+        qteStock: file["qteStock"],
+        description: file["Description"],
+        prix: file["Prix"],
+        image: file["Image"]);
+  }
+}
