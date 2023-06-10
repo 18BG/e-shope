@@ -21,10 +21,14 @@ class PanierModel {
     if (produitData != null) {
       produit = ProduitModel.fromSnapshot(produitData);
     }
+<<<<<<< HEAD
     return PanierModel(
         firebaseToken: data.id,
         produit: produit!,
         qteProduit: file['qteProduit'],
         prixTotal: file['prixTotal']);
+=======
+    return PanierModel(firebaseToken: data.id, listProduit: listProduit, prixTotal: 'prixTotal', qteProduit: 'qteProduit');
+>>>>>>> 478ba59 (g)
   }
 }
