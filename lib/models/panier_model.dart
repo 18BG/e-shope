@@ -21,6 +21,7 @@ class PanierModel {
     if (produitData != null) {
       produit = ProduitModel.fromSnapshot(produitData);
     }
+
     return PanierModel(
         firebaseToken: data.id,
         produit: produit!,

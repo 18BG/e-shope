@@ -7,6 +7,7 @@ class ProduitModel {
   String image;
   int qteStock;
   String? firebaseToken;
+  bool like;
 
   ProduitModel(
       {required this.nom,
@@ -14,6 +15,7 @@ class ProduitModel {
       required this.prix,
       required this.image,
       required this.qteStock,
+      required this.like,
       this.firebaseToken});
 
   factory ProduitModel.fromSnapshot(
@@ -25,6 +27,7 @@ class ProduitModel {
         qteStock: file["qteStock"],
         description: file["Description"],
         prix: file["Prix"],
-        image: file["Image"]);
+        image: file["Image"],
+        like: file['Like']);
   }
 }

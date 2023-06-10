@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:e_shope/models/produit_model.dart';
 
 class LikeModel {
   String nom;
