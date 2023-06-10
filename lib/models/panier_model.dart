@@ -5,10 +5,10 @@ class PanierModel {
   String? firebaseToken;
   String prixTotal;
   String qteProduit;
-  List<ProduitModel>? listProduit;
+  ProduitModel produit;
 
   PanierModel(
-      {this.listProduit,
+      {required this.produit,
       required this.prixTotal,
       required this.qteProduit,
       this.firebaseToken});
@@ -16,14 +16,15 @@ class PanierModel {
   factory PanierModel.fromSnapshot(
       DocumentSnapshot<Map<String, dynamic>> data) {
     final file = data.data();
-    final listProduitData = file!['Produits'];
-    List<ProduitModel>? listProduit;
-    if (listProduitData != null) {
-      listProduit = List<ProduitModel>.from(
-          listProduitData.map((element) => ProduitModel.fromSnapshot(element)));
-    } else {
-      listProduit = [];
+    final produitData = file!['Produit'];
+    ProduitModel? produit;
+    if (produitData != null) {
+      produit = ProduitModel.fromSnapshot(produitData);
     }
-    return PanierModel(firebaseToken: data.id, listProduit: listProduit);
+    return PanierModel(
+        firebaseToken: data.id,
+        produit: produit!,
+        qteProduit: file['qteProduit'],
+        prixTotal: file['prixTotal']);
   }
 }
