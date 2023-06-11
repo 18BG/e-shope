@@ -1,5 +1,6 @@
 //application Name
 import 'package:awesome_select/awesome_select.dart';
+import 'package:flutter/material.dart';
 
 const appName = "Victoire";
 //Fields Name
@@ -14,6 +15,7 @@ const password = "Mot de passe";
 const creationDate = "Date de création du compte";
 const birthDay = "Date de naissances";
 const bePatient = "Veuillez patienter traitement en cours...";
+const bePatient1 = "Veuillez patienter...";
 
 const town = "ville";
 
@@ -50,3 +52,5 @@ List<S2Choice<String>> genderOptions = [
   S2Choice<String>(value: 'HOMME', title: 'Homme'),
   S2Choice<String>(value: 'FEMME', title: 'Femme'),
 ];
+
+const kControl =TextStyle(fontSize: 15.0);
