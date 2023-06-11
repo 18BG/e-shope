@@ -4,14 +4,16 @@ import 'package:e_shope/models/commande_model.dart';
 import 'package:e_shope/models/like_model.dart';
 import 'package:e_shope/models/panier_model.dart';
 import 'package:e_shope/models/produit_model.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+//import 'package:firebase_storage/firebase_storage.dart';
+
+import '../models/categorie_model.dart';
 
 class FirebaseManagement {
   //create firebase Firestore database instance
   final _db = FirebaseFirestore.instance;
 
   //create firebase Storage database instance
-  final _refs = FirebaseStorage.instance;
+  //final _refs = FirebaseStorage.instance;
 
   //function to create new user
   createNewClient(
