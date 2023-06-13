@@ -47,6 +47,7 @@ const commandeUpper = "Commande";
 const commandelawer = "commande";
 const actuUpper = "Actualités";
 const actulawer = "actualités";
+const wishList = 'Page de souhait';
 
 List<S2Choice<String>> genderOptions = [
   S2Choice<String>(value: 'HOMME', title: 'Homme'),
