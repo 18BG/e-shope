@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:e_shope/widgets/input.dart';
 import 'package:flutter/material.dart';
 
 List<Widget>? screens;
@@ -55,7 +56,45 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   @override
   Widget build(BuildContext context) {
+    final widht = MediaQuery.of(context).size.width;
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        title: Row(
+          children: [
+            Container(
+              child: ClipRRect(
+                child: Image.asset(
+                  'assets/images/victoire.jpeg',
+                  fit: BoxFit.contain,
+                  width: widht * 0.092,
+                ),
+              ),
+            ),
+            SizedBox(
+              width: widht * 0.064,
+            ),
+            Container(
+              width: widht * 0.64,
+              child: Input(
+                hintText: 'Recherche',
+                prefixIcon: true,
+                iconType: Icons.search,
+                rayon: 15.0,
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.dehaze,
+                color: Colors.black,
+              ))
+        ],
+      ),
       bottomNavigationBar: BottomNavigationBar(
           unselectedItemColor: Colors.black,
           selectedItemColor: Colors.white,

@@ -1,7 +1,6 @@
 import 'package:e_shope/widgets/best.dart';
 import 'package:flutter/material.dart';
 
-import '../utilities/colors.dart';
 import '../utilities/constants.dart';
 
 class Input extends StatefulWidget {
@@ -17,9 +16,11 @@ class Input extends StatefulWidget {
       this.defaultText,
       this.prefixIcon,
       this.controller,
+      this.rayon = 50.0,
       this.validationType});
 
   final IconData? iconType;
+  final double rayon;
   final String? labelText;
   final String? hintText;
   final String? targetText;
@@ -88,16 +89,16 @@ class _InputState extends State<Input> {
       decoration: InputDecoration(
         prefixIcon: widget.prefixIcon == true
             ? Container(
-                margin: EdgeInsets.all(8.0),
+                margin: const EdgeInsets.all(8.0),
                 decoration: BoxDecoration(
-                  color: Color(0xFF634075),
+                  color: const Color(0xFF634075),
                   gradient: LinearGradient(
                     begin: Alignment.topRight,
                     end: Alignment.bottomLeft,
                     stops: [0.1, 0.5],
                     colors: [
-                      primaryColor,
-                      primaryColor,
+                      Colors.transparent,
+                      Colors.transparent,
                     ],
                   ),
                   borderRadius: BorderRadius.circular(50.0),
@@ -116,7 +117,7 @@ class _InputState extends State<Input> {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(50.0),
                     border: Border.all(
-                      width: 1.0,
+                      width: .0,
                       color: const Color(0xFFad5389),
                     )),
                 child: const Icon(
@@ -129,8 +130,11 @@ class _InputState extends State<Input> {
         contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         hintText: widget.hintText,
         labelText: widget.labelText,
+        fillColor: Colors.grey,
+        filled: true,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5.0),
+          borderSide: BorderSide.none,
+          borderRadius: BorderRadius.circular(widget.rayon),
         ),
       ),
     );
