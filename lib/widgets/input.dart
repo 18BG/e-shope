@@ -1,7 +1,6 @@
 import 'package:e_shope/widgets/best.dart';
 import 'package:flutter/material.dart';
 
-import '../utilities/colors.dart';
 import '../utilities/constants.dart';
 
 class Input extends StatefulWidget {

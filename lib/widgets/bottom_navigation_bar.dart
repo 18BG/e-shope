@@ -56,6 +56,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   @override
   Widget build(BuildContext context) {
+    final widht = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -67,15 +68,15 @@ class _BottomNavBarState extends State<BottomNavBar> {
                 child: Image.asset(
                   'assets/images/victoire.jpeg',
                   fit: BoxFit.contain,
-                  width: 35,
+                  width: widht * 0.092,
                 ),
               ),
             ),
-            const SizedBox(
-              width: 25,
+            SizedBox(
+              width: widht * 0.064,
             ),
             Container(
-              width: 250,
+              width: widht * 0.64,
               child: Input(
                 hintText: 'Recherche',
                 prefixIcon: true,
