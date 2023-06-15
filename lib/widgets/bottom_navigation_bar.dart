@@ -1,10 +1,13 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:e_shope/screens/home_screen.dart';
 import 'package:e_shope/widgets/input.dart';
 import 'package:flutter/material.dart';
 
+
 import '../screens/order_screen.dart';
 import '../screens/wishlist_screen.dart';
+
 
 List<Widget>? screens;
 
@@ -17,15 +20,20 @@ class BottomNavBar extends StatefulWidget {
 
 class _BottomNavBarState extends State<BottomNavBar> {
   final List<Widget> _pages = [
-      WhishListScreen(),
-    OrderListScreen(),
-    GestureDetector(
-      child: Container(
-        padding: EdgeInsets.fromLTRB(15, 25, 15, 0),
-        height: 100,
-        width: 100,
-        child: Center(child: Text("container3")),
-      ),
+
+    const HomeScreen(),
+    Container(
+      padding: EdgeInsets.fromLTRB(15, 25, 15, 0),
+      height: 100,
+      width: 100,
+      child: Center(child: Text("container2")),
+    ),
+    Container(
+      padding: EdgeInsets.fromLTRB(15, 25, 15, 0),
+      height: 100,
+      width: 100,
+      child: Center(child: Text("container3")),
+
     ),
     Container(
       margin: EdgeInsets.fromLTRB(25, 25, 24, 10),

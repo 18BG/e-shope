@@ -92,7 +92,7 @@ class _InputState extends State<Input> {
                 margin: const EdgeInsets.all(8.0),
                 decoration: BoxDecoration(
                   color: const Color(0xFF634075),
-                  gradient: LinearGradient(
+                  gradient: const LinearGradient(
                     begin: Alignment.topRight,
                     end: Alignment.bottomLeft,
                     stops: [0.1, 0.5],
