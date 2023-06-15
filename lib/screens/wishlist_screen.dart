@@ -1,5 +1,5 @@
 import 'package:e_shope/utilities/constants.dart';
-import 'package:e_shope/widgets/back_arrow.dart';
+
 import 'package:flutter/material.dart';
 
 import '../widgets/screen_title_bar.dart';
@@ -17,7 +17,9 @@ class _WhishListScreenState extends State<WhishListScreen> {
     return Container(
       child: Column(
         children: [
-          ScreenTitleBar(title: wishList,),
+          ScreenTitleBar(
+            title: wishList,
+          ),
         ],
       ),
     );
