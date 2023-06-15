@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../utilities/constants.dart';
 import 'back_arrow.dart';
 
 class ScreenTitleBar extends StatelessWidget {
