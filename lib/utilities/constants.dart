@@ -41,17 +41,18 @@ const produitUpper = "Produit";
 const produitlawer = "produit";
 const contactUpper = "Contact";
 const contactlawer = "contact";
-const catgorieUpper = "Catégorie";
+const catgorieUpper = "Catégories";
 const categorielawer = "catégorie";
 const commandeUpper = "Commande";
 const commandelawer = "commande";
 const actuUpper = "Actualités";
 const actulawer = "actualités";
 const wishList = 'Page de souhait';
+const news = "Nouveautés";
 
 List<S2Choice<String>> genderOptions = [
   S2Choice<String>(value: 'HOMME', title: 'Homme'),
   S2Choice<String>(value: 'FEMME', title: 'Femme'),
 ];
 
-const kControl =TextStyle(fontSize: 15.0);
+const kControl = TextStyle(fontSize: 15.0);

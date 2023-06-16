@@ -1,5 +1,7 @@
+
 import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
 import 'package:e_shope/widgets/wishItems.dart';
+
 import 'package:flutter/material.dart';
 
 import '../widgets/screen_title_bar.dart';
@@ -18,6 +20,7 @@ class _WhishListScreenState extends State<WhishListScreen> {
       color: Colors.white,
       child: Column(
         children: [
+
           ScreenTitleBar(title: "Page de souhait"),
           Expanded(
             child: DynamicHeightGridView(
@@ -38,6 +41,7 @@ class _WhishListScreenState extends State<WhishListScreen> {
                 );
               },
             ),
+
           ),
         ],
       ),

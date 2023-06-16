@@ -9,19 +9,19 @@ class ScreenTitleBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-            height: MediaQuery.of(context).size.height*0.06,
-            decoration: BoxDecoration(
-              color: Colors.black12
-            ),
-            child: Row(
-              children: [
-                SizedBox(width: 10,),
-                backArrow,
-                Spacer(),
-                Text(title),
-                Spacer()
-              ],
-            ),
-          );
+      height: MediaQuery.of(context).size.height * 0.06,
+      decoration: BoxDecoration(color: Colors.black12),
+      child: Row(
+        children: [
+          SizedBox(
+            width: 10,
+          ),
+          backArrow,
+          Spacer(),
+          Text(title),
+          Spacer()
+        ],
+      ),
+    );
   }
 }
