@@ -31,7 +31,7 @@ class _WishItemsState extends State<WishItems> {
     return Card(
       elevation: 5,
       child: Container(
-        padding: EdgeInsets.all(10),
+        padding: EdgeInsets.all(15),
         color: Colors.white12,
         height: MediaQuery.of(context).size.height * 0.32,
         child: Stack(
@@ -60,7 +60,7 @@ class _WishItemsState extends State<WishItems> {
                 children: [
                   Container(
                     alignment: Alignment.center,
-                    height: MediaQuery.of(context).size.height * 0.16,
+                    height: MediaQuery.of(context).size.height * 0.12,
                     child: Image.network(
                       widget.imageUrl,
                       fit: BoxFit.cover,
@@ -70,7 +70,7 @@ class _WishItemsState extends State<WishItems> {
                   Text(
                     widget.productTitle,
                     style: TextStyle(
-                      fontSize: 22 * MediaQuery.of(context).textScaleFactor,
+                      fontSize: 18 * MediaQuery.of(context).textScaleFactor,
                       fontWeight: FontWeight.bold,
                       // Add other properties as needed
                     ),
@@ -97,7 +97,7 @@ class _WishItemsState extends State<WishItems> {
                     style: TextStyle(
                       color: Colors.lightGreenAccent,
                       fontWeight: FontWeight.bold,
-                      fontSize: 19 * MediaQuery.of(context).textScaleFactor,
+                      fontSize: 14 * MediaQuery.of(context).textScaleFactor,
                       // Add other properties as needed
                     ),
                   ),
