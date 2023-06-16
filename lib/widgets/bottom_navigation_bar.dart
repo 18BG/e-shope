@@ -1,8 +1,10 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:e_shope/widgets/input.dart';
+import 'package:e_shope/widgets/my_drawer.dart';
 import 'package:flutter/material.dart';
 
+import '../screens/PanierScreen.dart';
 import '../screens/order_screen.dart';
 import '../screens/wishlist_screen.dart';
 
@@ -19,14 +21,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   final List<Widget> _pages = [
       WhishListScreen(),
     OrderListScreen(),
-    GestureDetector(
-      child: Container(
-        padding: EdgeInsets.fromLTRB(15, 25, 15, 0),
-        height: 100,
-        width: 100,
-        child: Center(child: Text("container3")),
-      ),
-    ),
+    PanierListScreen(),
     Container(
       margin: EdgeInsets.fromLTRB(25, 25, 24, 10),
       height: 100,
@@ -53,12 +48,28 @@ class _BottomNavBarState extends State<BottomNavBar> {
   Widget build(BuildContext context) {
     final widht = MediaQuery.of(context).size.width;
     return Scaffold(
+      drawer: MyDrawer(),
       appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: Colors.black
+        ),
         elevation: 0,
         backgroundColor: Colors.transparent,
         title: Row(
           children: [
             Container(
+              width: widht * 0.6,
+              child: Input(
+                hintText: 'Recherche',
+                prefixIcon: true,
+                iconType: Icons.search,
+                rayon: 15.0,
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          Container(
               child: ClipRRect(
                 child: Image.asset(
                   'assets/images/victoire.jpeg',
@@ -70,24 +81,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
             SizedBox(
               width: widht * 0.064,
             ),
-            Container(
-              width: widht * 0.64,
-              child: Input(
-                hintText: 'Recherche',
-                prefixIcon: true,
-                iconType: Icons.search,
-                rayon: 15.0,
-              ),
-            ),
-          ],
-        ),
-        actions: [
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.dehaze,
-                color: Colors.black,
-              ))
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
