@@ -4,7 +4,7 @@ import 'back_arrow.dart';
 
 class ScreenTitleBar extends StatelessWidget {
   ScreenTitleBar({super.key, required this.title});
-  String title;
+  final title;
 
   @override
   Widget build(BuildContext context) {

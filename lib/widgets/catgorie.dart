@@ -27,6 +27,7 @@ class _HomeCategorieState extends State<HomeCategorie> {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     return Container(
+      height: height * 0.22,
       child: Column(
         //mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,7 +36,7 @@ class _HomeCategorieState extends State<HomeCategorie> {
             children: [
               Container(
                 margin: EdgeInsets.all(width * 0.03),
-                height: height * 0.03,
+                height: height * 0.05,
                 width: width * 0.25,
                 child: const Text(
                   catgorieUpper,
@@ -49,7 +50,7 @@ class _HomeCategorieState extends State<HomeCategorie> {
           ),
           Container(
             margin: EdgeInsets.only(left: 10, right: 10),
-            height: height * 0.12,
+            height: height * 0.13,
             child: ListView.separated(
                 scrollDirection: Axis.horizontal,
                 shrinkWrap: true,
@@ -65,7 +66,7 @@ class _HomeCategorieState extends State<HomeCategorie> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(50),
                           child: Image.asset(
-                            "assets/images/vic${index}.jpeg",
+                            "assets/images/vic$index.jpeg",
                           ),
                         ),
                       ),
@@ -73,9 +74,10 @@ class _HomeCategorieState extends State<HomeCategorie> {
                         height: height * 0.005,
                       ),
                       Container(
+                          height: height * 0.035,
                           child: Text(
-                        map[index].entries.first.key,
-                      ))
+                            map[index].entries.first.key,
+                          ))
                     ],
                   );
                 },

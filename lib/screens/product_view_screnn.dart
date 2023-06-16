@@ -1,4 +1,3 @@
-import 'package:e_shope/widgets/back_arrow.dart';
 import 'package:e_shope/widgets/product_view_card_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -22,10 +21,12 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
   double productCurrentPrice = 2000;
   double? productlastPrice;
   List<Image> image = [
-    Image.network("https://static.vecteezy.com/system/resources/previews/009/665/781/original/school-bag-for-student-or-bag-for-kid-free-png.png"),
-    Image.network("https://w7.pngwing.com/pngs/246/878/png-transparent-backpack-school-bag-backpack-blue-child-backpack-thumbnail.png")
+    Image.network(
+        "https://static.vecteezy.com/system/resources/previews/009/665/781/original/school-bag-for-student-or-bag-for-kid-free-png.png"),
+    Image.network(
+        "https://w7.pngwing.com/pngs/246/878/png-transparent-backpack-school-bag-backpack-blue-child-backpack-thumbnail.png")
   ];
-  
+
   int _currentTabIndex = 0;
 
   @override
