@@ -40,7 +40,7 @@ class OrderWidget extends StatelessWidget {
               ),
             ),
             SizedBox(
-              width: MediaQuery.of(context).size.width * 0.3,
+              width: MediaQuery.of(context).size.width * 0.4,
               child: Padding(
                 padding: const EdgeInsets.only(left: 8.0),
                 child: Column(
@@ -49,7 +49,7 @@ class OrderWidget extends StatelessWidget {
                     Text(
                       productTitle,
                       style: TextStyle(
-                        fontSize: 22,
+                        fontSize: 16 * MediaQuery.of(context).textScaleFactor,
                         fontWeight: FontWeight.bold,
                       ),
                       maxLines: 1,
@@ -59,9 +59,9 @@ class OrderWidget extends StatelessWidget {
                     Text(
                       productDescription,
                       style: TextStyle(
-                        fontSize: _baseFontSize,
+                        fontSize: 12 * MediaQuery.of(context).textScaleFactor,
                       ),
-                      maxLines: 1,
+                      maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
                     SizedBox(height: 4),
@@ -73,7 +73,7 @@ class OrderWidget extends StatelessWidget {
                       style: TextStyle(
                         color: Colors.lightGreenAccent,
                         fontWeight: FontWeight.bold,
-                        fontSize: 19,
+                        fontSize: 13 * MediaQuery.of(context).textScaleFactor,
                       ),
                     ),
                   ],
@@ -82,12 +82,12 @@ class OrderWidget extends StatelessWidget {
             ),
             Spacer(),
             SizedBox(
-              width: MediaQuery.of(context).size.width * 0.3,
+              width: MediaQuery.of(context).size.width * 0.2,
               child: Row(
                 children: [
-                  Icon(ico, color: Colors.green),
+                  Icon(ico, color: Colors.green, size: 15 * MediaQuery.of(context).textScaleFactor,),
                   SizedBox(width: 4),
-                  Text(resultText),
+                  Text(resultText, style: TextStyle(fontSize: 12 * MediaQuery.of(context).textScaleFactor),),
                 ],
               ),
             ),

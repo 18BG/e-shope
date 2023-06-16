@@ -101,84 +101,86 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
         backgroundColor: Colors.transparent,
         title: Text("Product"),
       ),
-      body: Column(
-        children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.5,
-            child: ProductViewer(list: image),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.5,
+              child: ProductViewer(list: image),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 8),
+                        Text(
+                          productTitle,
+                          style: TextStyle(
+                            fontSize: 24.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          "CFA ${productCurrentPrice}" +
+                              (productlastPrice != null && productlastPrice! > 0
+                                  ? " ${productlastPrice!}"
+                                  : ""),
+                          style: TextStyle(
+                            color: Colors.lightGreenAccent,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16.0,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Column(
                     children: [
-                      SizedBox(height: 8),
-                      Text(
-                        productTitle,
-                        style: TextStyle(
-                          fontSize: 24.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      SizedBox(height: 4),
-                      Text(
-                        "CFA ${productCurrentPrice}" +
-                            (productlastPrice != null && productlastPrice! > 0
-                                ? " ${productlastPrice!}"
-                                : ""),
-                        style: TextStyle(
-                          color: Colors.lightGreenAccent,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16.0,
-                        ),
-                      )
+                      Icon(Icons.favorite_border, size: 30),
+                      Text("10"),
                     ],
                   ),
-                ),
-                Column(
-                  children: [
-                    Icon(Icons.favorite_border, size: 30),
-                    Text("10"),
-                  ],
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 16.0),
-            alignment: Alignment.topLeft,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Description",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                SizedBox(height: 8),
-                Text(
-                  "data dsmafmndf dsafdafd",
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.grey[600],
-                  ),
-                ),
-              ],
+            SizedBox(
+              height: 20,
             ),
-          )
-        ],
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              alignment: Alignment.topLeft,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Description",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    "data dsmafmndf dsafdafd",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey[600],
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
       bottomNavigationBar: bottomNavBar,
     );
