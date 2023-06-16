@@ -5,15 +5,18 @@ import 'package:e_shope/widgets/input.dart';
 import 'package:e_shope/widgets/my_drawer.dart';
 import 'package:flutter/material.dart';
 
+import '../screens/PanierScreen.dart';
+
 
 
 List<Widget>? screens;
 
 class BottomNavBar extends StatefulWidget {
-  BottomNavBar({super.key});
+  BottomNavBar({super.key, this.isOk});
 
   @override
   State<BottomNavBar> createState() => _BottomNavBarState();
+  bool? isOk;
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
@@ -26,13 +29,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       width: 100,
       child: Center(child: Text("container2")),
     ),
-    Container(
-      padding: EdgeInsets.fromLTRB(15, 25, 15, 0),
-      height: 100,
-      width: 100,
-      child: Center(child: Text("container3")),
-
-    ),
+    PanierListScreen(),
     Container(
       margin: EdgeInsets.fromLTRB(25, 25, 24, 10),
       height: 100,
@@ -46,6 +43,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+      widget.isOk = false;
     });
   }
 
@@ -57,6 +55,11 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   @override
   Widget build(BuildContext context) {
+    if(widget.isOk != null){
+          if(widget.isOk!){
+      _selectedIndex = 2;
+    }
+    }
     final widht = MediaQuery.of(context).size.width;
     return Scaffold(
       drawer: MyDrawer(),
