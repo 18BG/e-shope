@@ -36,22 +36,6 @@ class _WishItemsState extends State<WishItems> {
         height: MediaQuery.of(context).size.height * 0.32,
         child: Stack(
           children: [
-            Positioned(
-              top: 10,
-              right: 10,
-              child: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    isLiked = !isLiked;
-                  });
-                },
-                child: Icon(
-                  isLiked ? Icons.favorite : Icons.favorite_border,
-                  color: isLiked ? Colors.red : Colors.grey,
-                  size: 30,
-                ),
-              ),
-            ),
             Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -101,6 +85,22 @@ class _WishItemsState extends State<WishItems> {
                     ),
                   ),
                 ],
+              ),
+            ),
+            Positioned(
+              top: 10,
+              right: 10,
+              child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    isLiked = !isLiked;
+                  });
+                },
+                child: Icon(
+                  isLiked ? Icons.favorite : Icons.favorite_border,
+                  color: isLiked ? Colors.red : Colors.grey,
+                  size: 30,
+                ),
               ),
             ),
           ],

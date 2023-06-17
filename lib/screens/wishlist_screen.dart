@@ -72,7 +72,7 @@ class _WhishListScreenState extends State<WhishListScreen> {
                       Navigator.push(context, MaterialPageRoute(builder: (context)=>ProductViewScreen()));
                     },
                     child: DynamicHeightGridView(
-                       shrinkWrap: true,
+                      shrinkWrap: true,
                           physics: NeverScrollableScrollPhysics(),
                       itemCount: 4,
                       crossAxisCount: 2,
