@@ -1,7 +1,8 @@
-import 'package:e_shope/utilities/constants.dart';
+import 'package:e_shope/widgets/all_products.dart';
+import 'package:e_shope/widgets/best_sale.dart';
 import 'package:e_shope/widgets/card.dart';
 import 'package:e_shope/widgets/catgorie.dart';
-import 'package:e_shope/widgets/screen_title_bar.dart';
+
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -12,6 +13,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  bool isLike = false;
   List<Map<String, dynamic>> map = [
     {"Képi": 0},
     {"marque": 1},
@@ -37,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Container(
               //margin: EdgeInsets.all(width * 0.03),
               width: width * 0.99,
-              height: height / 1.7,
+              height: height / 1.65,
               color: Color.fromARGB(255, 241, 238, 238),
               child: const Column(
                 children: [
@@ -46,100 +48,60 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
+            BestSale(
+              nbBestSale: 4,
+            ),
+            AllProducts()
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+enum Nouveaute { lafayette, jefferson, Babry, Aymane, Ayman }
+
+// ignore: must_be_immutable
+class ProductItemWidget extends StatelessWidget {
+  int index;
+  ProductItemWidget({super.key, required this.index});
+
+  @override
+  Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    return InkWell(
+      onTap: () {
+        // Action when the product is tapped
+      },
+      child: Container(
+        width: width * 0.5,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset(
+              "assets/images/vic$index.jpeg",
+              width: width * 0.37,
+              height: 160,
+              fit: BoxFit.cover,
+            ),
+            SizedBox(height: 8),
             Container(
-              height: height * 0.24,
-              child: Column(
+              height: 70,
+              child: const Column(
                 children: [
-                  Container(
-                    margin: EdgeInsets.only(left: width * 0.03),
-                    height: height * 0.07,
-                    decoration: const BoxDecoration(color: Colors.white),
-                    child: const Row(
-                      children: [
-                        Text(
-                          "Best Sale",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 19),
-                        ),
-                        Spacer(),
-                        InkWell(
-                          child: Row(
-                            children: [
-                              Text("View All"),
-                              Icon(Icons.arrow_forward)
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
+                  Text(
+                    "Pull",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
-                  Container(
-                    margin: EdgeInsets.only(
-                        left: width * 0.03, right: width * 0.03),
-                    height: height * 0.14,
-                    //color: Colors.red,
-                    child: ListView.separated(
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, i) {
-                          return Container(
-                            width: width * 0.25,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(18)),
-                            child: Column(
-                              children: [
-                                Container(
-                                  width: width * 0.25,
-                                  height: height * 0.1,
-                                  decoration: const BoxDecoration(
-                                      borderRadius:
-                                          BorderRadiusDirectional.only(
-                                              topStart: Radius.circular(12),
-                                              topEnd: Radius.circular(12))),
-                                  child: ClipRRect(
-                                    borderRadius:
-                                        const BorderRadiusDirectional.only(
-                                            topEnd: Radius.circular(10),
-                                            topStart: Radius.circular(10)),
-                                    child: Image.asset(
-                                      "assets/images/vic$i.jpeg",
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  width: width * 0.25,
-                                  height: height * 0.04,
-                                  decoration: const BoxDecoration(
-                                      color: Colors.green,
-                                      borderRadius:
-                                          BorderRadiusDirectional.only(
-                                              bottomEnd: Radius.circular(12),
-                                              bottomStart:
-                                                  Radius.circular(12))),
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        width: width * 0.125,
-                                        height: height * 0.04,
-                                        color: Colors.black,
-                                      ),
-                                      Container(
-                                        width: width * 0.125,
-                                        height: height * 0.04,
-                                        color: Colors.grey,
-                                      )
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                          );
-                        },
-                        separatorBuilder: ((context, index) => SizedBox(
-                              width: width * 0.05,
-                            )),
-                        itemCount: 7),
-                  )
+                  Text(
+                    'Price: \$10',
+                    style: TextStyle(fontSize: 14),
+                  ),
+                  Text(
+                    'Popularity: recommende',
+                    style: TextStyle(fontSize: 14),
+                  ),
                 ],
               ),
             )
@@ -149,5 +111,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
-enum Nouveaute { lafayette, jefferson, Babry, Aymane, Ayman }

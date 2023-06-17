@@ -1,5 +1,6 @@
 
 import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
+import 'package:e_shope/screens/product_view_screnn.dart';
 import 'package:e_shope/widgets/wishItems.dart';
 
 import 'package:flutter/material.dart';
@@ -60,28 +61,31 @@ class _WhishListScreenState extends State<WhishListScreen> {
         color: Colors.white,
         child: Column(
           children: [
-    
             ScreenTitleBar(title: "Page de souhait"),
             Expanded(
-              child: DynamicHeightGridView(
-                itemCount: 120,
-                crossAxisCount: 2,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                builder: (ctx, index) {
-                  /// return your widget here.
-                  return Padding(
-                    padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
-                    child: WishItems(
-                      imageUrl: "assets/images/vic0.jpeg",
-                      productCurrentPrice: 20000,
-                      productDescription: "productDescriptionsssssssssssssss",
-                      productTitle: "Title",
-                    ),
-                  );
+              child: GestureDetector(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>ProductViewScreen()));
                 },
+                child: DynamicHeightGridView(
+                  itemCount: 120,
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  builder: (ctx, index) {
+                    /// return your widget here.
+                    return Padding(
+                      padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
+                      child: WishItems(
+                        imageUrl: "assets/images/vic0.jpeg",
+                        productCurrentPrice: 20000,
+                        productDescription: "productDescriptionsssssssssssssss",
+                        productTitle: "Title",
+                      ),
+                    );
+                  },
+                ),
               ),
-    
             ),
           ],
         ),

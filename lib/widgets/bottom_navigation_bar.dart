@@ -1,34 +1,27 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:e_shope/screens/PanierScreen.dart';
+import 'package:e_shope/screens/chat_screen.dart';
 import 'package:e_shope/screens/home_screen.dart';
+
 import 'package:e_shope/widgets/input.dart';
 import 'package:e_shope/widgets/my_drawer.dart';
 import 'package:flutter/material.dart';
-
-import '../screens/PanierScreen.dart';
-
-
 
 List<Widget>? screens;
 
 class BottomNavBar extends StatefulWidget {
   BottomNavBar({super.key, this.isOk});
+  bool? isOk;
 
   @override
   State<BottomNavBar> createState() => _BottomNavBarState();
-  bool? isOk;
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
   final List<Widget> _pages = [
-
     const HomeScreen(),
-    Container(
-      padding: EdgeInsets.fromLTRB(15, 25, 15, 0),
-      height: 100,
-      width: 100,
-      child: Center(child: Text("container2")),
-    ),
+    ChatScreen(),
     PanierListScreen(),
     Container(
       margin: EdgeInsets.fromLTRB(25, 25, 24, 10),
@@ -56,9 +49,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     if(widget.isOk != null){
-          if(widget.isOk!){
-      _selectedIndex = 2;
-    }
+      if(widget.isOk!){
+        _selectedIndex = 2;
+      }
     }
     final widht = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -95,9 +88,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
             SizedBox(
               width: widht * 0.064,
             ),
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
+
+          ],
+        ),      bottomNavigationBar: BottomNavigationBar(
+          elevation: 0,
           unselectedItemColor: Colors.black,
           selectedItemColor: Colors.white,
           selectedLabelStyle: const TextStyle(fontSize: 16),
@@ -141,3 +135,4 @@ class _BottomNavBarState extends State<BottomNavBar> {
     );
   }
 }
+// ignore_for_file: must_be_immutable

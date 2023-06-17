@@ -41,7 +41,6 @@ class _WishItemsState extends State<WishItems> {
               right: 10,
               child: GestureDetector(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>ProductViewScreen()));
                   setState(() {
                     isLiked = !isLiked;
                   });

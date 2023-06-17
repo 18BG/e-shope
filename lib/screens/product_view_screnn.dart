@@ -1,4 +1,3 @@
-import 'package:e_shope/widgets/back_arrow.dart';
 import 'package:e_shope/widgets/product_view_card_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -27,7 +26,7 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
     Image.asset("assets/images/vic2.jpeg"),
     Image.asset("assets/images/vic3.jpeg")
   ];
-  
+
   int _currentTabIndex = 0;
 
   @override
