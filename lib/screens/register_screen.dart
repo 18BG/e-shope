@@ -1,3 +1,5 @@
+import 'package:e_shope/models/phone_number.dart';
+import 'package:e_shope/screens/login_screen.dart';
 import 'package:e_shope/utilities/constants.dart';
 import 'package:e_shope/widgets/input.dart';
 import 'package:flutter/material.dart';
@@ -36,25 +38,66 @@ class _RegisterScreenState extends State<RegisterScreen> {
               Container(
                 padding: const EdgeInsets.all(10),
                 child: TextFormFields(
-                  hint: "Password",
+                  hint: phone,
                   hide: true,
-                  suffix: true,
+                  suffix: false,
                   prefix: false,
                 ),
               ),
               Container(
                 padding: const EdgeInsets.all(10),
                 child: TextFormFields(
-                  hint: "Password",
+                  hint: address,
+                  hide: true,
+                  suffix: false,
+                  prefix: false,
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.all(10),
+                child: TextFormFields(
+                  hint: username,
+                  hide: true,
+                  suffix: false,
+                  prefix: false,
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.all(10),
+                child: TextFormFields(
+                  hint: mail,
+                  hide: true,
+                  suffix: false,
+                  prefix: false,
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.all(10),
+                child: TextFormFields(
+                  hint: password,
                   hide: true,
                   suffix: true,
                   prefix: false,
                 ),
               ),
               ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    setState(() {
+                      isLoading = true;
+                    });
+                    await Future.delayed(Duration(seconds: 2));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (BuildContext context) {
+                      return LoginScreen();
+                    }));
+                    setState(() {
+                      isLoading = false;
+                    });
+                  },
                   child: isLoading
-                      ? const CircularProgressIndicator()
+                      ? const CircularProgressIndicator(
+                          color: Colors.black,
+                        )
                       : const Text("Créer un compte"))
             ],
           ),
@@ -78,17 +121,17 @@ class NameTextField extends StatelessWidget {
         children: [
           Expanded(
             child: TextFormFields(
-              hint: "Password",
+              hint: firstName,
               hide: true,
-              suffix: true,
+              suffix: false,
               prefix: false,
             ),
           ),
           Expanded(
             child: TextFormFields(
-              hint: "Password",
+              hint: lastName,
               hide: true,
-              suffix: true,
+              suffix: false,
               prefix: false,
             ),
           ),
