@@ -41,7 +41,6 @@ class _WishItemsState extends State<WishItems> {
               right: 10,
               child: GestureDetector(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>ProductViewScreen()));
                   setState(() {
                     isLiked = !isLiked;
                   });
@@ -61,7 +60,7 @@ class _WishItemsState extends State<WishItems> {
                   Container(
                     alignment: Alignment.center,
                     height: MediaQuery.of(context).size.height * 0.12,
-                    child: Image.network(
+                    child: Image.asset(
                       widget.imageUrl,
                       fit: BoxFit.cover,
                     ),

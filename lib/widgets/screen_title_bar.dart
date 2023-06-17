@@ -16,7 +16,9 @@ class ScreenTitleBar extends StatelessWidget {
           SizedBox(
             width: 10,
           ),
-          backArrow,
+          GestureDetector(child: backArrow, onTap: (){
+            Navigator.pop(context);
+          },),
           Spacer(),
           Text(title),
           Spacer()

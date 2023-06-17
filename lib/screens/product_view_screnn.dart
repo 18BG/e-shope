@@ -21,10 +21,10 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
   double productCurrentPrice = 2000;
   double? productlastPrice;
   List<Image> image = [
-    Image.network(
-        "https://static.vecteezy.com/system/resources/previews/009/665/781/original/school-bag-for-student-or-bag-for-kid-free-png.png"),
-    Image.network(
-        "https://w7.pngwing.com/pngs/246/878/png-transparent-backpack-school-bag-backpack-blue-child-backpack-thumbnail.png")
+    Image.asset("assets/images/vic0.jpeg"),
+    Image.asset("assets/images/vic1.jpeg"),
+    Image.asset("assets/images/vic2.jpeg"),
+    Image.asset("assets/images/vic3.jpeg")
   ];
 
   int _currentTabIndex = 0;

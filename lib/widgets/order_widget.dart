@@ -33,7 +33,7 @@ class OrderWidget extends StatelessWidget {
               width: MediaQuery.of(context).size.width * 0.25,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8.0),
-                child: Image.network(
+                child: Image.asset(
                   imageUrl,
                   fit: BoxFit.cover,
                 ),
