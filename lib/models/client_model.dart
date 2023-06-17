@@ -7,7 +7,7 @@ class ClientModel {
   String nom;
   String prenom;
   String username;
-  String image;
+  String? image;
   String mail;
   String address;
   String telephone;
@@ -25,7 +25,7 @@ class ClientModel {
       this.commandes,
       required this.prenom,
       required this.username,
-      required this.image,
+      this.image,
       required this.address,
       required this.mail,
       required this.telephone,
