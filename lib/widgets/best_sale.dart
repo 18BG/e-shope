@@ -119,7 +119,7 @@ class _BestSaleState extends State<BestSale> {
                                       : Navigator.push(context,
                                           MaterialPageRoute(
                                               builder: (BuildContext context) {
-                                          return MyWidget();
+                                          return RegisterScreen();
                                         }));
                                 },
                                 child: Center(

@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class HomeProductViewer extends StatelessWidget {
-  HomeProductViewer({super.key, required this.list, required this.message});
+  HomeProductViewer({super.key, required this.list});
   List<Image> list;
-  List<String> message;
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(

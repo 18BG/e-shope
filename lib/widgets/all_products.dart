@@ -1,3 +1,4 @@
+import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
 import 'package:e_shope/widgets/productItem.dart';
 import 'package:flutter/material.dart';
 
@@ -29,27 +30,48 @@ class _MyWidgetState extends State<AllProducts> {
             ],
           ),
         ),
+        // Container(
+        //   color: const Color.fromARGB(255, 241, 238, 238),
+        //   margin: EdgeInsets.only(left: width * 0.025, right: width * 0.025),
+        //   height: 170 * 7,
+        //   child: GridView.builder(
+        //     physics: const BouncingScrollPhysics(
+        //         parent: NeverScrollableScrollPhysics()),
+        //     itemCount: 7,
+        //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        //       crossAxisCount: 2,
+        //       crossAxisSpacing: width * 0.05,
+        //       mainAxisSpacing: width * 0.05,
+        //       childAspectRatio: height * 0.0009,
+        //     ),
+        //     itemBuilder: (context, index) {
+        //       //final product = products[index];
+        //       return Center(child: ProductItemWidget(index: index));
+        //     },
+        //   ),
+        // ),
         Container(
-          color: const Color.fromARGB(255, 241, 238, 238),
-          margin: EdgeInsets.only(left: width * 0.025, right: width * 0.025),
-          height: 170 * 7,
-          child: GridView.builder(
+          child: DynamicHeightGridView(
             physics: const BouncingScrollPhysics(
                 parent: NeverScrollableScrollPhysics()),
-            itemCount: 7,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: width * 0.05,
-              mainAxisSpacing: width * 0.05,
-              childAspectRatio: height * 0.0009,
-            ),
-            itemBuilder: (context, index) {
-              //final product = products[index];
-              return Center(child: ProductItemWidget(index: index));
+            shrinkWrap: true,
+            itemCount: 10,
+            crossAxisCount: 2,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+            builder: (ctx, index) {
+              /// return your widget here.
+              return Padding(
+                  padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
+                  child: ProductItemWidget(index: 7));
             },
           ),
-        ),
+        )
       ],
     );
   }
 }
+// Center(
+//                   child: Container(
+//                 color: Colors.red,
+//               ));

@@ -57,15 +57,13 @@ class _BottomNavBarState extends State<BottomNavBar> {
     return Scaffold(
       drawer: MyDrawer(),
       appBar: AppBar(
-        iconTheme: IconThemeData(
-          color: Colors.black
-        ),
+        iconTheme: IconThemeData(color: Colors.black),
         elevation: 0,
         backgroundColor: Colors.transparent,
         title: Row(
           children: [
             Container(
-              width: widht * 0.6,
+              width: widht * 0.55,
               child: Input(
                 hintText: 'Recherche',
                 prefixIcon: true,
@@ -77,20 +75,20 @@ class _BottomNavBarState extends State<BottomNavBar> {
         ),
         actions: [
           Container(
-              child: ClipRRect(
-                child: Image.asset(
-                  'assets/images/victoire.jpeg',
-                  fit: BoxFit.contain,
-                  width: widht * 0.092,
-                ),
+            child: ClipRRect(
+              child: Image.asset(
+                'assets/images/victoire.jpeg',
+                fit: BoxFit.contain,
+                width: widht * 0.092,
               ),
             ),
-            SizedBox(
-              width: widht * 0.064,
-            ),
-
-          ],
-        ),      bottomNavigationBar: BottomNavigationBar(
+          ),
+          SizedBox(
+            width: widht * 0.064,
+          ),
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
           elevation: 0,
           unselectedItemColor: Colors.black,
           selectedItemColor: Colors.white,
