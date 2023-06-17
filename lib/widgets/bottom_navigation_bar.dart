@@ -1,11 +1,18 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:e_shope/screens/PanierScreen.dart';
+import 'package:e_shope/screens/chat_screen.dart';
+import 'package:e_shope/screens/home_screen.dart';
+
+import 'package:e_shope/widgets/input.dart';
+import 'package:e_shope/widgets/my_drawer.dart';
 import 'package:flutter/material.dart';
 
 List<Widget>? screens;
 
 class BottomNavBar extends StatefulWidget {
-  BottomNavBar({super.key});
+  BottomNavBar({super.key, this.isOk});
+  bool? isOk;
 
   @override
   State<BottomNavBar> createState() => _BottomNavBarState();
@@ -13,24 +20,9 @@ class BottomNavBar extends StatefulWidget {
 
 class _BottomNavBarState extends State<BottomNavBar> {
   final List<Widget> _pages = [
-    Container(
-      padding: EdgeInsets.fromLTRB(15, 25, 15, 0),
-      height: 100,
-      width: 100,
-      child: Center(child: Text("container1")),
-    ),
-    Container(
-      padding: EdgeInsets.fromLTRB(15, 25, 15, 0),
-      height: 100,
-      width: 100,
-      child: Center(child: Text("container2")),
-    ),
-    Container(
-      padding: EdgeInsets.fromLTRB(15, 25, 15, 0),
-      height: 100,
-      width: 100,
-      child: Center(child: Text("container3")),
-    ),
+    const HomeScreen(),
+    ChatScreen(),
+    PanierListScreen(),
     Container(
       margin: EdgeInsets.fromLTRB(25, 25, 24, 10),
       height: 100,
@@ -44,6 +36,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+      widget.isOk = false;
     });
   }
 
@@ -55,8 +48,48 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   @override
   Widget build(BuildContext context) {
+    if(widget.isOk != null){
+      if(widget.isOk!){
+        _selectedIndex = 2;
+      }
+    }
+    final widht = MediaQuery.of(context).size.width;
     return Scaffold(
+      drawer: MyDrawer(),
+      appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.black),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        title: Row(
+          children: [
+            Container(
+              width: widht * 0.55,
+              child: Input(
+                hintText: 'Recherche',
+                prefixIcon: true,
+                iconType: Icons.search,
+                rayon: 15.0,
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          Container(
+            child: ClipRRect(
+              child: Image.asset(
+                'assets/images/victoire.jpeg',
+                fit: BoxFit.contain,
+                width: widht * 0.092,
+              ),
+            ),
+          ),
+          SizedBox(
+            width: widht * 0.064,
+          ),
+        ],
+      ),
       bottomNavigationBar: BottomNavigationBar(
+          elevation: 0,
           unselectedItemColor: Colors.black,
           selectedItemColor: Colors.white,
           selectedLabelStyle: const TextStyle(fontSize: 16),
@@ -100,3 +133,4 @@ class _BottomNavBarState extends State<BottomNavBar> {
     );
   }
 }
+// ignore_for_file: must_be_immutable
