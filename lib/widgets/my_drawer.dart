@@ -21,7 +21,7 @@ class MyDrawer extends StatelessWidget {
             decoration: const BoxDecoration(
               color: Colors.blue, // Couleur d'arrière-plan du header
             ),
-            child: DrawerHeader(
+            child: const DrawerHeader(
               padding: EdgeInsets.all(16),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
