@@ -2,21 +2,31 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_shope/models/commande_model.dart';
 import 'package:e_shope/models/like_model.dart';
 import 'package:e_shope/models/panier_model.dart';
+import 'package:e_shope/utilities/constants.dart';
 
 class ClientModel {
+  // "Prénom" -> "user4"
+//"Nom d'utilisateur" -> "user4"
+//"Mot de passe" -> "user4"
+//"Date" -> "2023-06-17T23:04:04.574116"
+//"Numéro de téléphone" -> "user4"
+//"Image" -> ""
+// "Nom" -> "user4"
+
+// "user4" -> "user4"
   String nom;
   String prenom;
-  String username;
+  String thisusername;
   String? image;
-  String mail;
-  String address;
+  String thismail;
+  String addresse;
   String telephone;
-  String password;
+  String thispassword;
   List<LikeModel>? likes;
   List<CommandeModel>? commandes;
   List<PanierModel>? panniers;
   String? firebaseToken;
-  String creationDate;
+  String thiscreationDate;
 
   ClientModel(
       {required this.nom,
@@ -24,13 +34,13 @@ class ClientModel {
       this.likes,
       this.commandes,
       required this.prenom,
-      required this.username,
+      required this.thisusername,
       this.image,
-      required this.address,
-      required this.mail,
+      required this.addresse,
+      required this.thismail,
       required this.telephone,
-      required this.password,
-      required this.creationDate,
+      required this.thispassword,
+      required this.thiscreationDate,
       this.firebaseToken});
 
   factory ClientModel.fromSnapshot(
@@ -68,14 +78,14 @@ class ClientModel {
         likes: listLikes,
         commandes: listCommandes,
         panniers: listPanniers,
-        nom: file["Nom"],
-        mail: file["mail"],
-        address: file["Addresse"],
-        prenom: file["Prenom"],
-        username: file["Username"],
-        telephone: file["Telephone"],
-        password: file["Password"],
-        creationDate: file["CreationDate"],
+        nom: file[lastName],
+        thismail: file[mail],
+        addresse: file[address],
+        prenom: file[firstName],
+        thisusername: file[username],
+        telephone: file[phone],
+        thispassword: file[password],
+        thiscreationDate: file[creationDate],
         image: file["Image"]);
   }
 }

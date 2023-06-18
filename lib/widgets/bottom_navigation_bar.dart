@@ -3,8 +3,10 @@
 import 'package:e_shope/screens/PanierScreen.dart';
 import 'package:e_shope/screens/chat_screen.dart';
 import 'package:e_shope/screens/home_screen.dart';
+import 'package:e_shope/screens/user_information_screen.dart';
 
 import 'package:e_shope/widgets/input.dart';
+import 'package:e_shope/widgets/my_app_bar.dart';
 import 'package:e_shope/widgets/my_drawer.dart';
 import 'package:flutter/material.dart';
 
@@ -23,12 +25,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     const HomeScreen(),
     ChatScreen(),
     PanierListScreen(),
-    Container(
-      margin: EdgeInsets.fromLTRB(25, 25, 24, 10),
-      height: 100,
-      width: 100,
-      color: Colors.green,
-    )
+    UserInformation()
   ];
 
   int _selectedIndex = 0;
@@ -48,46 +45,15 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   @override
   Widget build(BuildContext context) {
-    if(widget.isOk != null){
-      if(widget.isOk!){
+    if (widget.isOk != null) {
+      if (widget.isOk!) {
         _selectedIndex = 2;
       }
     }
-    final widht = MediaQuery.of(context).size.width;
+
     return Scaffold(
       drawer: MyDrawer(),
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        title: Row(
-          children: [
-            Container(
-              width: widht * 0.55,
-              child: Input(
-                hintText: 'Recherche',
-                prefixIcon: true,
-                iconType: Icons.search,
-                rayon: 15.0,
-              ),
-            ),
-          ],
-        ),
-        actions: [
-          Container(
-            child: ClipRRect(
-              child: Image.asset(
-                'assets/images/victoire.jpeg',
-                fit: BoxFit.contain,
-                width: widht * 0.092,
-              ),
-            ),
-          ),
-          SizedBox(
-            width: widht * 0.064,
-          ),
-        ],
-      ),
+      appBar: const MyAppBar(),
       bottomNavigationBar: BottomNavigationBar(
           elevation: 0,
           unselectedItemColor: Colors.black,

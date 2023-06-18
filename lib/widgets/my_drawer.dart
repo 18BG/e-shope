@@ -1,4 +1,8 @@
+import 'package:e_shope/screens/provider.dart';
+import 'package:e_shope/screens/user_information_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import '../screens/order_screen.dart';
 import '../screens/wishlist_screen.dart';
 import 'bottom_navigation_bar.dart';
@@ -6,13 +10,15 @@ import 'bottom_navigation_bar.dart';
 class MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final UserProvider provider =
+        Provider.of<UserProvider>(context, listen: false);
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
           Container(
             height: MediaQuery.of(context).size.height * 0.3,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.blue, // Couleur d'arrière-plan du header
             ),
             child: DrawerHeader(
@@ -21,24 +27,24 @@ class MyDrawer extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CircleAvatar(
+                  const CircleAvatar(
                     radius: 40,
                     backgroundImage: AssetImage(
-                      "assets/images/vic1.jpeg",
+                      "assets/images/noim.webp",
                     ),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Text(
-                    "Aymane DEMBELE",
-                    style: TextStyle(
+                    provider.isLoggedIn ? provider.lastName! : "Not Connected",
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                       fontSize: 18,
                     ),
                   ),
                   Text(
-                    "Abkass2",
-                    style: TextStyle(
+                    provider.isLoggedIn ? provider.username! : "",
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 14,
                     ),
@@ -53,7 +59,7 @@ class MyDrawer extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => WhishListScreen()),
+                MaterialPageRoute(builder: (context) => UserInformation()),
               );
             },
           ),
@@ -93,7 +99,10 @@ class MyDrawer extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => BottomNavBar(isOk: true,)),
+                MaterialPageRoute(
+                    builder: (context) => BottomNavBar(
+                          isOk: true,
+                        )),
               );
             },
           ),
@@ -107,6 +116,12 @@ class MyDrawer extends StatelessWidget {
               );
             },
           ),
+          ElevatedButton(
+              onPressed: () {
+                print("deconnnn....");
+                provider.logout();
+              },
+              child: Text("Deconnection"))
         ],
       ),
     );

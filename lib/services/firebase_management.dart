@@ -4,6 +4,7 @@ import 'package:e_shope/models/commande_model.dart';
 import 'package:e_shope/models/like_model.dart';
 import 'package:e_shope/models/panier_model.dart';
 import 'package:e_shope/models/produit_model.dart';
+import 'package:e_shope/utilities/constants.dart';
 //import 'package:firebase_storage/firebase_storage.dart';
 
 import '../models/categorie_model.dart';
@@ -14,29 +15,46 @@ class FirebaseManagement {
 
   //create firebase Storage database instance
   //final _refs = FirebaseStorage.instance;
+//function to login a user
+  Future<QuerySnapshot<Object?>> login(
+    String thusername,
+    String thpassword,
+  ) async {
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('Client')
+        .where(username, isEqualTo: thusername)
+        .where(password, isEqualTo: thpassword)
+        .get();
+    return querySnapshot;
+  }
 
   //function to create new user
   createNewClient(
     String nom,
     String prenom,
-    String username,
-    String mail,
-    String address,
+    String thusername,
+    String thmail,
+    String thaddress,
     String telephone,
-    String password,
+    String thpassword,
     String creationDate,
+    String? images,
   ) async {
-    await _db.collection("Client").add({
-      "Nom": nom,
-      "Prenom": prenom,
-      "Username": username,
-      "Image": "",
-      "Mail": mail,
-      "Addresse": address,
-      "Telephone": telephone,
-      "Password": password,
-      "Date": creationDate
-    });
+    try {
+      await _db.collection("Client").add({
+        lastName: nom,
+        firstName: prenom,
+        username: thusername,
+        "Image": (images == null) ? "" : images,
+        mail: thmail,
+        address: thaddress,
+        phone: telephone,
+        password: thpassword,
+        "Date": creationDate
+      });
+    } catch (e) {
+      print('Erreur lors de l\'enregistrement de l\'utilisateur : $e');
+    }
   }
 
   //function to update client information
@@ -44,12 +62,12 @@ class FirebaseManagement {
     await _db.collection("Client").doc(client.firebaseToken).update({
       "Nom": client.nom,
       "Prenom": client.prenom,
-      "Username": client.username,
+      "Username": client.thisusername,
       "Image": client.image,
-      "Mail": client.mail,
-      "Addresse": client.address,
+      "Mail": client.thismail,
+      "Addresse": client.addresse,
       "Telephone": client.telephone,
-      "Password": client.password,
+      "Password": client.thispassword,
     });
   }
 
