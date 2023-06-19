@@ -28,7 +28,8 @@ class FirebaseManagement {
     return querySnapshot;
   }
 
-  //function to create new user
+  //Cette fonction permet de creer un nouveau utilisatuer dont les information seront passer en argument
+  //de la fonction
   createNewClient(
     String nom,
     String prenom,
@@ -40,7 +41,11 @@ class FirebaseManagement {
     String creationDate,
     String? images,
   ) async {
+
     try {
+        //ici nous faisons appel a l'instance firestore que nous avons creer ci-dessus pour ajouter le client dans la collection
+    //client sinon de creer la collection si elle ne l'ai pas
+    //C'est la fonction add qui permet d'ajouter un client tout en creant une reference automatiquement
       await _db.collection("Client").add({
         lastName: nom,
         firstName: prenom,
@@ -55,9 +60,13 @@ class FirebaseManagement {
     } catch (e) {
       print('Erreur lors de l\'enregistrement de l\'utilisateur : $e');
     }
+
+  
+   
   }
 
-  //function to update client information
+  //Cette fonction permet de creer un nouveau utilisatuer dont les information seront passer en argument
+  //de la fonction
   updateClientInformation(ClientModel client) async {
     await _db.collection("Client").doc(client.firebaseToken).update({
       "Nom": client.nom,
@@ -113,6 +122,13 @@ class FirebaseManagement {
       i.panniers = pannierListe;
     }
     return clients;
+  }
+
+  //function to get All client
+  Future<ClientModel> getClient(ClientModel client) async {
+    final data = await _db.collection("Client").doc(client.firebaseToken).get();
+    final Lclient = ClientModel.fromSnapshot(data);
+    return Lclient;
   }
 
   //function get All Categories
