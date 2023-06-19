@@ -1,3 +1,4 @@
+import 'package:e_shope/screens/login_screen.dart';
 import 'package:e_shope/screens/register_screen.dart';
 import 'package:e_shope/widgets/container.dart';
 import 'package:flutter/material.dart';
@@ -119,7 +120,7 @@ class _BestSaleState extends State<BestSale> {
                                       : Navigator.push(context,
                                           MaterialPageRoute(
                                               builder: (BuildContext context) {
-                                          return RegisterScreen();
+                                          return LoginScreen();
                                         }));
                                 },
                                 child: Center(

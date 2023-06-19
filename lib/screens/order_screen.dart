@@ -1,4 +1,3 @@
-
 import 'package:e_shope/widgets/all_products.dart';
 import 'package:e_shope/widgets/my_drawer.dart';
 import 'package:e_shope/widgets/order_widget.dart';
@@ -22,9 +21,7 @@ class _OrderListScreenState extends State<OrderListScreen> {
       drawer: MyDrawer(),
       appBar: AppBar(
         automaticallyImplyLeading: true,
-        iconTheme: IconThemeData(
-          color: Colors.black
-        ),
+        iconTheme: IconThemeData(color: Colors.black),
         elevation: 0,
         backgroundColor: Colors.transparent,
         title: Row(
@@ -42,17 +39,17 @@ class _OrderListScreenState extends State<OrderListScreen> {
         ),
         actions: [
           Container(
-              child: ClipRRect(
-                child: Image.asset(
-                  'assets/images/victoire.jpeg',
-                  fit: BoxFit.contain,
-                  width: widht * 0.092,
-                ),
+            child: ClipRRect(
+              child: Image.asset(
+                'assets/images/victoire.jpeg',
+                fit: BoxFit.contain,
+                width: widht * 0.092,
               ),
             ),
-            SizedBox(
-              width: widht * 0.064,
-            ),
+          ),
+          SizedBox(
+            width: widht * 0.064,
+          ),
         ],
       ),
       body: Container(
@@ -64,18 +61,17 @@ class _OrderListScreenState extends State<OrderListScreen> {
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
                 child: ListView.builder(
-                  itemCount: 10,
-                  itemBuilder: (context,index){
-                    return OrderWidget(
-                    ico: Icons.restore,
-                    resultText: "restored",
-                    imageUrl: "assets/images/vic0.jpeg",
-                    productCurrentPrice: 20000,
-                    productDescription: "productDescriptionsssssssssssssss",
-                    productTitle: "Title",
-                  );
-                  }
-                ),
+                    itemCount: 10,
+                    itemBuilder: (context, index) {
+                      return OrderWidget(
+                        ico: Icons.restore,
+                        resultText: "restored",
+                        imageUrl: "assets/images/vic0.jpeg",
+                        productCurrentPrice: 20000,
+                        productDescription: "productDescriptionsssssssssssssss",
+                        productTitle: "Title",
+                      );
+                    }),
               ),
             ),
           ],

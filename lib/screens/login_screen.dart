@@ -1,5 +1,12 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: use_build_context_synchronously
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_shope/screens/provider.dart';
+import 'package:e_shope/screens/register_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../services/firebase_management.dart';
 import '../utilities/constants.dart';
 import '../widgets/text_form_field.dart';
 
@@ -11,8 +18,20 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  FirebaseManagement firebase = FirebaseManagement();
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   bool isLoading = false;
   final key = GlobalKey<FormState>();
+  late UserProvider userProvider;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    userProvider = Provider.of<UserProvider>(context, listen: false);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +54,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 padding: const EdgeInsets.all(10),
                 child: TextFormFields(
                   hint: username,
-                  hide: true,
+                  toChange: usernameController,
+                  hide: false,
                   suffix: false,
                   prefix: false,
                 ),
@@ -43,6 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Container(
                 padding: const EdgeInsets.all(10),
                 child: TextFormFields(
+                  toChange: passwordController,
                   hint: password,
                   hide: true,
                   suffix: true,
@@ -50,10 +71,68 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    setState(() {
+                      isLoading = true;
+                    });
+
+                    if (key.currentState!.validate()) {
+                      String thisusername = usernameController.text;
+                      String thispassword = passwordController.text;
+
+                      try {
+                        // Vérifiez si l'utilisateur existe dans votre collection 'Client' avec les informations fournies
+
+                        QuerySnapshot result =
+                            await firebase.login(thisusername, thispassword);
+                        userProvider.login(thisusername, thispassword);
+                        if (result.docs.isNotEmpty) {
+                          Navigator.pop(context);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                duration: Duration(seconds: 3),
+                                content: Text("Connexion reussie !")),
+                          );
+                        } else {
+                          // Les informations d'identification fournies sont incorrectes
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text(
+                                    "Identifiants invalides. Veuillez réessayer.")),
+                          );
+                        }
+                      } catch (e) {
+                        print('Erreur lors de la connexion : $e');
+                        // Affichez un message d'erreur ou effectuez des opérations en cas d'erreur de connexion.
+                      }
+                    }
+
+                    setState(() {
+                      isLoading = false;
+                    });
+                  },
                   child: isLoading
                       ? const CircularProgressIndicator()
-                      : const Text(signIn))
+                      : const Text(signIn)),
+              Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("Vous n'avez pas de compte ?",
+                        style: TextStyle(color: Colors.black, fontSize: 15)),
+                    TextButton(
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(
+                              builder: (BuildContext context) {
+                            return const RegisterScreen();
+                          }));
+                        },
+                        child: const Text("Créer un compte ",
+                            style:
+                                TextStyle(color: Colors.black, fontSize: 17)))
+                  ],
+                ),
+              )
             ],
           ),
         ),

@@ -4,6 +4,7 @@ import 'package:e_shope/models/commande_model.dart';
 import 'package:e_shope/models/like_model.dart';
 import 'package:e_shope/models/panier_model.dart';
 import 'package:e_shope/models/produit_model.dart';
+import 'package:e_shope/utilities/constants.dart';
 //import 'package:firebase_storage/firebase_storage.dart';
 
 import '../models/categorie_model.dart';
@@ -14,33 +15,54 @@ class FirebaseManagement {
 
   //create firebase Storage database instance
   //final _refs = FirebaseStorage.instance;
+//function to login a user
+  Future<QuerySnapshot<Object?>> login(
+    String thusername,
+    String thpassword,
+  ) async {
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('Client')
+        .where(username, isEqualTo: thusername)
+        .where(password, isEqualTo: thpassword)
+        .get();
+    return querySnapshot;
+  }
 
   //Cette fonction permet de creer un nouveau utilisatuer dont les information seront passer en argument
   //de la fonction
   createNewClient(
     String nom,
     String prenom,
-    String username,
-    String mail,
-    String address,
+    String thusername,
+    String thmail,
+    String thaddress,
     String telephone,
-    String password,
+    String thpassword,
     String creationDate,
+    String? images,
   ) async {
-    //ici nous faisons appel a l'instance firestore que nous avons creer ci-dessus pour ajouter le client dans la collection
+
+    try {
+        //ici nous faisons appel a l'instance firestore que nous avons creer ci-dessus pour ajouter le client dans la collection
     //client sinon de creer la collection si elle ne l'ai pas
     //C'est la fonction add qui permet d'ajouter un client tout en creant une reference automatiquement
-    await _db.collection("Client").add({
-      "Nom": nom,
-      "Prenom": prenom,
-      "Username": username,
-      "Image": "",
-      "Mail": mail,
-      "Addresse": address,
-      "Telephone": telephone,
-      "Password": password,
-      "Date": creationDate
-    });
+      await _db.collection("Client").add({
+        lastName: nom,
+        firstName: prenom,
+        username: thusername,
+        "Image": (images == null) ? "" : images,
+        mail: thmail,
+        address: thaddress,
+        phone: telephone,
+        password: thpassword,
+        "Date": creationDate
+      });
+    } catch (e) {
+      print('Erreur lors de l\'enregistrement de l\'utilisateur : $e');
+    }
+
+  
+   
   }
 
   //Cette fonction permet de creer un nouveau utilisatuer dont les information seront passer en argument
@@ -49,12 +71,12 @@ class FirebaseManagement {
     await _db.collection("Client").doc(client.firebaseToken).update({
       "Nom": client.nom,
       "Prenom": client.prenom,
-      "Username": client.username,
+      "Username": client.thisusername,
       "Image": client.image,
-      "Mail": client.mail,
-      "Addresse": client.address,
+      "Mail": client.thismail,
+      "Addresse": client.addresse,
       "Telephone": client.telephone,
-      "Password": client.password,
+      "Password": client.thispassword,
     });
   }
 
