@@ -65,19 +65,29 @@ class FirebaseManagement {
    
   }
 
-  //Cette fonction permet de creer un nouveau utilisatuer dont les information seront passer en argument
+
+  //Cette fonction permet de mettre a jour l'utilisatuer dont les information seront passer en argument
+
   //de la fonction
   updateClientInformation(ClientModel client) async {
-    await _db.collection("Client").doc(client.firebaseToken).update({
-      "Nom": client.nom,
-      "Prenom": client.prenom,
-      "Username": client.thisusername,
-      "Image": client.image,
-      "Mail": client.thismail,
-      "Addresse": client.addresse,
-      "Telephone": client.telephone,
-      "Password": client.thispassword,
-    });
+    print("updateClientInformation");
+    print(client.firebaseToken);
+    print("D2RGnRKFu4zgPemFWgiL");
+    try {
+      await _db.collection("Client").doc(client.firebaseToken).update({
+        "Nom": client.nom,
+        "Prenom": client.prenom,
+        "Username": client.thisusername,
+        "Image": client.image,
+        "Mail": client.thismail,
+        "Addresse": client.addresse,
+        "Telephone": client.telephone,
+        "Password": client.thispassword,
+      });
+    } catch (e) {
+      print(e);
+    }
+    print("updateClientInformation finish");
   }
 
   //function to delete client instance
@@ -125,8 +135,10 @@ class FirebaseManagement {
   }
 
   //function to get All client
-  Future<ClientModel> getClient(ClientModel client) async {
-    final data = await _db.collection("Client").doc(client.firebaseToken).get();
+
+  Future<ClientModel> getClient(String firebaseToken) async {
+    final data = await _db.collection("Client").doc(firebaseToken).get();
+
     final Lclient = ClientModel.fromSnapshot(data);
     return Lclient;
   }

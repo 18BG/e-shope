@@ -1,6 +1,8 @@
+import 'package:e_shope/screens/login_screen.dart';
 import 'package:e_shope/screens/provider.dart';
 import 'package:e_shope/screens/user_information_screen.dart';
 import 'package:flutter/material.dart';
+
 import 'package:provider/provider.dart';
 
 import '../screens/order_screen.dart';
@@ -27,12 +29,26 @@ class MyDrawer extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const CircleAvatar(
-                    radius: 40,
-                    backgroundImage: AssetImage(
-                      "assets/images/noim.webp",
-                    ),
-                  ),
+                  (provider.isLoggedIn && provider.image != "")
+                      ? Container(
+                          height: 150,
+                          width: 150,
+                          decoration: const BoxDecoration(
+                              // color: Colors.amber,
+                              ),
+                          child: ClipRRect(
+                              borderRadius: BorderRadius.circular(80),
+                              child: Image.network(
+                                provider.image!,
+                                fit: BoxFit.cover,
+                              )),
+                        )
+                      : const CircleAvatar(
+                          radius: 40,
+                          backgroundImage: AssetImage(
+                            "assets/images/noim.webp",
+                          ),
+                        ),
                   const SizedBox(height: 8),
                   Text(
                     provider.isLoggedIn ? provider.lastName! : "Not Connected",
@@ -117,11 +133,20 @@ class MyDrawer extends StatelessWidget {
             },
           ),
           ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  backgroundColor:
+                      (provider.isLoggedIn) ? Colors.red : Colors.blue,
+                  textStyle: const TextStyle(fontSize: 20)),
               onPressed: () {
-                print("deconnnn....");
-                provider.logout();
+                (provider.isLoggedIn)
+                    ? {provider.logout(), Navigator.pop(context)}
+                    : Navigator.push(context,
+                        MaterialPageRoute(builder: (BuildContext context) {
+                        return LoginScreen();
+                      }));
               },
-              child: Text("Deconnection"))
+              child:
+                  Text((provider.isLoggedIn) ? "Deconnection" : "Se connecter"))
         ],
       ),
     );
