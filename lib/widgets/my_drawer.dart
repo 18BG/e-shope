@@ -19,11 +19,11 @@ class MyDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           Container(
-            height: MediaQuery.of(context).size.height * 0.3,
-            decoration: const BoxDecoration(  
+            height: MediaQuery.of(context).size.height * 0.4,
+            decoration: const BoxDecoration(
               color: Colors.blue, // Couleur d'arrière-plan du header
             ),
-            child: const DrawerHeader(
+            child: DrawerHeader(
               padding: EdgeInsets.all(16),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
