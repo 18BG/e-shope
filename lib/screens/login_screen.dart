@@ -86,6 +86,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         QuerySnapshot result =
                             await firebase.login(thisusername, thispassword);
                         userProvider.login(thisusername, thispassword);
+                        // ignore: invalid_use_of_protected_member
+
                         if (result.docs.isNotEmpty) {
                           Navigator.pop(context);
                           ScaffoldMessenger.of(context).showSnackBar(

@@ -12,8 +12,39 @@ class UserProvider with ChangeNotifier {
   String? username;
   String? email;
 
+  String? image;
+  String? password;
+  String? creation;
+  String? token;
+
   bool get isLoggedIn => email != null;
   FirebaseManagement firebase = FirebaseManagement();
+  void updateProvider(ClientModel client) async {
+    print("updateProvider");
+    try {
+      bool isUpdated = await firebase.updateClientInformation(client);
+      if (isUpdated) {
+        ClientModel re = await firebase.getClient(client.firebaseToken!);
+
+        lastName = re.nom;
+        firstName = re.prenom;
+        phoneNumber = re.telephone;
+        address = re.addresse;
+        username = re.thisusername;
+        email = re.thismail;
+        password = re.thispassword;
+        image = re.image;
+        creation = re.thiscreationDate;
+        token = re.firebaseToken;
+
+        print(isLoggedIn);
+      }
+    } catch (e) {
+      print(e);
+    }
+    print("finish updateProvider");
+    notifyListeners();
+  }
 
   void login(String user, String passwor) async {
     // Effectuez vos opérations de connexion ici
@@ -28,6 +59,12 @@ class UserProvider with ChangeNotifier {
           address = element.addresse;
           username = element.thisusername;
           email = element.thismail;
+
+          creation = element.thiscreationDate;
+          image = element.image;
+          password = element.thispassword;
+          token = element.firebaseToken;
+          print(token);
 
           print(isLoggedIn);
           notifyListeners();
