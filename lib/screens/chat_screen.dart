@@ -25,7 +25,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
     return Scaffold(
       backgroundColor: Colors.white10,
-      body: Container(
+      body: SizedBox(
         height: MediaQuery.of(context).size.height - bottomNavBarHeight,
         child: Column(
           children: [
@@ -59,7 +59,7 @@ class _ChatScreenState extends State<ChatScreen> {
             ),
             Container(
               padding: const EdgeInsets.only(bottom: 1.0),
-              child: TextAndVoiceField(
+              child: const TextAndVoiceField(
                 message: "jjj",
               ),
             ),

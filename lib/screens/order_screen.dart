@@ -1,4 +1,3 @@
-import 'package:e_shope/widgets/all_products.dart';
 import 'package:e_shope/widgets/my_drawer.dart';
 import 'package:e_shope/widgets/order_widget.dart';
 import 'package:flutter/material.dart';
@@ -18,17 +17,17 @@ class _OrderListScreenState extends State<OrderListScreen> {
   Widget build(BuildContext context) {
     final widht = MediaQuery.of(context).size.width;
     return Scaffold(
-      drawer: MyDrawer(),
+      drawer: const MyDrawer(),
       appBar: AppBar(
         automaticallyImplyLeading: true,
-        iconTheme: IconThemeData(color: Colors.black),
+        iconTheme: const IconThemeData(color: Colors.black),
         elevation: 0,
         backgroundColor: Colors.transparent,
         title: Row(
           children: [
-            Container(
+            SizedBox(
               width: widht * 0.6,
-              child: Input(
+              child: const Input(
                 hintText: 'Recherche',
                 prefixIcon: true,
                 iconType: Icons.search,
@@ -56,14 +55,14 @@ class _OrderListScreenState extends State<OrderListScreen> {
         color: Colors.white,
         child: Column(
           children: [
-            ScreenTitleBar(title: "Mes achats"),
+            const ScreenTitleBar(title: "Mes achats"),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
                 child: ListView.builder(
                     itemCount: 10,
                     itemBuilder: (context, index) {
-                      return OrderWidget(
+                      return const OrderWidget(
                         ico: Icons.restore,
                         resultText: "restored",
                         imageUrl: "assets/images/vic0.jpeg",

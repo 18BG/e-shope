@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class ProductItemWidget extends StatelessWidget {
   final int index;
-  ProductItemWidget({super.key, required this.index});
+  const ProductItemWidget({super.key, required this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class ProductItemWidget extends StatelessWidget {
       },
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        child: Container(
+        child: SizedBox(
           width: width * 0.5,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -25,10 +25,10 @@ class ProductItemWidget extends StatelessWidget {
                 //height: 160,
                 fit: BoxFit.cover,
               ),
-              SizedBox(height: 8),
-              Container(
+              const SizedBox(height: 8),
+              const SizedBox(
                 height: 70,
-                child: const Column(
+                child: Column(
                   children: [
                     Text(
                       "Pull",

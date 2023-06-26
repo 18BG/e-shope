@@ -86,7 +86,7 @@ class _ProfilState extends State<Profil> {
                             errorMessage = null;
                           });
                         },
-                        icon: Icon(Icons.camera_enhance),
+                        icon: const Icon(Icons.camera_enhance),
                       ),
                       IconButton(
                         onPressed: () {
@@ -95,7 +95,7 @@ class _ProfilState extends State<Profil> {
                             errorMessage = null;
                           });
                         },
-                        icon: Icon(Icons.photo_library),
+                        icon: const Icon(Icons.photo_library),
                       ),
                     ],
                   ),
@@ -137,7 +137,7 @@ class _ProfilState extends State<Profil> {
                                   thiscreationDate: userProvider.creation!,
                                   firebaseToken: userProvider.token,
                                 );
-                                userProvider.updateProvider(thisClient);
+                                await userProvider.updateProvider(thisClient);
 
                                 setState(() {
                                   isUploading = false;

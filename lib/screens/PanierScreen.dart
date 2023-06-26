@@ -1,6 +1,3 @@
-import 'package:e_shope/widgets/input.dart';
-import 'package:e_shope/widgets/my_drawer.dart';
-import 'package:e_shope/widgets/order_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/all_products.dart';
@@ -17,7 +14,7 @@ class PanierListScreen extends StatelessWidget {
         color: Colors.white,
         child: Column(
           children: [
-            ScreenTitleBar(title: "Mon Pannier"),
+            const ScreenTitleBar(title: "Mon Pannier"),
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
@@ -26,7 +23,7 @@ class PanierListScreen extends StatelessWidget {
                       padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
                       child: ListView.builder(
                         shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         itemCount: 2,
                         itemBuilder: (context, index) {
                           return PanierWidget(
@@ -41,7 +38,7 @@ class PanierListScreen extends StatelessWidget {
                         },
                       ),
                     ),
-                    AllProducts(),
+                    const AllProducts(),
                   ],
                 ),
               ),

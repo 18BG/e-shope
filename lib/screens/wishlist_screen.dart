@@ -22,19 +22,19 @@ class _WhishListScreenState extends State<WhishListScreen> {
   Widget build(BuildContext context) {
     final widht = MediaQuery.of(context).size.width;
     return Scaffold(
-      drawer: MyDrawer(),
+      drawer: const MyDrawer(),
       appBar: AppBar(
         automaticallyImplyLeading: true,
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.black
         ),
         elevation: 0,
         backgroundColor: Colors.transparent,
         title: Row(
           children: [
-            Container(
+            SizedBox(
               width: widht * 0.6,
-              child: Input(
+              child: const Input(
                 hintText: 'Recherche',
                 prefixIcon: true,
                 iconType: Icons.search,
@@ -62,26 +62,26 @@ class _WhishListScreenState extends State<WhishListScreen> {
         color: Colors.white,
         child: Column(
           children: [
-            ScreenTitleBar(title: "Page de souhait"),
+            const ScreenTitleBar(title: "Page de souhait"),
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
                   children: [
                     GestureDetector(
                     onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>ProductViewScreen()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>const ProductViewScreen()));
                     },
                     child: DynamicHeightGridView(
                       shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
+                          physics: const NeverScrollableScrollPhysics(),
                       itemCount: 4,
                       crossAxisCount: 2,
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 10,
                       builder: (ctx, index) {
                         /// return your widget here.
-                        return Padding(
-                          padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
+                        return const Padding(
+                          padding: EdgeInsets.fromLTRB(8, 8, 8, 0),
                           child: WishItems(
                             imageUrl: "assets/images/vic0.jpeg",
                             productCurrentPrice: 20000,
@@ -91,7 +91,7 @@ class _WhishListScreenState extends State<WhishListScreen> {
                         );
                       },
                     ),
-                  ), AllProducts()
+                  ), const AllProducts()
               
                         ]),
               ),

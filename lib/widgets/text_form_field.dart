@@ -9,6 +9,7 @@ class TextFormFields extends StatefulWidget {
       this.suffix,
       this.toChange,
       this.f,
+      this.onChange,
       this.prefix,
       this.labelText,
       this.icon,
@@ -25,6 +26,7 @@ class TextFormFields extends StatefulWidget {
   String? onsave;
   bool? hide;
   String? Function(String?)? f;
+  void Function(String)? onChange;
   @override
   State<TextFormFields> createState() => _TextFormFieldsState();
 }
@@ -37,11 +39,11 @@ class _TextFormFieldsState extends State<TextFormFields> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onChanged: widget.onChange,
       controller: widget.toChange,
       obscureText: widget.hide!,
       maxLines: (widget.maxl != null) ? widget.maxl : 1,
       validator: widget.f,
-      onSaved: (newValue) {},
       decoration: InputDecoration(
         hintText: widget.hint,
         labelText: widget.labelText,

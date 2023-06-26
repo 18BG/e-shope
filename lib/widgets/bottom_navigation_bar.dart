@@ -5,7 +5,6 @@ import 'package:e_shope/screens/chat_screen.dart';
 import 'package:e_shope/screens/home_screen.dart';
 import 'package:e_shope/screens/user_information_screen.dart';
 
-import 'package:e_shope/widgets/input.dart';
 import 'package:e_shope/widgets/my_app_bar.dart';
 import 'package:e_shope/widgets/my_drawer.dart';
 import 'package:flutter/material.dart';
@@ -23,9 +22,9 @@ class BottomNavBar extends StatefulWidget {
 class _BottomNavBarState extends State<BottomNavBar> {
   final List<Widget> _pages = [
     const HomeScreen(),
-    ChatScreen(),
-    PanierListScreen(),
-    UserInformation()
+    const ChatScreen(),
+    const PanierListScreen(),
+    const UserInformation()
   ];
 
   int _selectedIndex = 0;
@@ -52,7 +51,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     }
 
     return Scaffold(
-      drawer: MyDrawer(),
+      drawer: const MyDrawer(),
       appBar: const MyAppBar(),
       bottomNavigationBar: BottomNavigationBar(
           elevation: 0,
@@ -60,7 +59,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
           selectedItemColor: Colors.white,
           selectedLabelStyle: const TextStyle(fontSize: 16),
           type: BottomNavigationBarType.fixed,
-          backgroundColor: Color.fromARGB(255, 92, 112, 93),
+          backgroundColor: const Color.fromARGB(255, 92, 112, 93),
           selectedFontSize: 16,
           unselectedFontSize: 14,
           onTap: _onItemTapped,

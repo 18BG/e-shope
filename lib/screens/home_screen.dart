@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
               //margin: EdgeInsets.all(width * 0.03),
               width: width * 0.99,
               height: height / 1.65,
-              color: Color.fromARGB(255, 241, 238, 238),
+              color: const Color.fromARGB(255, 241, 238, 238),
               child: const Column(
                 children: [
                   HomeCard(),
@@ -51,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
             BestSale(
               nbBestSale: 4,
             ),
-            AllProducts()
+            const AllProducts()
           ],
         ),
       ),
@@ -73,7 +73,7 @@ class ProductItemWidget extends StatelessWidget {
       onTap: () {
         // Action when the product is tapped
       },
-      child: Container(
+      child: SizedBox(
         width: width * 0.5,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -85,10 +85,10 @@ class ProductItemWidget extends StatelessWidget {
               height: 160,
               fit: BoxFit.cover,
             ),
-            SizedBox(height: 8),
-            Container(
+            const SizedBox(height: 8),
+            const SizedBox(
               height: 70,
-              child: const Column(
+              child: Column(
                 children: [
                   Text(
                     "Pull",
