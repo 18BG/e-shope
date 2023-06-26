@@ -25,13 +25,13 @@ class _HomeCardState extends State<HomeCard> {
         elevation: 15,
         child: Row(
           children: [
-            Container(
+            SizedBox(
               width: width * 0.45,
               height: height / 3,
               child: Column(
                 children: [
                   Container(
-                    padding: EdgeInsets.only(left: 15),
+                    padding: const EdgeInsets.only(left: 15),
                     width: width * 0.45,
                     height: height / 6.19,
                     child: const Column(
@@ -55,7 +55,7 @@ class _HomeCardState extends State<HomeCard> {
                       ],
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     width: width * 0.45,
                     height: height / 6.19,
                     child: SingleChildScrollView(
@@ -82,7 +82,7 @@ class _HomeCardState extends State<HomeCard> {
                 ],
               ),
             ),
-            Container(
+            SizedBox(
               width: width * 0.45,
               height: height / 3,
               child: Image.asset(

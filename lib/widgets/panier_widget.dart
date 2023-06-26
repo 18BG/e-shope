@@ -35,7 +35,7 @@ class _PanierWidgetState extends State<PanierWidget> {
         padding: const EdgeInsets.fromLTRB(2, 20, 2, 20),
         child: Row(
           children: [
-            Container(
+            SizedBox(
               width: MediaQuery.of(context).size.width * 0.25,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8.0),
@@ -61,7 +61,7 @@ class _PanierWidgetState extends State<PanierWidget> {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    SizedBox(height: 4),
+                    const SizedBox(height: 4),
                     Text(
                       widget.productDescription,
                       style: TextStyle(
@@ -70,12 +70,11 @@ class _PanierWidgetState extends State<PanierWidget> {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    SizedBox(height: 4),
+                    const SizedBox(height: 4),
                     Text(
-                      "CFA ${widget.productCurrentPrice}" +
-                          (widget.productlastPrice != null && widget.productlastPrice! > 0
+                      "CFA ${widget.productCurrentPrice}${widget.productlastPrice != null && widget.productlastPrice! > 0
                               ? " ${widget.productlastPrice!}"
-                              : ""),
+                              : ""}",
                       style: TextStyle(
                         color: Colors.lightGreenAccent,
                         fontWeight: FontWeight.bold,
@@ -86,12 +85,12 @@ class _PanierWidgetState extends State<PanierWidget> {
                 ),
               ),
             ),
-            Spacer(),
+            const Spacer(),
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.3,
               child: Row(
                 children: [
-                  Spacer(),
+                  const Spacer(),
                   GestureDetector(
                     onTap: (){
                       setState(() {
@@ -103,7 +102,7 @@ class _PanierWidgetState extends State<PanierWidget> {
                       decoration: BoxDecoration(
                         border: Border.all(width: 2)
                       ),
-                      child: Text("-"),
+                      child: const Text("-"),
                     ),
                   ),
                   Container(
@@ -124,10 +123,10 @@ class _PanierWidgetState extends State<PanierWidget> {
                       decoration: BoxDecoration(
                         border: Border.all(width: 2)
                       ),
-                      child: Text("+"),
+                      child: const Text("+"),
                     ),
                   ),
-                  Spacer()
+                  const Spacer()
                 ],
               ),
             ),

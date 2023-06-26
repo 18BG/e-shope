@@ -2,7 +2,7 @@ import 'package:e_shope/widgets/product_view_card_widget.dart';
 import 'package:flutter/material.dart';
 
 class ProductViewScreen extends StatefulWidget {
-  ProductViewScreen({super.key});
+  const ProductViewScreen({super.key});
   // final String imageUrl;
   // final String productTitle;
   // final String productDescription;
@@ -31,7 +31,7 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final _kBottomNavBarItems = <BottomNavigationBarItem>[
+    final kBottomNavBarItems = <BottomNavigationBarItem>[
       BottomNavigationBarItem(
         icon: Container(
           color: Colors.transparent,
@@ -40,8 +40,8 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
               Expanded(
                 child: Container(
                   color: Colors.green,
-                  padding: EdgeInsets.symmetric(vertical: 12.0),
-                  child: Center(
+                  padding: const EdgeInsets.symmetric(vertical: 12.0),
+                  child: const Center(
                     child: Text(
                       "Acheter maintenant",
                       style: TextStyle(
@@ -66,8 +66,8 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
               Expanded(
                 child: Container(
                   color: Colors.red,
-                  padding: EdgeInsets.symmetric(vertical: 12.0),
-                  child: Center(
+                  padding: const EdgeInsets.symmetric(vertical: 12.0),
+                  child: const Center(
                     child: Text(
                       "Ajouter au Panier",
                       style: TextStyle(
@@ -87,7 +87,7 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
     ];
 
     final bottomNavBar = BottomNavigationBar(
-      items: _kBottomNavBarItems,
+      items: kBottomNavBarItems,
       currentIndex: _currentTabIndex,
       type: BottomNavigationBarType.fixed,
       onTap: (int index) {
@@ -100,7 +100,7 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        title: Text("Product"),
+        title: const Text("Product"),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -117,23 +117,22 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 8),
+                        const SizedBox(height: 8),
                         Text(
                           productTitle,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 24.0,
                             fontWeight: FontWeight.bold,
                           ),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
-                        SizedBox(height: 4),
+                        const SizedBox(height: 4),
                         Text(
-                          "CFA ${productCurrentPrice}" +
-                              (productlastPrice != null && productlastPrice! > 0
+                          "CFA $productCurrentPrice${productlastPrice != null && productlastPrice! > 0
                                   ? " ${productlastPrice!}"
-                                  : ""),
-                          style: TextStyle(
+                                  : ""}",
+                          style: const TextStyle(
                             color: Colors.lightGreenAccent,
                             fontWeight: FontWeight.bold,
                             fontSize: 16.0,
@@ -142,7 +141,7 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
                       ],
                     ),
                   ),
-                  Column(
+                  const Column(
                     children: [
                       Icon(Icons.favorite_border, size: 30),
                       Text("10"),
@@ -151,16 +150,16 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
               alignment: Alignment.topLeft,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     "Description",
                     style: TextStyle(
                       fontSize: 20,
@@ -169,7 +168,7 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Text(
                     "data dsmafmndf dsafdafd",
                     style: TextStyle(

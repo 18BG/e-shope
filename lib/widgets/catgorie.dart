@@ -26,7 +26,7 @@ class _HomeCategorieState extends State<HomeCategorie> {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
-    return Container(
+    return SizedBox(
       height: height * 0.22,
       child: Column(
         //mainAxisAlignment: MainAxisAlignment.start,
@@ -49,7 +49,7 @@ class _HomeCategorieState extends State<HomeCategorie> {
             ],
           ),
           Container(
-            margin: EdgeInsets.only(left: 10, right: 10),
+            margin: const EdgeInsets.only(left: 10, right: 10),
             height: height * 0.13,
             child: ListView.separated(
                 scrollDirection: Axis.horizontal,
@@ -73,7 +73,7 @@ class _HomeCategorieState extends State<HomeCategorie> {
                       SizedBox(
                         height: height * 0.005,
                       ),
-                      Container(
+                      SizedBox(
                           height: height * 0.035,
                           child: Text(
                             map[index].entries.first.key,

@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import '../utilities/constants.dart';
 
 class Input extends StatefulWidget {
-  Input(
-      {this.labelText,
+  const Input(
+      {super.key, this.labelText,
       this.hintText,
       this.iconType,
       this.inputType = TextInputType.text,
@@ -84,7 +84,7 @@ class _InputState extends State<Input> {
       keyboardType: widget.inputType!,
       validator: widget.validator,
       onSaved: widget.onSaved,
-      cursorColor: Color(0xFF634075),
+      cursorColor: const Color(0xFF634075),
       style: kControl,
       decoration: InputDecoration(
         prefixIcon: widget.prefixIcon == true
@@ -112,7 +112,7 @@ class _InputState extends State<Input> {
             : null,
         suffixIcon: _validate
             ? Container(
-                margin: EdgeInsets.all(10.0),
+                margin: const EdgeInsets.all(10.0),
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(50.0),
