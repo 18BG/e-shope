@@ -64,20 +64,20 @@ class _UserInformationState extends State<UserInformation> {
                           margin: const EdgeInsets.only(left: 10),
                           height: 150,
                           width: 150,
-                          child: const Column(
+                          child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Aymane Dembele",
-                                style: TextStyle(
+                                "${user[1].values.first} ${user[0].values.first}",
+                                style: const TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.w900),
                               ),
                               SizedBox(
                                 height: 5,
                               ),
-                              Text("Entrepreneur"),
-                              Text("Aymane@70dembele")
+                              Text(user[2].values.first),
+                              Text(user[4].values.first)
                             ],
                           ),
                         ),
