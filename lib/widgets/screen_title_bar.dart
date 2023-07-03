@@ -30,10 +30,10 @@ class _ScreenTitleBarState extends State<ScreenTitleBar> {
   Widget build(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height * 0.06,
-      decoration: BoxDecoration(color: Colors.black12),
+      decoration: const BoxDecoration(color: Colors.black12),
       child: Row(
         children: [
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
           GestureDetector(

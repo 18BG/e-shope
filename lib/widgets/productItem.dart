@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class ProductItemWidget extends StatefulWidget {
   final int index;
-  ProductItemWidget({super.key, required this.index});
+  const ProductItemWidget({super.key, required this.index});
 
   @override
   State<ProductItemWidget> createState() => _ProductItemWidgetState();
@@ -19,7 +19,7 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
       },
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        child: Container(
+        child: SizedBox(
           width: width * 0.5,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,

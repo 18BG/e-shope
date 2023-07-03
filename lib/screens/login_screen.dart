@@ -1,6 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_shope/screens/provider.dart';
 import 'package:e_shope/screens/register_screen.dart';
 import 'package:flutter/material.dart';
@@ -83,9 +82,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       try {
                         // Vérifiez si l'utilisateur existe dans votre collection 'Client' avec les informations fournies
 
-                        QuerySnapshot result =
-                            await firebase.login(thisusername, thispassword);
-                        userProvider.login(thisusername, thispassword);
+                        // QuerySnapshot result =
+                        //     await firebase.login(thisusername, thispassword);
+                        var result = await userProvider.login(
+                            thisusername, thispassword);
                         // ignore: invalid_use_of_protected_member
 
                         if (result.docs.isNotEmpty) {

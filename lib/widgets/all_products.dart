@@ -41,8 +41,8 @@ class _MyWidgetState extends State<AllProducts> {
             mainAxisSpacing: 10,
             builder: (ctx, index) {
               /// return your widget here.
-              return Padding(
-                  padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
+              return const Padding(
+                  padding: EdgeInsets.fromLTRB(8, 8, 8, 0),
                   child: ProductItemWidget(index: 7));
             },
           ),

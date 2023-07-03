@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class OrderWidget extends StatelessWidget {
-  OrderWidget({
+  const OrderWidget({
     Key? key,
     required this.productCurrentPrice,
     required this.imageUrl,
@@ -28,7 +28,7 @@ class OrderWidget extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Row(
           children: [
-            Container(
+            SizedBox(
               width: MediaQuery.of(context).size.width * 0.25,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8.0),
@@ -54,7 +54,7 @@ class OrderWidget extends StatelessWidget {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    SizedBox(height: 4),
+                    const SizedBox(height: 4),
                     Text(
                       "Qty: 3",
                       style: TextStyle(
@@ -63,7 +63,7 @@ class OrderWidget extends StatelessWidget {
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    SizedBox(height: 4),
+                    const SizedBox(height: 4),
                     Text(
                       "View Details",
                       style: TextStyle(
@@ -76,7 +76,7 @@ class OrderWidget extends StatelessWidget {
                 ),
               ),
             ),
-            Spacer(),
+            const Spacer(),
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.2,
               child: Row(

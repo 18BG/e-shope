@@ -1,6 +1,4 @@
 import 'package:e_shope/screens/login_screen.dart';
-import 'package:e_shope/screens/register_screen.dart';
-import 'package:e_shope/widgets/container.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -27,7 +25,7 @@ class _BestSaleState extends State<BestSale> {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
-    return Container(
+    return SizedBox(
       height: height * 0.3,
       child: Column(
         children: [
@@ -108,7 +106,7 @@ class _BestSaleState extends State<BestSale> {
                                 ),
                               ),
                             ),
-                            Container(
+                            SizedBox(
                               width: width * 0.08,
                               height: height * 0.04,
                               child: InkWell(
@@ -120,7 +118,7 @@ class _BestSaleState extends State<BestSale> {
                                       : Navigator.push(context,
                                           MaterialPageRoute(
                                               builder: (BuildContext context) {
-                                          return LoginScreen();
+                                          return const LoginScreen();
                                         }));
                                 },
                                 child: Center(

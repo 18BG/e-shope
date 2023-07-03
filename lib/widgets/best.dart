@@ -50,86 +50,95 @@ class Bg {
 
   static String? validateName(String? value) {
     // Nigeria Mobile number are of 11 digit only
-    if (value!.length < 3)
+    if (value!.length < 3) {
       return 'Entrez un caractère de nom valide';
-    else
+    } else {
       return null;
+    }
   }
 
   static String? validateNumber(String? value) {
     // Nigeria Mobile number are of 11 digit only
-    if ((value! is int))
+    if ((value! is int)) {
       return 'Entrez un caractère de nom valide';
-    else
+    } else {
       return null;
+    }
   }
 
   static String? validatePassword(String? value) {
-    if (value!.length < 6)
+    if (value!.length < 6) {
       return 'Le mot de passe doit comporter 6 caractères ou plus';
-    else
+    } else {
       return null;
+    }
   }
 
   //* Function
   static String? validateMobile(String? value) {
     // Nigeria Mobile number are of 11 digit only
-    if (value!.length < 7)
+    if (value!.length < 7) {
       return 'Le numéro de mobile doit être composé au moins 8 chiffres';
-    else
+    } else {
       return null;
+    }
   }
 
   static String? validateUsername(String? value) {
     // Pattern pattern =
     //     r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
     // //RegExp regex = new RegExp(pattern.toString());
-    if (value!.length < 3 /* || !regex.hasMatch(value!)*/)
+    if (value!.length < 3 /* || !regex.hasMatch(value!)*/) {
       return 'Entrez une nom d\'utilisateur valide';
-    else
+    } else {
       return null;
+    }
   }
 
   static String? validateEmail(String? value) {
     Pattern pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-    RegExp regex = new RegExp(pattern.toString());
-    if (!regex.hasMatch(value!))
+    RegExp regex = RegExp(pattern.toString());
+    if (!regex.hasMatch(value!)) {
       return 'Entrez une adresse email valide';
-    else
+    } else {
       return null;
+    }
   }
 
   static bool isValidName(String value) {
     // Nigeria Mobile number are of 11 digit only
     if (value.length < 3 ||
-        value.trim().contains(RegExp(r'[\s!@#$%^&*(),.?":{}|<>]')))
+        value.trim().contains(RegExp(r'[\s!@#$%^&*(),.?":{}|<>]'))) {
       return false;
-    else
+    } else {
       return true;
+    }
   }
 
   static bool isValidEmail(value) {
     Pattern pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-    RegExp regex = new RegExp(pattern.toString());
-    if (!regex.hasMatch(value))
+    RegExp regex = RegExp(pattern.toString());
+    if (!regex.hasMatch(value)) {
       return false;
-    else
+    } else {
       return true;
+    }
   }
 
   static bool isValidPassword(String value) {
-    if (value.length < 6)
+    if (value.length < 6) {
       return false;
-    else
+    } else {
       return true;
+    }
   }
 
   static String createQueryString(
       {String? table, Map<String, dynamic>? columnData, String? primaryKey}) {
     String table = 'user';
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
     buffer.write('CREATE TABLE IF NOT EXISTS $table(');
     //create table if not exist
     columnData!.forEach((key, value) {

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../screens/product_view_screnn.dart';
-
 class WishItems extends StatefulWidget {
-  WishItems({
+  const WishItems({
     Key? key,
     required this.imageUrl,
     required this.productCurrentPrice,
@@ -31,7 +29,7 @@ class _WishItemsState extends State<WishItems> {
     return Card(
       elevation: 5,
       child: Container(
-        padding: EdgeInsets.all(15),
+        padding: const EdgeInsets.all(15),
         color: Colors.white12,
         height: MediaQuery.of(context).size.height * 0.28,
         child: Stack(
@@ -49,7 +47,7 @@ class _WishItemsState extends State<WishItems> {
                       fit: BoxFit.cover,
                     ),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Text(
                     widget.productTitle,
                     style: TextStyle(
@@ -60,7 +58,7 @@ class _WishItemsState extends State<WishItems> {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  SizedBox(height: 4),
+                  const SizedBox(height: 4),
                   Text(
                     widget.productDescription,
                     style: TextStyle(
@@ -71,7 +69,7 @@ class _WishItemsState extends State<WishItems> {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  SizedBox(height: 4),
+                  const SizedBox(height: 4),
                   Text(
                     "CFA ${widget.productCurrentPrice}" +
                         (widget.productlastPrice != null &&

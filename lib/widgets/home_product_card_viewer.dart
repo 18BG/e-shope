@@ -13,13 +13,13 @@ class HomeProductViewer extends StatelessWidget {
             children: [
               Expanded(
                   child: Container(
-                      padding: EdgeInsets.all(60),
-                      decoration: BoxDecoration(
+                      padding: const EdgeInsets.all(60),
+                      decoration: const BoxDecoration(
                           color: Colors.black12,
                           borderRadius: BorderRadius.only(
                               bottomRight: Radius.circular(100))),
                       child: TabBarView(children: list))),
-              TabPageSelector(),
+              const TabPageSelector(),
             ],
           );
         }));

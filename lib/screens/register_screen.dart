@@ -55,7 +55,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
               Container(
                 padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   border: Border(
                     bottom: BorderSide(color: Colors.grey),
                   ),
@@ -242,11 +242,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
 }
 
 class NameTextField extends StatelessWidget {
+  const NameTextField({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         border: Border(
           bottom: BorderSide(color: Colors.grey),
         ),

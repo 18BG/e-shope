@@ -21,7 +21,7 @@ class _WhishListScreenState extends State<WhishListScreen> {
   Widget build(BuildContext context) {
     final widht = MediaQuery.of(context).size.width;
     return Scaffold(
-      drawer: MyDrawer(),
+      drawer: const MyDrawer(),
       appBar: AppBar(
         automaticallyImplyLeading: true,
         iconTheme: IconThemeData(color: Colors.black),
@@ -29,9 +29,9 @@ class _WhishListScreenState extends State<WhishListScreen> {
         backgroundColor: Colors.transparent,
         title: Row(
           children: [
-            Container(
+            SizedBox(
               width: widht * 0.6,
-              child: Input(
+              child: const Input(
                 hintText: 'Recherche',
                 prefixIcon: true,
                 iconType: Icons.search,
@@ -79,8 +79,8 @@ class _WhishListScreenState extends State<WhishListScreen> {
                       mainAxisSpacing: 5,
                       builder: (ctx, index) {
                         /// return your widget here.
-                        return Padding(
-                          padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
+                        return const Padding(
+                          padding: EdgeInsets.fromLTRB(8, 8, 8, 0),
                           child: WishItems(
                             imageUrl: "assets/images/vic0.jpeg",
                             productCurrentPrice: 20000,

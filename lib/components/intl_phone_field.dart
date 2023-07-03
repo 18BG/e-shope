@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-
 import '../models/phone_number.dart';
 import '../utilities/countries.dart';
 
@@ -146,7 +145,8 @@ class IntlPhoneField extends StatefulWidget {
   TextInputAction? textInputAction;
 
   IntlPhoneField(
-      {this.initialCountryCode,
+      {super.key,
+      this.initialCountryCode,
       this.obscureText = false,
       this.textAlign = TextAlign.left,
       this.onTap,
@@ -213,12 +213,12 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
       builder: (context) => StatefulBuilder(
         builder: (ctx, setState) => Dialog(
           child: Container(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child: Column(
               children: <Widget>[
                 TextField(
                   decoration: InputDecoration(
-                    suffixIcon: Icon(Icons.search),
+                    suffixIcon: const Icon(Icons.search),
                     labelText: widget.searchText,
                   ),
                   onChanged: (value) {
@@ -231,7 +231,7 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
                     });
                   },
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Expanded(
                   child: ListView.builder(
                     shrinkWrap: true,
@@ -246,11 +246,11 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
                           ),
                           title: Text(
                             filteredCountries![index]['name'],
-                            style: TextStyle(fontWeight: FontWeight.w700),
+                            style: const TextStyle(fontWeight: FontWeight.w700),
                           ),
                           trailing: Text(
                             '+${filteredCountries![index]['dial_code']}',
-                            style: TextStyle(fontWeight: FontWeight.w700),
+                            style: const TextStyle(fontWeight: FontWeight.w700),
                           ),
                           onTap: () {
                             _selectedCountry = filteredCountries![index];
@@ -269,7 +269,7 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
                             Navigator.of(context).pop();
                           },
                         ),
-                        Divider(thickness: 1),
+                        const Divider(thickness: 1),
                       ],
                     ),
                   ),
@@ -290,7 +290,7 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
       // mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         _buildFlagsButton(),
-        SizedBox(width: 8),
+        const SizedBox(width: 8),
         Expanded(
           child: Padding(
             padding: const EdgeInsets.only(bottom: 6),
@@ -312,7 +312,7 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
               decoration: widget.decoration,
               style: widget.style,
               onSaved: (value) {
-                if (widget.onSaved != null)
+                if (widget.onSaved != null) {
                   widget.onSaved!(
                     PhoneNumber(
                       countryISOCode: _selectedCountry!['code'],
@@ -320,9 +320,10 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
                       number: value!,
                     ),
                   );
+                }
               },
               onChanged: (value) {
-                if (widget.onChanged != null)
+                if (widget.onChanged != null) {
                   widget.onChanged!(
                     PhoneNumber(
                       countryISOCode: _selectedCountry!['code'],
@@ -330,6 +331,7 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
                       number: value,
                     ),
                   );
+                }
               },
               validator: validator,
               // maxLength: _selectedCountry['max_length'],
@@ -351,6 +353,7 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
         decoration: widget.dropdownDecoration,
         child: InkWell(
           borderRadius: widget.dropdownDecoration.borderRadius as BorderRadius,
+          onTap: _changeCountry,
           child: Padding(
             padding: EdgeInsets.zero,
             child: Row(
@@ -362,24 +365,23 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
                     Icons.arrow_drop_down,
                     color: widget.dropDownArrowColor,
                   ),
-                  SizedBox(width: 4)
+                  const SizedBox(width: 4)
                 ],
                 Image.asset(
                   'assets/flags/${_selectedCountry!['code'].toLowerCase()}.png',
                   width: 32,
                 ),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 Text(
                   '+${_selectedCountry!['dial_code']}',
                   style: TextStyle(
                       fontWeight: FontWeight.w700,
                       color: widget.countryCodeTextColor),
                 ),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
               ],
             ),
           ),
-          onTap: _changeCountry,
         ),
       );
 }

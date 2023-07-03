@@ -61,6 +61,7 @@ class _PanierWidgetState extends State<PanierWidget> {
                       overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 4),
+                    const SizedBox(height: 4),
                     Text(
                       widget.productDescription,
                       style: TextStyle(
@@ -70,6 +71,7 @@ class _PanierWidgetState extends State<PanierWidget> {
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
+                    const SizedBox(height: 4),
                     const SizedBox(height: 4),
                     Text(
                       "CFA ${widget.productCurrentPrice * widget.productNumber}" +

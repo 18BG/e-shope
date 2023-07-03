@@ -16,37 +16,40 @@ class UserProvider with ChangeNotifier {
   String? password;
   String? creation;
   String? token;
+  QuerySnapshot? resultat;
 
   bool get isLoggedIn => email != null;
   FirebaseManagement firebase = FirebaseManagement();
-  void updateProvider(ClientModel client) async {
+  Future<bool> updateProvider(ClientModel client) async {
     print("updateProvider");
     try {
-      bool isUpdated = await firebase.updateClientInformation(client);
-      if (isUpdated) {
-        ClientModel re = await firebase.getClient(client.firebaseToken!);
+      // bool isUpdated = await firebase.updateProfileImage(
+      //     client.firebaseToken!, client.image!);
+      await firebase.updateClientInformation(client);
+      ClientModel re = await firebase.getClient(client.firebaseToken!);
 
-        lastName = re.nom;
-        firstName = re.prenom;
-        phoneNumber = re.telephone;
-        address = re.addresse;
-        username = re.thisusername;
-        email = re.thismail;
-        password = re.thispassword;
-        image = re.image;
-        creation = re.thiscreationDate;
-        token = re.firebaseToken;
+      lastName = re.nom;
+      firstName = re.prenom;
+      phoneNumber = re.telephone;
+      address = re.addresse;
+      username = re.thisusername;
+      email = re.thismail;
+      password = re.thispassword;
+      image = re.image;
+      creation = re.thiscreationDate;
+      token = re.firebaseToken;
 
-        print(isLoggedIn);
-      }
+      print(isLoggedIn);
     } catch (e) {
       print(e);
     }
+
     print("finish updateProvider");
     notifyListeners();
+    return true;
   }
 
-  void login(String user, String passwor) async {
+  Future<QuerySnapshot> login(String user, String passwor) async {
     // Effectuez vos opérations de connexion ici
     QuerySnapshot result = await firebase.login(user, passwor);
     if (result.docs.isNotEmpty) {
@@ -71,6 +74,8 @@ class UserProvider with ChangeNotifier {
         }
       }
     }
+    resultat = result;
+    return resultat!;
     // Une fois la connexion réussie, mettez à jour les informations de l'utilisateur
   }
 

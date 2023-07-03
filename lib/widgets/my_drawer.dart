@@ -10,6 +10,8 @@ import 'bottom_navigation_bar.dart';
 import 'package:provider/provider.dart';
 
 class MyDrawer extends StatelessWidget {
+  const MyDrawer({super.key});
+
   @override
   Widget build(BuildContext context) {
     final UserProvider provider =
@@ -19,7 +21,7 @@ class MyDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           Container(
-            height: MediaQuery.of(context).size.height * 0.3,
+            height: MediaQuery.of(context).size.height * 0.35,
             decoration: const BoxDecoration(
               color: Colors.blue, // Couleur d'arrière-plan du header
             ),
@@ -31,8 +33,8 @@ class MyDrawer extends StatelessWidget {
                   children: [
                     (provider.isLoggedIn && provider.image != "")
                         ? Container(
-                            height: 150,
-                            width: 150,
+                            height: MediaQuery.of(context).size.width * 0.3,
+                            width: MediaQuery.of(context).size.width * 0.3,
                             decoration: const BoxDecoration(
                                 // color: Colors.amber,
                                 ),
@@ -71,8 +73,8 @@ class MyDrawer extends StatelessWidget {
                 )),
           ),
           ListTile(
-            leading: Icon(Icons.person),
-            title: Text('Mon Profil'),
+            leading: const Icon(Icons.person),
+            title: const Text('Mon Profil'),
             onTap: () {
               Navigator.push(
                 context,
@@ -81,8 +83,8 @@ class MyDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.notifications),
-            title: Text('Notifications'),
+            leading: const Icon(Icons.notifications),
+            title: const Text('Notifications'),
             onTap: () {
               Navigator.push(
                 context,
@@ -91,8 +93,8 @@ class MyDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.shopping_cart),
-            title: Text('Tous les produits'),
+            leading: const Icon(Icons.shopping_cart),
+            title: const Text('Tous les produits'),
             onTap: () {
               Navigator.push(
                 context,
@@ -101,8 +103,8 @@ class MyDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.shopping_bag),
-            title: Text('Mes Achats'),
+            leading: const Icon(Icons.shopping_bag),
+            title: const Text('Mes Achats'),
             onTap: () {
               Navigator.push(
                 context,
@@ -111,8 +113,8 @@ class MyDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.shopping_basket),
-            title: Text('Mon Panier'),
+            leading: const Icon(Icons.shopping_basket),
+            title: const Text('Mon Panier'),
             onTap: () {
               Navigator.push(
                 context,
@@ -124,12 +126,13 @@ class MyDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.favorite),
-            title: Text('Ma liste de souhaits'),
+            leading: const Icon(Icons.favorite),
+            title: const Text('Ma liste de souhaits'),
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => WhishListScreen()),
+                MaterialPageRoute(
+                    builder: (context) => const WhishListScreen()),
               );
             },
           ),
@@ -143,7 +146,7 @@ class MyDrawer extends StatelessWidget {
                     ? {provider.logout(), Navigator.pop(context)}
                     : Navigator.push(context,
                         MaterialPageRoute(builder: (BuildContext context) {
-                        return LoginScreen();
+                        return const LoginScreen();
                       }));
               },
               child:

@@ -9,14 +9,14 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     final widht = MediaQuery.of(context).size.width;
     return AppBar(
-      iconTheme: IconThemeData(color: Colors.black),
+      iconTheme: const IconThemeData(color: Colors.black),
       elevation: 0,
       backgroundColor: Colors.transparent,
       title: Row(
         children: [
-          Container(
+          SizedBox(
             width: widht * 0.55,
-            child: Input(
+            child: const Input(
               hintText: 'Recherche',
               prefixIcon: true,
               iconType: Icons.search,
