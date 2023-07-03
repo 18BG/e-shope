@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../widgets/input.dart';
 import '../widgets/screen_title_bar.dart';
+import 'order_detail_screen.dart';
 
 class OrderListScreen extends StatefulWidget {
   const OrderListScreen({Key? key}) : super(key: key);
@@ -63,13 +64,22 @@ class _OrderListScreenState extends State<OrderListScreen> {
                 child: ListView.builder(
                     itemCount: 10,
                     itemBuilder: (context, index) {
-                      return OrderWidget(
-                        ico: Icons.restore,
-                        resultText: "restored",
-                        imageUrl: "assets/images/vic0.jpeg",
-                        productCurrentPrice: 20000,
-                        productDescription: "productDescriptionsssssssssssssss",
-                        productTitle: "Title",
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => OrderDetailScreen()));
+                        },
+                        child: OrderWidget(
+                          ico: Icons.restore,
+                          resultText: "restored",
+                          imageUrl: "assets/images/vic0.jpeg",
+                          productCurrentPrice: 20000,
+                          productDescription:
+                              "productDescriptionsssssssssssssss",
+                          productTitle: "Victory kepi",
+                        ),
                       );
                     }),
               ),

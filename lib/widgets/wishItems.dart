@@ -33,7 +33,7 @@ class _WishItemsState extends State<WishItems> {
       child: Container(
         padding: EdgeInsets.all(15),
         color: Colors.white12,
-        height: MediaQuery.of(context).size.height * 0.32,
+        height: MediaQuery.of(context).size.height * 0.28,
         child: Stack(
           children: [
             Center(
@@ -64,8 +64,8 @@ class _WishItemsState extends State<WishItems> {
                   Text(
                     widget.productDescription,
                     style: TextStyle(
-                      fontSize:
-                          widget._baseFontSize * MediaQuery.of(context).textScaleFactor,
+                      fontSize: widget._baseFontSize *
+                          MediaQuery.of(context).textScaleFactor,
                       // Add other properties as needed
                     ),
                     maxLines: 1,
@@ -74,7 +74,8 @@ class _WishItemsState extends State<WishItems> {
                   SizedBox(height: 4),
                   Text(
                     "CFA ${widget.productCurrentPrice}" +
-                        (widget.productlastPrice != null && widget.productlastPrice! > 0
+                        (widget.productlastPrice != null &&
+                                widget.productlastPrice! > 0
                             ? " ${widget.productlastPrice!}"
                             : ""),
                     style: TextStyle(

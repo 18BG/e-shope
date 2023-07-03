@@ -3,11 +3,11 @@ import 'package:e_shope/screens/provider.dart';
 import 'package:e_shope/screens/user_information_screen.dart';
 import 'package:flutter/material.dart';
 
-import 'package:provider/provider.dart';
-
+import '../screens/AllCategoriesScreen.dart';
 import '../screens/order_screen.dart';
 import '../screens/wishlist_screen.dart';
 import 'bottom_navigation_bar.dart';
+import 'package:provider/provider.dart';
 
 class MyDrawer extends StatelessWidget {
   @override
@@ -20,54 +20,55 @@ class MyDrawer extends StatelessWidget {
         children: [
           Container(
             height: MediaQuery.of(context).size.height * 0.3,
-            decoration: const BoxDecoration(  
+            decoration: const BoxDecoration(
               color: Colors.blue, // Couleur d'arrière-plan du header
             ),
-            child: const DrawerHeader(
-              padding: EdgeInsets.all(16),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  (provider.isLoggedIn && provider.image != "")
-                      ? Container(
-                          height: 150,
-                          width: 150,
-                          decoration: const BoxDecoration(
-                              // color: Colors.amber,
-                              ),
-                          child: ClipRRect(
-                              borderRadius: BorderRadius.circular(80),
-                              child: Image.network(
-                                provider.image!,
-                                fit: BoxFit.cover,
-                              )),
-                        )
-                      : const CircleAvatar(
-                          radius: 40,
-                          backgroundImage: AssetImage(
-                            "assets/images/noim.webp",
+            child: DrawerHeader(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    (provider.isLoggedIn && provider.image != "")
+                        ? Container(
+                            height: 150,
+                            width: 150,
+                            decoration: const BoxDecoration(
+                                // color: Colors.amber,
+                                ),
+                            child: ClipRRect(
+                                borderRadius: BorderRadius.circular(80),
+                                child: Image.network(
+                                  provider.image!,
+                                  fit: BoxFit.cover,
+                                )),
+                          )
+                        : const CircleAvatar(
+                            radius: 40,
+                            backgroundImage: AssetImage(
+                              "assets/images/noim.webp",
+                            ),
                           ),
-                        ),
-                  const SizedBox(height: 8),
-                  Text(
-                    provider.isLoggedIn ? provider.lastName! : "Not Connected",
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      fontSize: 18,
+                    const SizedBox(height: 8),
+                    Text(
+                      provider.isLoggedIn
+                          ? provider.lastName!
+                          : "Not Connected",
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        fontSize: 18,
+                      ),
                     ),
-                  ),
-                  Text(
-                    provider.isLoggedIn ? provider.username! : "",
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
+                    Text(
+                      provider.isLoggedIn ? provider.username! : "",
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ),
+                  ],
+                )),
           ),
           ListTile(
             leading: Icon(Icons.person),
@@ -95,7 +96,7 @@ class MyDrawer extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => WhishListScreen()),
+                MaterialPageRoute(builder: (context) => AllCategorieScreen()),
               );
             },
           ),

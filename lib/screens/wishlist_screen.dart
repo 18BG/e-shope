@@ -1,4 +1,3 @@
-
 import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
 import 'package:e_shope/screens/product_view_screnn.dart';
 import 'package:e_shope/widgets/all_products.dart';
@@ -25,9 +24,7 @@ class _WhishListScreenState extends State<WhishListScreen> {
       drawer: MyDrawer(),
       appBar: AppBar(
         automaticallyImplyLeading: true,
-        iconTheme: IconThemeData(
-          color: Colors.black
-        ),
+        iconTheme: IconThemeData(color: Colors.black),
         elevation: 0,
         backgroundColor: Colors.transparent,
         title: Row(
@@ -45,17 +42,17 @@ class _WhishListScreenState extends State<WhishListScreen> {
         ),
         actions: [
           Container(
-              child: ClipRRect(
-                child: Image.asset(
-                  'assets/images/victoire.jpeg',
-                  fit: BoxFit.contain,
-                  width: widht * 0.092,
-                ),
+            child: ClipRRect(
+              child: Image.asset(
+                'assets/images/victoire.jpeg',
+                fit: BoxFit.contain,
+                width: widht * 0.092,
               ),
             ),
-            SizedBox(
-              width: widht * 0.064,
-            ),
+          ),
+          SizedBox(
+            width: widht * 0.064,
+          ),
         ],
       ),
       body: Container(
@@ -65,19 +62,21 @@ class _WhishListScreenState extends State<WhishListScreen> {
             ScreenTitleBar(title: "Page de souhait"),
             Expanded(
               child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    GestureDetector(
-                    onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>ProductViewScreen()));
+                child: Column(children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ProductViewScreen()));
                     },
                     child: DynamicHeightGridView(
                       shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
+                      physics: NeverScrollableScrollPhysics(),
                       itemCount: 4,
                       crossAxisCount: 2,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 0,
+                      mainAxisSpacing: 5,
                       builder: (ctx, index) {
                         /// return your widget here.
                         return Padding(
@@ -85,15 +84,15 @@ class _WhishListScreenState extends State<WhishListScreen> {
                           child: WishItems(
                             imageUrl: "assets/images/vic0.jpeg",
                             productCurrentPrice: 20000,
-                            productDescription: "productDescriptionsssssssssssssss",
-                            productTitle: "Title",
+                            productDescription: "best of the victory kepi",
+                            productTitle: "Victory kepi",
                           ),
                         );
                       },
                     ),
-                  ), AllProducts()
-              
-                        ]),
+                  ),
+                  AllProducts()
+                ]),
               ),
             ),
           ],
