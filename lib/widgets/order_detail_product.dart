@@ -1,34 +1,35 @@
 import 'package:flutter/material.dart';
 
-class OrderWidget extends StatelessWidget {
-  const OrderWidget({
+// ignore: must_be_immutable
+class OrderProductDetailWidget extends StatelessWidget {
+  OrderProductDetailWidget({
     Key? key,
     required this.productCurrentPrice,
     required this.imageUrl,
     required this.productDescription,
     required this.productTitle,
-    required this.ico,
-    required this.resultText,
+    required this.productNumber,
     this.productlastPrice,
   }) : super(key: key);
 
-  final String resultText;
+  int productNumber;
   final String imageUrl;
   final String productTitle;
   final String productDescription;
   final double productCurrentPrice;
   final double? productlastPrice;
-  final IconData ico;
+
+  final double _baseFontSize = 16.0;
 
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 5,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.fromLTRB(2, 20, 2, 20),
         child: Row(
           children: [
-            SizedBox(
+            Container(
               width: MediaQuery.of(context).size.width * 0.25,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8.0),
@@ -39,7 +40,7 @@ class OrderWidget extends StatelessWidget {
               ),
             ),
             SizedBox(
-              width: MediaQuery.of(context).size.width * 0.4,
+              width: MediaQuery.of(context).size.width * 0.3,
               child: Padding(
                 padding: const EdgeInsets.only(left: 8.0),
                 child: Column(
@@ -48,49 +49,54 @@ class OrderWidget extends StatelessWidget {
                     Text(
                       productTitle,
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 18 * MediaQuery.of(context).textScaleFactor,
                         fontWeight: FontWeight.bold,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    const SizedBox(height: 4),
+                    SizedBox(height: 4),
                     Text(
-                      "Qty: 3",
+                      productDescription,
                       style: TextStyle(
-                        fontSize: 12,
+                        fontSize: _baseFontSize *
+                            MediaQuery.of(context).textScaleFactor,
                       ),
-                      maxLines: 2,
+                      maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    const SizedBox(height: 4),
+                    SizedBox(height: 4),
                     Text(
-                      "View Details",
+                      "CFA $productCurrentPrice" +
+                          (productlastPrice != null && productlastPrice! > 0
+                              ? " ${productlastPrice!}"
+                              : ""),
                       style: TextStyle(
-                        color: Colors.red,
+                        color: Colors.lightGreenAccent,
                         fontWeight: FontWeight.bold,
-                        fontSize: 13,
+                        fontSize: 15 * MediaQuery.of(context).textScaleFactor,
                       ),
                     ),
                   ],
                 ),
               ),
             ),
-            const Spacer(),
+            Spacer(),
             SizedBox(
-              width: MediaQuery.of(context).size.width * 0.2,
+              width: MediaQuery.of(context).size.width * 0.3,
               child: Row(
                 children: [
-                  Icon(
-                    ico,
-                    color: Colors.green,
-                    size: 15,
+                  Spacer(),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(
+                        MediaQuery.of(context).size.width * 0.04,
+                        0,
+                        MediaQuery.of(context).size.width * 0.04,
+                        0),
+                    decoration: BoxDecoration(border: Border.all(width: 2)),
+                    child: Text("$productNumber"),
                   ),
-                  SizedBox(width: 4),
-                  Text(
-                    resultText,
-                    style: TextStyle(fontSize: 12),
-                  ),
+                  Spacer()
                 ],
               ),
             ),

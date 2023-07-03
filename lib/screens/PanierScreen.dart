@@ -14,7 +14,7 @@ class PanierListScreen extends StatelessWidget {
         color: Colors.white,
         child: Column(
           children: [
-            const ScreenTitleBar(title: "Mon Pannier"),
+            ScreenTitleBar(title: "Mon Pannier"),
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
@@ -32,8 +32,8 @@ class PanierListScreen extends StatelessWidget {
                             imageUrl: "assets/images/vic0.jpeg",
                             productCurrentPrice: 20000,
                             productDescription:
-                                "productDescriptionsssssssssssssss",
-                            productTitle: "Title",
+                                "produit victoire de haute gamme pour les victorieux seulements ou pour les victorieux en devenir",
+                            productTitle: "kepi Victoire",
                           );
                         },
                       ),

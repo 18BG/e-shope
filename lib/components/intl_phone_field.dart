@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-
 import '../models/phone_number.dart';
 import '../utilities/countries.dart';
 
@@ -146,7 +145,8 @@ class IntlPhoneField extends StatefulWidget {
   TextInputAction? textInputAction;
 
   IntlPhoneField(
-      {super.key, this.initialCountryCode,
+      {super.key,
+      this.initialCountryCode,
       this.obscureText = false,
       this.textAlign = TextAlign.left,
       this.onTap,

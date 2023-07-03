@@ -42,9 +42,10 @@ dependencies:
   google_fonts: ^4.0.4
   shared_preferences: ^2.1.2
   tinycolor2: ^3.0.1
-  provider: ^6.0.5
   image_picker: ^0.8.9
   path: ^1.8.3
+  provider: ^6.0.5
+  dropdown_button2: ^2.1.4
 
 dev_dependencies:
   flutter_lints: ^2.0.0

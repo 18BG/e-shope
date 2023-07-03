@@ -25,112 +25,132 @@ class PanierWidget extends StatefulWidget {
 }
 
 class _PanierWidgetState extends State<PanierWidget> {
-  final double _baseFontSize = 16.0;
-
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 5,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(2, 20, 2, 20),
-        child: Row(
-          children: [
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.25,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8.0),
-                child: Image.asset(
-                  widget.imageUrl,
-                  fit: BoxFit.cover,
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.15,
+      child: Card(
+        elevation: 5,
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Row(
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width * 0.25,
+                height: MediaQuery.of(context).size.width * 0.25,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8.0),
+                  image: DecorationImage(
+                    image: AssetImage(widget.imageUrl),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.3,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 8.0),
+              const SizedBox(width: 16),
+              Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       widget.productTitle,
                       style: TextStyle(
-                        fontSize: 18 * MediaQuery.of(context).textScaleFactor,
+                        fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
+                    const SizedBox(height: 4),
                     const SizedBox(height: 4),
                     Text(
                       widget.productDescription,
                       style: TextStyle(
-                        fontSize: _baseFontSize * MediaQuery.of(context).textScaleFactor,
+                        fontSize: 13,
+                        color: Colors.grey,
                       ),
-                      maxLines: 1,
+                      maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 4),
+                    const SizedBox(height: 4),
                     Text(
-                      "CFA ${widget.productCurrentPrice}${widget.productlastPrice != null && widget.productlastPrice! > 0
+                      "CFA ${widget.productCurrentPrice * widget.productNumber}" +
+                          (widget.productlastPrice != null &&
+                                  widget.productlastPrice! > 0
                               ? " ${widget.productlastPrice!}"
-                              : ""}",
+                              : ""),
                       style: TextStyle(
                         color: Colors.lightGreenAccent,
                         fontWeight: FontWeight.bold,
-                        fontSize: 15 * MediaQuery.of(context).textScaleFactor,
+                        fontSize: 16,
                       ),
                     ),
                   ],
                 ),
               ),
-            ),
-            const Spacer(),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.3,
-              child: Row(
+              const SizedBox(width: 16),
+              Column(
                 children: [
-                  const Spacer(),
-                  GestureDetector(
-                    onTap: (){
-                      setState(() {
-                        widget.productNumber--;
-                      });
-                    },
-                    child: Container(
-                      padding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width*0.015, 0, MediaQuery.of(context).size.width*0.015, 0),
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 2)
+                  const Expanded(
+                    child: Icon(
+                      Icons.delete,
+                      color: Colors.red,
+                      size: 22,
+                    ),
+                  ),
+                  Column(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            widget.productNumber--;
+                          });
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(2),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(width: 2),
+                          ),
+                          child: Icon(
+                            Icons.remove,
+                            size: 10,
+                          ),
+                        ),
                       ),
-                      child: const Text("-"),
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width*0.04, 0, MediaQuery.of(context).size.width*0.04, 0),
-                    decoration: BoxDecoration(
-                      border: Border.all(width: 2)
-                    ),
-                    child: Text("${widget.productNumber}"),
-                  ),
-                  GestureDetector(
-                    onTap: (){
-                      setState(() {
-                        widget.productNumber++;
-                      });
-                    },
-                    child: Container(
-                      padding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width*0.015, 0, MediaQuery.of(context).size.width*0.015, 0),
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 2)
+                      SizedBox(height: 2),
+                      Text(
+                        "${widget.productNumber}",
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                      child: const Text("+"),
-                    ),
+                      SizedBox(height: 2),
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            widget.productNumber++;
+                          });
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(2),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(width: 2),
+                          ),
+                          child: Icon(
+                            Icons.add,
+                            size: 10,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                  const Spacer()
                 ],
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

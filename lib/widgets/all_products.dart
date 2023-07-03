@@ -30,26 +30,6 @@ class _MyWidgetState extends State<AllProducts> {
             ],
           ),
         ),
-        // Container(
-        //   color: const Color.fromARGB(255, 241, 238, 238),
-        //   margin: EdgeInsets.only(left: width * 0.025, right: width * 0.025),
-        //   height: 170 * 7,
-        //   child: GridView.builder(
-        //     physics: const BouncingScrollPhysics(
-        //         parent: NeverScrollableScrollPhysics()),
-        //     itemCount: 7,
-        //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        //       crossAxisCount: 2,
-        //       crossAxisSpacing: width * 0.05,
-        //       mainAxisSpacing: width * 0.05,
-        //       childAspectRatio: height * 0.0009,
-        //     ),
-        //     itemBuilder: (context, index) {
-        //       //final product = products[index];
-        //       return Center(child: ProductItemWidget(index: index));
-        //     },
-        //   ),
-        // ),
         Container(
           child: DynamicHeightGridView(
             physics: const BouncingScrollPhysics(
@@ -71,7 +51,3 @@ class _MyWidgetState extends State<AllProducts> {
     );
   }
 }
-// Center(
-//                   child: Container(
-//                 color: Colors.red,
-//               ));
