@@ -1,6 +1,8 @@
 import 'package:e_shope/widgets/product_view_card_widget.dart';
 import 'package:flutter/material.dart';
 
+import 'AchatScreen.dart';
+
 class ProductViewScreen extends StatefulWidget {
   const ProductViewScreen({super.key});
   // final String imageUrl;
@@ -38,16 +40,22 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
           child: Row(
             children: [
               Expanded(
-                child: Container(
-                  color: Colors.green,
-                  padding: const EdgeInsets.symmetric(vertical: 12.0),
-                  child: const Center(
-                    child: Text(
-                      "Acheter maintenant",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.bold,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => AchatScreen()));
+                  },
+                  child: Container(
+                    color: Colors.green,
+                    padding: const EdgeInsets.symmetric(vertical: 12.0),
+                    child: const Center(
+                      child: Text(
+                        "Acheter maintenant",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
@@ -129,9 +137,7 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          "CFA $productCurrentPrice${productlastPrice != null && productlastPrice! > 0
-                                  ? " ${productlastPrice!}"
-                                  : ""}",
+                          "CFA $productCurrentPrice${productlastPrice != null && productlastPrice! > 0 ? " ${productlastPrice!}" : ""}",
                           style: const TextStyle(
                             color: Colors.lightGreenAccent,
                             fontWeight: FontWeight.bold,

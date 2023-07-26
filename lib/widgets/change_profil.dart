@@ -129,7 +129,7 @@ class _ProfilState extends State<Profil> {
                                   image: imageUrl,
                                   nom: userProvider.lastName!,
                                   prenom: userProvider.firstName!,
-                                  thisusername: userProvider.username!,
+                                  username: userProvider.username!,
                                   addresse: userProvider.address!,
                                   thismail: userProvider.email!,
                                   telephone: userProvider.phoneNumber!,

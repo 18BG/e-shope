@@ -22,7 +22,7 @@ class FirebaseManagement {
   ) async {
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection('Client')
-        .where(username, isEqualTo: thusername)
+        .where(usersname, isEqualTo: thusername)
         .where(password, isEqualTo: thpassword)
         .get();
     return querySnapshot;
@@ -48,7 +48,7 @@ class FirebaseManagement {
       await _db.collection("Client").add({
         lastName: nom,
         firstName: prenom,
-        username: thusername,
+        usersname: thusername,
         "Image": (images == null) ? "" : images,
         mail: thmail,
         address: thaddress,
@@ -72,7 +72,7 @@ class FirebaseManagement {
       await _db.collection("Client").doc(client.firebaseToken).update({
         lastName: client.nom,
         firstName: client.prenom,
-        username: client.thisusername,
+        usersname: client.username,
         "Image": client.image,
         mail: client.thismail,
         address: client.addresse,
@@ -184,19 +184,21 @@ class FirebaseManagement {
       "qteStock": commande.qteCommande,
     });
     final newRef = commandeRef.id;
-    await _db
-        .collection("Client")
-        .doc(client.firebaseToken)
-        .collection("Commande")
-        .doc(newRef)
-        .collection("Produit")
-        .add({
-      "Nom": commande.produit.nom,
-      "Description": commande.produit.description,
-      "Prix": commande.produit.prix,
-      "Image": commande.produit.image,
-      "qteStock": commande.produit.qteStock,
-    });
+    for (final cmd in commande.produit) {
+      await _db
+          .collection("Client")
+          .doc(client.firebaseToken)
+          .collection("Commande")
+          .doc(newRef)
+          .collection("Produit")
+          .add({
+        "Nom": cmd.nom,
+        "Description": cmd.description,
+        "Prix": cmd.prix,
+        "Image": cmd.image,
+        "qteStock": cmd.qteStock,
+      });
+    }
   }
 
   //function to delete Commande

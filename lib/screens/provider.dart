@@ -32,7 +32,7 @@ class UserProvider with ChangeNotifier {
       firstName = re.prenom;
       phoneNumber = re.telephone;
       address = re.addresse;
-      username = re.thisusername;
+      username = re.username;
       email = re.thismail;
       password = re.thispassword;
       image = re.image;
@@ -55,12 +55,12 @@ class UserProvider with ChangeNotifier {
     if (result.docs.isNotEmpty) {
       List<ClientModel> re = await firebase.getClients();
       for (var element in re) {
-        if (element.thisusername == user && element.thispassword == passwor) {
+        if (element.username == user && element.thispassword == passwor) {
           lastName = element.nom;
           firstName = element.prenom;
           phoneNumber = element.telephone;
           address = element.addresse;
-          username = element.thisusername;
+          username = element.username;
           email = element.thismail;
 
           creation = element.thiscreationDate;

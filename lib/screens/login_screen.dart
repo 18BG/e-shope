@@ -52,7 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Container(
                 padding: const EdgeInsets.all(10),
                 child: TextFormFields(
-                  hint: username,
+                  hint: usersname,
                   toChange: usernameController,
                   hide: false,
                   suffix: false,
