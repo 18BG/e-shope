@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+import '../models/categorie_model.dart';
 import '../models/client_model.dart';
 import '../services/firebase_management.dart';
 
@@ -11,7 +12,8 @@ class UserProvider with ChangeNotifier {
   String? address;
   String? username;
   String? email;
-
+  bool isLoading = false;
+  List<CategorieModel> categoryList = [];
   String? image;
   String? password;
   String? creation;
@@ -49,6 +51,26 @@ class UserProvider with ChangeNotifier {
     return true;
   }
 
+  Future<bool> getCategoryProvider() async {
+    try {
+      var result = await firebase.getCategorieAndProduc();
+
+      categoryList = result;
+      print(result.length);
+    } catch (e) {
+      print("ereror $e");
+    }
+
+    notifyListeners();
+    return true;
+  }
+
+  void isProcessing() {
+    isLoading = !isLoading;
+    notifyListeners();
+  }
+
+//provider for the connexion
   Future<QuerySnapshot> login(String user, String passwor) async {
     // Effectuez vos opérations de connexion ici
     QuerySnapshot result = await firebase.login(user, passwor);
