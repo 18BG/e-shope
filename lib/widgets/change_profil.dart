@@ -8,7 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as Path;
 import 'package:provider/provider.dart';
 
-import '../screens/provider.dart';
+import '../provider/provider.dart';
 
 class Profil extends StatefulWidget {
   const Profil({super.key});
