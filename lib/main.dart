@@ -1,4 +1,4 @@
-import 'package:e_shope/screens/provider.dart';
+import 'package:e_shope/provider/provider.dart';
 import 'package:e_shope/widgets/bottom_navigation_bar.dart';
 import 'package:firebase_core/firebase_core.dart';
 

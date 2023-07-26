@@ -1,6 +1,6 @@
 import 'package:e_shope/screens/login_screen.dart';
 
-import 'package:e_shope/screens/provider.dart';
+import 'package:e_shope/provider/provider.dart';
 import 'package:e_shope/utilities/constants.dart';
 import 'package:e_shope/widgets/change_profil.dart';
 import 'package:e_shope/widgets/text_form_field.dart';

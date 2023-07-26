@@ -1,6 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:e_shope/screens/provider.dart';
+import 'package:e_shope/provider/provider.dart';
 import 'package:e_shope/screens/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

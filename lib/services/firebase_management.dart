@@ -45,7 +45,7 @@ class FirebaseManagement {
       //ici nous faisons appel a l'instance firestore que nous avons creer ci-dessus pour ajouter le client dans la collection
       //client sinon de creer la collection si elle ne l'ai pas
       //C'est la fonction add qui permet d'ajouter un client tout en creant une reference automatiquement
-      await _db.collection("Client").add({
+      await _db.collection(customer).add({
         lastName: nom,
         firstName: prenom,
         usersname: thusername,
@@ -153,22 +153,27 @@ class FirebaseManagement {
   }
 
   //function get All Categories
-  Future<List<CategorieModel>> getCategorie() async {
-    final data = await _db.collection("Categorie").get();
+  Future<List<CategorieModel>> getCategorieAndProduc() async {
+    final data = await _db.collection(categoriCollection).get();
     final categories =
         data.docs.map((e) => CategorieModel.fromSnapshot(e)).toList();
-    for (final i in categories) {
-      //get specifics categorie products list from firebase
-      final products = await _db
-          .collection("Categorie")
-          .doc(i.firebaseToken)
-          .collection("Produit")
-          .get();
-      //add products list to client product list
-      final productListe =
-          products.docs.map((e) => ProduitModel.fromSnapshot(e)).toList();
-      i.listProduit = productListe;
+    try {
+      for (final i in categories) {
+        //get specifics categorie products list from firebase
+        final products = await _db
+            .collection(categoriCollection)
+            .doc(i.firebaseToken)
+            .collection(productCollection)
+            .get();
+        //add products list to client product list
+        final productListe =
+            products.docs.map((e) => ProduitModel.fromSnapshot(e)).toList();
+        i.listProduit = productListe;
+      }
+    } catch (e) {
+      print("errorin Firebase : $e");
     }
+
     return categories;
   }
 
