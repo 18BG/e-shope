@@ -110,7 +110,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               Container(
                 padding: const EdgeInsets.all(10),
                 child: TextFormFields(
-                  hint: username,
+                  hint: usersname,
                   toChange: usernameController,
                   f: check,
                   hide: false,
@@ -213,7 +213,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         lastName: thisnom,
         phone: thisphoneNumber,
         address: thisaddress,
-        username: thisusername,
+        usersname: thisusername,
         mail: thisemail,
         password: thispassword
       });

@@ -1,13 +1,19 @@
 import 'package:e_shope/widgets/product_view_card_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../models/produit_model.dart';
+import '../provider/provider.dart';
+import 'AchatScreen.dart';
 
 class ProductViewScreen extends StatefulWidget {
-  const ProductViewScreen({super.key});
+  ProductViewScreen({super.key, required this.produit});
   // final String imageUrl;
   // final String productTitle;
   // final String productDescription;
   // final double productCurrentPrice;
   // final double? productlastPrice;
+  ProduitModel produit;
 
   @override
   State<ProductViewScreen> createState() => _ProductViewScreenState();
@@ -16,21 +22,29 @@ class ProductViewScreen extends StatefulWidget {
 class _ProductViewScreenState extends State<ProductViewScreen> {
   final double baseFontSize = 16.0;
   String imageUrl = "";
-  String productTitle = "Titre";
-  String productDescription = "descriptionsssssssssss";
-  double productCurrentPrice = 2000;
+  String productTitle = "";
+  String productDescription = "";
+  num productCurrentPrice = 0;
   double? productlastPrice;
-  List<Image> image = [
-    Image.asset("assets/images/vic0.jpeg"),
-    Image.asset("assets/images/vic1.jpeg"),
-    Image.asset("assets/images/vic2.jpeg"),
-    Image.asset("assets/images/vic3.jpeg")
-  ];
+  List<Image> image = [];
 
   int _currentTabIndex = 0;
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    productCurrentPrice = widget.produit.prix;
+    productTitle = widget.produit.nom;
+    productDescription = widget.produit.description;
+    image.add(
+      Image.network(widget.produit.image),
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<UserProvider>(context, listen: false);
     final kBottomNavBarItems = <BottomNavigationBarItem>[
       BottomNavigationBarItem(
         icon: Container(
@@ -38,16 +52,26 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
           child: Row(
             children: [
               Expanded(
-                child: Container(
-                  color: Colors.green,
-                  padding: const EdgeInsets.symmetric(vertical: 12.0),
-                  child: const Center(
-                    child: Text(
-                      "Acheter maintenant",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.bold,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AchatScreen(
+                                  produit: widget.produit,
+                                )));
+                  },
+                  child: Container(
+                    color: Colors.green,
+                    padding: const EdgeInsets.symmetric(vertical: 12.0),
+                    child: const Center(
+                      child: Text(
+                        "Acheter maintenant",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
@@ -61,25 +85,30 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
       BottomNavigationBarItem(
         icon: Container(
           color: Colors.transparent,
-          child: Row(
-            children: [
-              Expanded(
-                child: Container(
-                  color: Colors.red,
-                  padding: const EdgeInsets.symmetric(vertical: 12.0),
-                  child: const Center(
-                    child: Text(
-                      "Ajouter au Panier",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.bold,
+          child: GestureDetector(
+            onTap: () {
+              provider.addToPaannier(widget.produit);
+            },
+            child: Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    color: Colors.red,
+                    padding: const EdgeInsets.symmetric(vertical: 12.0),
+                    child: const Center(
+                      child: Text(
+                        "Ajouter au Panier",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
         label: '',
@@ -100,7 +129,7 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        title: const Text("Product"),
+        title: Text(productTitle),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -129,9 +158,7 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          "CFA $productCurrentPrice${productlastPrice != null && productlastPrice! > 0
-                                  ? " ${productlastPrice!}"
-                                  : ""}",
+                          "CFA $productCurrentPrice${productlastPrice != null && productlastPrice! > 0 ? " ${productlastPrice!}" : ""}",
                           style: const TextStyle(
                             color: Colors.lightGreenAccent,
                             fontWeight: FontWeight.bold,
@@ -170,7 +197,7 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    "data dsmafmndf dsafdafd",
+                    productDescription,
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.grey[600],

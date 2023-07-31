@@ -1,4 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_shope/models/like_model.dart';
+import 'package:e_shope/models/panier_model.dart';
+import 'package:e_shope/models/produit_model.dart';
 import 'package:flutter/material.dart';
 
 import '../models/categorie_model.dart';
@@ -14,6 +17,9 @@ class UserProvider with ChangeNotifier {
   String? email;
   bool isLoading = false;
   List<CategorieModel> categoryList = [];
+  List<LikeModel> likeList = [];
+  List<PanierModel> panierList = [];
+  List<ProduitModel> listProduit = [];
   String? image;
   String? password;
   String? creation;
@@ -34,7 +40,7 @@ class UserProvider with ChangeNotifier {
       firstName = re.prenom;
       phoneNumber = re.telephone;
       address = re.addresse;
-      username = re.thisusername;
+      username = re.username;
       email = re.thismail;
       password = re.thispassword;
       image = re.image;
@@ -54,7 +60,11 @@ class UserProvider with ChangeNotifier {
   Future<bool> getCategoryProvider() async {
     try {
       var result = await firebase.getCategorieAndProduc();
-
+      result.forEach((element) {
+        element.listProduit!.forEach((element) {
+          listProduit.add(element);
+        });
+      });
       categoryList = result;
       print(result.length);
     } catch (e) {
@@ -71,34 +81,95 @@ class UserProvider with ChangeNotifier {
   }
 
 //provider for the connexion
-  Future<QuerySnapshot> login(String user, String passwor) async {
+  Future<ClientModel> login(String user, String passwor) async {
     // Effectuez vos opérations de connexion ici
-    QuerySnapshot result = await firebase.login(user, passwor);
-    if (result.docs.isNotEmpty) {
-      List<ClientModel> re = await firebase.getClients();
-      for (var element in re) {
-        if (element.thisusername == user && element.thispassword == passwor) {
-          lastName = element.nom;
-          firstName = element.prenom;
-          phoneNumber = element.telephone;
-          address = element.addresse;
-          username = element.thisusername;
-          email = element.thismail;
+    ClientModel element = await firebase.login(user, passwor);
 
-          creation = element.thiscreationDate;
-          image = element.image;
-          password = element.thispassword;
-          token = element.firebaseToken;
-          print(token);
+    if (element.username == user && element.thispassword == passwor) {
+      lastName = element.nom;
+      firstName = element.prenom;
+      phoneNumber = element.telephone;
+      address = element.addresse;
+      username = element.username;
+      email = element.thismail;
 
-          print(isLoggedIn);
-          notifyListeners();
-        }
-      }
+      creation = element.thiscreationDate;
+      image = element.image;
+      password = element.thispassword;
+      token = element.firebaseToken;
+      print(token);
+
+      print(isLoggedIn);
+      notifyListeners();
     }
-    resultat = result;
-    return resultat!;
+    likeList = await firebase.getLikedList(token!);
+    panierList = await firebase.getAllPannier(token!);
+    return element;
     // Une fois la connexion réussie, mettez à jour les informations de l'utilisateur
+  }
+
+  Future<void> getLikeList() async {
+    token != null ? likeList = await firebase.getLikedList(token!) : [];
+    notifyListeners();
+  }
+
+  Future<void> getPannierList() async {
+    token != null ? panierList = await firebase.getAllPannier(token!) : [];
+    notifyListeners();
+  }
+
+  Future<bool> addToPaannier(ProduitModel produit) async {
+    if (token != null) {
+      PanierModel pannier =
+          PanierModel(produit: produit, prixTotal: produit.prix, qteProduit: 1);
+      firebase.createPannier(token!, pannier);
+      panierList = await firebase.getAllPannier(token!);
+      notifyListeners();
+      print(token);
+      return true;
+    } else {
+      print(false);
+      return false;
+    }
+  }
+
+  Future<bool> diseToPannierProduct(PanierModel pannier) async {
+    if (token != null) {
+      firebase.deletePannier(token!, pannier);
+      panierList = await firebase.getAllPannier(token!);
+      notifyListeners();
+      print(token);
+      return true;
+    } else {
+      print(false);
+      return false;
+    }
+  }
+
+  Future<bool> likeProduct(ProduitModel produit) async {
+    if (token != null) {
+      firebase.addToLike(token!, produit);
+      likeList = await firebase.getLikedList(token!);
+      notifyListeners();
+      print(token);
+      return true;
+    } else {
+      print(false);
+      return false;
+    }
+  }
+
+  Future<bool> diseLikeProduct(LikeModel produit) async {
+    if (token != null) {
+      firebase.deleteLike(token!, produit);
+      likeList = await firebase.getLikedList(token!);
+      notifyListeners();
+      print(token);
+      return true;
+    } else {
+      print(false);
+      return false;
+    }
   }
 
   void logout() {

@@ -28,7 +28,7 @@ class _UserInformationState extends State<UserInformation> {
           user.clear();
           user.add({lastName: userProvide.lastName!});
           user.add({firstName: userProvide.firstName!});
-          user.add({username: userProvide.username!});
+          user.add({usersname: userProvide.username!});
           user.add({phone: userProvide.phoneNumber!});
           user.add({mail: userProvide.email!});
           user.add({address: userProvide.address!});
@@ -208,7 +208,7 @@ class _UserInformationState extends State<UserInformation> {
               image: userProvider.image,
               nom: userProvider.lastName!,
               prenom: userProvider.firstName!,
-              thisusername: userProvider.username!,
+              username: userProvider.username!,
               addresse: userProvider.address!,
               thismail: userProvider.email!,
               telephone: userProvider.phoneNumber!,

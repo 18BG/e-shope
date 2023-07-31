@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class LikeModel {
   String nom;
   String description;
-  double prix;
+  num prix;
   String image;
   int qteStock;
   bool like;

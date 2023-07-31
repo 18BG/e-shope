@@ -16,7 +16,7 @@ class ClientModel {
 // "user4" -> "user4"
   String nom;
   String prenom;
-  String thisusername;
+  String username;
   String? image;
   String thismail;
   String addresse;
@@ -34,7 +34,7 @@ class ClientModel {
       this.likes,
       this.commandes,
       required this.prenom,
-      required this.thisusername,
+      required this.username,
       this.image,
       required this.addresse,
       required this.thismail,
@@ -82,7 +82,7 @@ class ClientModel {
         thismail: file[mail],
         addresse: file[address],
         prenom: file[firstName],
-        thisusername: file[username],
+        username: file[usersname],
         telephone: file[phone],
         thispassword: file[password],
         thiscreationDate: file[creationDate],

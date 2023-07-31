@@ -1,21 +1,17 @@
+import 'package:e_shope/models/like_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../provider/provider.dart';
 
 class WishItems extends StatefulWidget {
   const WishItems({
     Key? key,
-    required this.imageUrl,
-    required this.productCurrentPrice,
-    required this.productDescription,
-    required this.productTitle,
-    this.productlastPrice,
+    required this.produit,
   }) : super(key: key);
 
-  final String imageUrl;
-  final String productTitle;
-  final String productDescription;
-  final double productCurrentPrice;
-  final double? productlastPrice;
-  final double _baseFontSize = 16.0;
+  final LikeModel produit;
+  final int _baseFontSize = 12;
 
   @override
   _WishItemsState createState() => _WishItemsState();
@@ -23,9 +19,16 @@ class WishItems extends StatefulWidget {
 
 class _WishItemsState extends State<WishItems> {
   bool isLiked = false;
+  @override
+  void initState() {
+    // TODO: implement initState
+    isLiked = widget.produit.like;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final provide = Provider.of<UserProvider>(context, listen: false);
     return Card(
       elevation: 5,
       child: Container(
@@ -42,14 +45,14 @@ class _WishItemsState extends State<WishItems> {
                   Container(
                     alignment: Alignment.center,
                     height: MediaQuery.of(context).size.height * 0.12,
-                    child: Image.asset(
-                      widget.imageUrl,
+                    child: Image.network(
+                      widget.produit.image,
                       fit: BoxFit.cover,
                     ),
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    widget.productTitle,
+                    widget.produit.nom,
                     style: TextStyle(
                       fontSize: 18 * MediaQuery.of(context).textScaleFactor,
                       fontWeight: FontWeight.bold,
@@ -60,7 +63,7 @@ class _WishItemsState extends State<WishItems> {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    widget.productDescription,
+                    widget.produit.description,
                     style: TextStyle(
                       fontSize: widget._baseFontSize *
                           MediaQuery.of(context).textScaleFactor,
@@ -71,11 +74,7 @@ class _WishItemsState extends State<WishItems> {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    "CFA ${widget.productCurrentPrice}" +
-                        (widget.productlastPrice != null &&
-                                widget.productlastPrice! > 0
-                            ? " ${widget.productlastPrice!}"
-                            : ""),
+                    "CFA ${widget.produit.prix}${widget.produit.prix > 0 ? " ${widget.produit.prix}" : ""}",
                     style: TextStyle(
                       color: Colors.lightGreenAccent,
                       fontWeight: FontWeight.bold,
@@ -93,6 +92,16 @@ class _WishItemsState extends State<WishItems> {
                 onTap: () {
                   setState(() {
                     isLiked = !isLiked;
+                    widget.produit.like = isLiked;
+                    if (isLiked == false) {
+                      provide.listProduit.forEach((element) {
+                        if (element.nom == widget.produit.nom &&
+                            widget.produit.description == element.description) {
+                          element.like = false;
+                        }
+                      });
+                      provide.diseLikeProduct(widget.produit);
+                    }
                   });
                 },
                 child: Icon(

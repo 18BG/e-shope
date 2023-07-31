@@ -1,23 +1,16 @@
+import 'package:e_shope/models/panier_model.dart';
 import 'package:flutter/material.dart';
 
 class PanierWidget extends StatefulWidget {
-  PanierWidget({
-    Key? key,
-    required this.productCurrentPrice,
-    required this.imageUrl,
-    required this.productDescription,
-    required this.productTitle,
-    required this.ico,
-    required this.productNumber,
-    this.productlastPrice,
-  }) : super(key: key);
+  PanierWidget(
+      {Key? key,
+      required this.ico,
+      required this.productNumber,
+      required this.pannier})
+      : super(key: key);
 
   int productNumber;
-  final String imageUrl;
-  final String productTitle;
-  final String productDescription;
-  final double productCurrentPrice;
-  final double? productlastPrice;
+  PanierModel pannier;
   final IconData ico;
 
   @override
@@ -41,7 +34,7 @@ class _PanierWidgetState extends State<PanierWidget> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8.0),
                   image: DecorationImage(
-                    image: AssetImage(widget.imageUrl),
+                    image: AssetImage(widget.pannier.produit.image),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -52,7 +45,7 @@ class _PanierWidgetState extends State<PanierWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.productTitle,
+                      widget.pannier.produit.nom,
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -63,7 +56,7 @@ class _PanierWidgetState extends State<PanierWidget> {
                     const SizedBox(height: 4),
                     const SizedBox(height: 4),
                     Text(
-                      widget.productDescription,
+                      widget.pannier.produit.description,
                       style: TextStyle(
                         fontSize: 13,
                         color: Colors.grey,
@@ -74,11 +67,7 @@ class _PanierWidgetState extends State<PanierWidget> {
                     const SizedBox(height: 4),
                     const SizedBox(height: 4),
                     Text(
-                      "CFA ${widget.productCurrentPrice * widget.productNumber}" +
-                          (widget.productlastPrice != null &&
-                                  widget.productlastPrice! > 0
-                              ? " ${widget.productlastPrice!}"
-                              : ""),
+                      "CFA ${widget.pannier.produit.prix * widget.productNumber}${widget.pannier.produit.prix > 0 ? " ${widget.pannier.produit.prix}" : ""}",
                       style: TextStyle(
                         color: Colors.lightGreenAccent,
                         fontWeight: FontWeight.bold,
