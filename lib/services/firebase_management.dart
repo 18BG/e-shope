@@ -16,16 +16,18 @@ class FirebaseManagement {
   //create firebase Storage database instance
   //final _refs = FirebaseStorage.instance;
 //function to login a user
-  Future<QuerySnapshot<Object?>> login(
+  Future<ClientModel> login(
     String thusername,
     String thpassword,
   ) async {
-    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+    final querySnapshot = await FirebaseFirestore.instance
         .collection('Client')
         .where(usersname, isEqualTo: thusername)
         .where(password, isEqualTo: thpassword)
         .get();
-    return querySnapshot;
+    final user =
+        querySnapshot.docs.map((e) => ClientModel.fromSnapshot(e)).first;
+    return user;
   }
 
   //Cette fonction permet de creer un nouveau utilisatuer dont les information seront passer en argument
@@ -158,14 +160,17 @@ class FirebaseManagement {
     final categories =
         data.docs.map((e) => CategorieModel.fromSnapshot(e)).toList();
     try {
-      for (final i in categories) {
+      for (CategorieModel i in categories) {
         //get specifics categorie products list from firebase
         final products = await _db
             .collection(categoriCollection)
             .doc(i.firebaseToken)
             .collection(productCollection)
             .get();
+        print(i.nom);
+        print(i.firebaseToken);
         //add products list to client product list
+
         final productListe =
             products.docs.map((e) => ProduitModel.fromSnapshot(e)).toList();
         i.listProduit = productListe;
@@ -195,7 +200,7 @@ class FirebaseManagement {
           .doc(client.firebaseToken)
           .collection("Commande")
           .doc(newRef)
-          .collection("Produit")
+          .collection("Produits")
           .add({
         "Nom": cmd.nom,
         "Description": cmd.description,
@@ -217,63 +222,92 @@ class FirebaseManagement {
   }
 
   //function to create pannier
-  createPannier(ClientModel client, PanierModel pannier) async {
+  createPannier(String client, PanierModel pannier) async {
     final pannierRef = await _db
         .collection("Client")
-        .doc(client.firebaseToken)
+        .doc(client)
         .collection("Pannier")
-        .add({});
+        .add(
+            {'qteProduit': pannier.qteProduit, 'prixTotal': pannier.prixTotal});
     final newRef = pannierRef.id;
     {
       await _db
           .collection("Client")
-          .doc(client.firebaseToken)
+          .doc(client)
           .collection("Pannier")
           .doc(newRef)
-          .collection("Produit")
+          .collection(productCollection)
           .add({
         "Nom": pannier.produit.nom,
         "Description": pannier.produit.description,
         "Prix": pannier.produit.prix,
-        "Image": pannier.produit.image,
-        "qteStock": pannier.produit.qteStock,
-      });
-    }
-
-    //function to update pannier
-    updatePannier(ClientModel client, PanierModel pannier) async {
-      await _db
-          .collection("Client")
-          .doc(client.firebaseToken)
-          .collection("Pannier")
-          .doc(pannier.firebaseToken)
-          .collection("Produit")
-          .add({
-        "Nom": pannier.produit.nom,
-        "Description": pannier.produit.description,
-        "Prix": pannier.produit.prix,
+        "Like": false,
         "Image": pannier.produit.image,
         "qteStock": pannier.produit.qteStock,
       });
     }
   }
 
-  deletePannier(ClientModel client, PanierModel panier) async {
+  Future<List<PanierModel>> getAllPannier(String client) async {
+    try {
+      final data = await _db
+          .collection("Client")
+          .doc(client)
+          .collection("Pannier")
+          .get();
+      final paniers =
+          data.docs.map((e) => PanierModel.fromSnapshot(e)).toList();
+
+      await Future.forEach(paniers, (PanierModel i) async {
+        // Obtenir la liste spécifique des produits de la catégorie à partir de Firebase
+        final products = await _db
+            .collection("Client")
+            .doc(client)
+            .collection("Pannier")
+            .doc(i.firebaseToken)
+            .collection(productCollection)
+            .get();
+        // Ajouter la liste des produits à la liste des produits du client
+        final productListe =
+            products.docs.map((e) => ProduitModel.fromSnapshot(e)).toList();
+        i.produit = productListe.first;
+      });
+
+      return paniers;
+    } catch (e) {
+      return List.empty();
+    }
+  }
+
+  //function to update pannier
+  updatePannier(ClientModel client, PanierModel pannier) async {
     await _db
         .collection("Client")
         .doc(client.firebaseToken)
+        .collection("Pannier")
+        .doc(pannier.firebaseToken)
+        .collection("Produits")
+        .add({
+      "Nom": pannier.produit.nom,
+      "Description": pannier.produit.description,
+      "Prix": pannier.produit.prix,
+      "Image": pannier.produit.image,
+      "qteStock": pannier.produit.qteStock,
+    });
+  }
+
+  deletePannier(client, PanierModel panier) async {
+    await _db
+        .collection("Client")
+        .doc(client)
         .collection("Pannier")
         .doc(panier.firebaseToken)
         .delete();
   }
 
   //function to like product
-  addToLike(ClientModel client, ProduitModel like) async {
-    await _db
-        .collection("Client")
-        .doc(client.firebaseToken)
-        .collection("Like")
-        .add({
+  addToLike(String client, ProduitModel like) async {
+    await _db.collection("Client").doc(client).collection("Like").add({
       "Nom": like.nom,
       "Description": like.description,
       "Prix": like.prix,
@@ -284,11 +318,20 @@ class FirebaseManagement {
     });
   }
 
+  //fuction to get liked product
+
+  Future<List<LikeModel>> getLikedList(String client) async {
+    final data =
+        await _db.collection("Client").doc(client).collection("Like").get();
+    final likes = data.docs.map((e) => LikeModel.fromSnapshot(e)).toList();
+    return likes;
+  }
+
   //function to diselike product
-  deleteLike(ClientModel client, LikeModel like) async {
+  deleteLike(String client, LikeModel like) async {
     await _db
         .collection("Client")
-        .doc(client.firebaseToken)
+        .doc(client)
         .collection("Like")
         .doc(like.firebaseToken)
         .delete();

@@ -16,8 +16,8 @@ class CartWidget extends StatefulWidget {
   final String imageUrl;
   final String productTitle;
   final String productDescription;
-  final double productCurrentPrice;
-  final double? productlastPrice;
+  final num productCurrentPrice;
+  final num? productlastPrice;
   final IconData ico;
 
   @override
@@ -43,7 +43,7 @@ class _CartWidgetState extends State<CartWidget> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8.0),
                     image: DecorationImage(
-                      image: AssetImage(widget.imageUrl),
+                      image: NetworkImage(widget.imageUrl),
                       fit: BoxFit.cover,
                     ),
                   ),

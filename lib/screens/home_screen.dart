@@ -46,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final height = MediaQuery.of(context).size.height;
     return Consumer<UserProvider>(
       builder: (context, value, child) {
-        return provider.isLoading
+        return value.isLoading
             ? Center(
                 child: CircularProgressIndicator(),
               )

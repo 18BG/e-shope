@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_shope/models/produit_model.dart';
+import 'package:e_shope/utilities/constants.dart';
 
 class PanierModel {
   String? firebaseToken;
-  String prixTotal;
-  String qteProduit;
+  num prixTotal;
+  num qteProduit;
   ProduitModel produit;
 
   PanierModel(
@@ -16,16 +17,21 @@ class PanierModel {
   factory PanierModel.fromSnapshot(
       DocumentSnapshot<Map<String, dynamic>> data) {
     final file = data.data();
-    final produitData = file!['Produit'];
+    final produitData = file![productCollection];
     ProduitModel? produit;
-    if (produitData != null) {
-      produit = ProduitModel.fromSnapshot(produitData);
+    if (produitData != null && produitData.isNotEmpty) {
+      produit = List<ProduitModel>.from(
+              produitData.map((element) => ProduitModel.fromSnapshot(element)))
+          .first;
+    } else {
+      // Gérer le cas où la liste est vide ou null
+      //produit = ProduitModel(); // Remplacez par l'instanciation appropriée de ProduitModel
     }
 
     return PanierModel(
         firebaseToken: data.id,
-        produit: produit!,
         qteProduit: file['qteProduit'],
+        produit: produit!, // Utilisez une valeur par défaut si produit est null
         prixTotal: file['prixTotal']);
   }
 }

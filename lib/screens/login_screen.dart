@@ -1,5 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:e_shope/provider/provider.dart';
 import 'package:e_shope/screens/register_screen.dart';
 import 'package:flutter/material.dart';
@@ -88,7 +86,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             thisusername, thispassword);
                         // ignore: invalid_use_of_protected_member
 
-                        if (result.docs.isNotEmpty) {
+                        if (result != null) {
                           Navigator.pop(context);
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(

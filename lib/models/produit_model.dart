@@ -3,9 +3,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class ProduitModel {
   String nom;
   String description;
-  double prix;
+  num prix;
   String image;
-  int qteStock;
+  num qteStock;
   String? firebaseToken;
   bool like;
 

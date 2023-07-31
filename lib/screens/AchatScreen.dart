@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import '../models/produit_model.dart';
 import '../widgets/cartproduct.dart';
 import '../widgets/input.dart';
 import '../widgets/screen_title_bar.dart';
 
 class AchatScreen extends StatefulWidget {
-  AchatScreen({Key? key}) : super(key: key);
+  AchatScreen({Key? key, required this.produit}) : super(key: key);
+  ProduitModel produit;
 
   @override
   _AchatScreenState createState() => _AchatScreenState();
@@ -67,11 +69,10 @@ class _AchatScreenState extends State<AchatScreen> {
                           return CartWidget(
                             ico: Icons.restore,
                             productNumber: 3,
-                            imageUrl: "assets/images/vic0.jpeg",
-                            productCurrentPrice: 20000,
-                            productDescription:
-                                "Produit Victoire de haute gamme pour les victorieux seulements ou pour les victorieux en devenir",
-                            productTitle: "Kepi Victoire",
+                            imageUrl: widget.produit.image,
+                            productCurrentPrice: widget.produit.prix,
+                            productDescription: widget.produit.description,
+                            productTitle: widget.produit.nom,
                           );
                         },
                       ),
