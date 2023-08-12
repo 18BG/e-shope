@@ -1,16 +1,23 @@
 import 'package:e_shope/models/panier_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../models/achat_produit.dart';
+import '../models/produit_model.dart';
+import '../provider/provider.dart';
 
 class PanierWidget extends StatefulWidget {
   PanierWidget(
       {Key? key,
       required this.ico,
       required this.productNumber,
+      required this.pan,
       required this.pannier})
       : super(key: key);
 
   int productNumber;
-  PanierModel pannier;
+  AchatProduitModel pannier;
+  PanierModel pan;
   final IconData ico;
 
   @override
@@ -18,8 +25,18 @@ class PanierWidget extends StatefulWidget {
 }
 
 class _PanierWidgetState extends State<PanierWidget> {
+  num prixTotal = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    prixTotal = widget.productNumber * widget.pannier.prix;
+  }
+
   @override
   Widget build(BuildContext context) {
+    final provide = Provider.of<UserProvider>(context, listen: false);
+
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.15,
       child: Card(
@@ -34,7 +51,7 @@ class _PanierWidgetState extends State<PanierWidget> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8.0),
                   image: DecorationImage(
-                    image: AssetImage(widget.pannier.produit.image),
+                    image: NetworkImage(widget.pannier.image),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -45,9 +62,9 @@ class _PanierWidgetState extends State<PanierWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.pannier.produit.nom,
+                      widget.pannier.nom,
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: MediaQuery.of(context).textScaleFactor * 16,
                         fontWeight: FontWeight.bold,
                       ),
                       maxLines: 1,
@@ -56,9 +73,9 @@ class _PanierWidgetState extends State<PanierWidget> {
                     const SizedBox(height: 4),
                     const SizedBox(height: 4),
                     Text(
-                      widget.pannier.produit.description,
+                      widget.pannier.description,
                       style: TextStyle(
-                        fontSize: 13,
+                        fontSize: MediaQuery.of(context).textScaleFactor * 13,
                         color: Colors.grey,
                       ),
                       maxLines: 2,
@@ -67,24 +84,34 @@ class _PanierWidgetState extends State<PanierWidget> {
                     const SizedBox(height: 4),
                     const SizedBox(height: 4),
                     Text(
-                      "CFA ${widget.pannier.produit.prix * widget.productNumber}${widget.pannier.produit.prix > 0 ? " ${widget.pannier.produit.prix}" : ""}",
+                      "CFA ${prixTotal.toStringAsFixed(2)}", // Format price with 2 decimal places
                       style: TextStyle(
                         color: Colors.lightGreenAccent,
                         fontWeight: FontWeight.bold,
-                        fontSize: 16,
+                        fontSize: MediaQuery.of(context).textScaleFactor * 16,
                       ),
                     ),
+                    // Add product rating or review widget here
                   ],
                 ),
               ),
               const SizedBox(width: 16),
               Column(
                 children: [
-                  const Expanded(
-                    child: Icon(
-                      Icons.delete,
-                      color: Colors.red,
-                      size: 22,
+                  GestureDetector(
+                    onTap: () {
+                      provide.diseToPannierProduct(
+                          widget.pan, widget.pannier.firebaseToken);
+                    },
+                    child: const Expanded(
+                      child: Tooltip(
+                        message: "Remove from Cart",
+                        child: Icon(
+                          Icons.delete,
+                          color: Colors.red,
+                          size: 22,
+                        ),
+                      ),
                     ),
                   ),
                   Column(
@@ -93,6 +120,9 @@ class _PanierWidgetState extends State<PanierWidget> {
                         onTap: () {
                           setState(() {
                             widget.productNumber--;
+                            prixTotal =
+                                widget.productNumber * widget.pannier.prix;
+                            widget.pannier.qteCommande = widget.productNumber;
                           });
                         },
                         child: Container(
@@ -103,7 +133,7 @@ class _PanierWidgetState extends State<PanierWidget> {
                           ),
                           child: Icon(
                             Icons.remove,
-                            size: 10,
+                            size: MediaQuery.of(context).textScaleFactor * 10,
                           ),
                         ),
                       ),
@@ -111,7 +141,7 @@ class _PanierWidgetState extends State<PanierWidget> {
                       Text(
                         "${widget.productNumber}",
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: MediaQuery.of(context).textScaleFactor * 14,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -120,6 +150,9 @@ class _PanierWidgetState extends State<PanierWidget> {
                         onTap: () {
                           setState(() {
                             widget.productNumber++;
+                            prixTotal =
+                                widget.productNumber * widget.pannier.prix;
+                            widget.pannier.qteCommande = widget.productNumber;
                           });
                         },
                         child: Container(
@@ -130,7 +163,7 @@ class _PanierWidgetState extends State<PanierWidget> {
                           ),
                           child: Icon(
                             Icons.add,
-                            size: 10,
+                            size: MediaQuery.of(context).textScaleFactor * 10,
                           ),
                         ),
                       ),

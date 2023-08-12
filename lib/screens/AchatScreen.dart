@@ -1,12 +1,17 @@
+import 'package:e_shope/models/commande_model.dart';
+import 'package:e_shope/models/panier_model.dart';
+import 'package:e_shope/widgets/dialogue_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../models/produit_model.dart';
+import '../provider/provider.dart';
 import '../widgets/cartproduct.dart';
 import '../widgets/input.dart';
 import '../widgets/screen_title_bar.dart';
 
 class AchatScreen extends StatefulWidget {
   AchatScreen({Key? key, required this.produit}) : super(key: key);
-  ProduitModel produit;
+  PanierModel produit;
 
   @override
   _AchatScreenState createState() => _AchatScreenState();
@@ -15,11 +20,24 @@ class AchatScreen extends StatefulWidget {
 class _AchatScreenState extends State<AchatScreen> {
   final TextEditingController _controller = TextEditingController();
   bool payAfterDelivery = false;
+  CommandeModel? commande;
+  num Total = 0;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    widget.produit.produit.forEach((element) {
+      Total += element.prix;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<UserProvider>(context, listen: false);
     final width = MediaQuery.of(context).size.width;
-
+    widget.produit.produit.forEach((element) {
+      Total += element.prix;
+    });
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
@@ -64,20 +82,23 @@ class _AchatScreenState extends State<AchatScreen> {
                       child: ListView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemCount: 1,
+                        itemCount: widget.produit.produit.length,
                         itemBuilder: (context, index) {
                           return CartWidget(
                             ico: Icons.restore,
-                            productNumber: 3,
-                            imageUrl: widget.produit.image,
-                            productCurrentPrice: widget.produit.prix,
-                            productDescription: widget.produit.description,
-                            productTitle: widget.produit.nom,
+                            productNumber:
+                                widget.produit.produit[index].qteCommande,
+                            imageUrl: widget.produit.produit[index].image,
+                            productCurrentPrice:
+                                widget.produit.produit[index].prix,
+                            productDescription:
+                                widget.produit.produit[index].description,
+                            productTitle: widget.produit.produit[index].nom,
                           );
                         },
                       ),
                     ),
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16.0),
                       child: Row(
                         children: [
@@ -85,16 +106,18 @@ class _AchatScreenState extends State<AchatScreen> {
                             child: Text(
                               "Total :",
                               style: TextStyle(
-                                fontSize: 22,
+                                fontSize:
+                                    MediaQuery.of(context).textScaleFactor * 22,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
                           SizedBox(width: 8.0),
                           Text(
-                            "600000 FCFA",
+                            "$Total CFA",
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize:
+                                  MediaQuery.of(context).textScaleFactor * 20,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -188,8 +211,47 @@ class _AchatScreenState extends State<AchatScreen> {
                               style: const ButtonStyle(
                                   backgroundColor:
                                       MaterialStatePropertyAll(Colors.green)),
-                              onPressed: () {
-                                // Action lorsque le bouton "Acheter" est pressé
+                              onPressed: () async {
+                                if (payAfterDelivery) {
+                                  commande = CommandeModel(
+                                      prix: Total,
+                                      produit: [widget.produit],
+                                      dateCommande: DateTime.now(),
+                                      etatCommande: false,
+                                      adresseLivraison: _controller.text,
+                                      qteCommande:
+                                          widget.produit.produit.length);
+
+                                  var isOk =
+                                      await provider.addCommande(commande!);
+                                  if (isOk == true) {
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) => Dialogue(
+                                            message:
+                                                "Commande effectuer avec success"));
+                                  } else {
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) => Dialogue(
+                                            message:
+                                                "Erruer lors de l'envoi de la commande"));
+                                  }
+                                } else {
+                                  commande = CommandeModel(
+                                      prix: Total,
+                                      produit: [widget.produit],
+                                      dateCommande: DateTime.now(),
+                                      etatCommande: true,
+                                      adresseLivraison: _controller.text,
+                                      qteCommande:
+                                          widget.produit.produit.length);
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) => Dialogue(
+                                          message:
+                                              "Commande effectuer avec success"));
+                                }
                               },
                               child: const Text("Acheter"),
                             ),

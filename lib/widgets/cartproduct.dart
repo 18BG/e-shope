@@ -12,7 +12,7 @@ class CartWidget extends StatefulWidget {
     this.productlastPrice,
   }) : super(key: key);
 
-  int productNumber;
+  num productNumber;
   final String imageUrl;
   final String productTitle;
   final String productDescription;
@@ -66,11 +66,7 @@ class _CartWidgetState extends State<CartWidget> {
                       const SizedBox(height: 4),
                       const SizedBox(height: 4),
                       Text(
-                        "CFA ${widget.productCurrentPrice}" +
-                            (widget.productlastPrice != null &&
-                                    widget.productlastPrice! > 0
-                                ? " ${widget.productlastPrice!}"
-                                : ""),
+                        "CFA ${widget.productCurrentPrice}${widget.productlastPrice != null && widget.productlastPrice! > 0 ? " ${widget.productlastPrice!}" : ""}",
                         style: TextStyle(
                           color: Colors.red,
                           fontWeight: FontWeight.bold,
@@ -92,43 +88,51 @@ class _CartWidgetState extends State<CartWidget> {
                               child: Row(
                                 children: [
                                   Spacer(),
-                                  GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        widget.productNumber--;
-                                      });
-                                    },
-                                    child: Icon(
-                                      Icons.remove,
-                                      size: MediaQuery.of(context)
-                                              .textScaleFactor *
-                                          16,
-                                    ),
-                                  ),
+                                  Text("Qte: ",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: MediaQuery.of(context)
+                                                  .textScaleFactor *
+                                              18)),
                                   Spacer(),
+                                  // GestureDetector(
+                                  //   onTap: () {
+                                  //     setState(() {
+                                  //       widget.productNumber--;
+                                  //     });
+                                  //   },
+                                  //   child: Icon(
+                                  //     Icons.remove,
+                                  //     size: MediaQuery.of(context)
+                                  //             .textScaleFactor *
+                                  //         16,
+                                  //   ),
+                                  // ),
+                                  // Spacer(),
                                   Text(
                                     "${widget.productNumber}",
                                     style: TextStyle(
+                                      color: Colors.blue,
                                       fontSize: MediaQuery.of(context)
                                               .textScaleFactor *
                                           16,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  Spacer(),
-                                  GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        widget.productNumber++;
-                                      });
-                                    },
-                                    child: Icon(
-                                      Icons.add,
-                                      size: MediaQuery.of(context)
-                                              .textScaleFactor *
-                                          16,
-                                    ),
-                                  ),
+                                  // Spacer(),
+                                  // GestureDetector(
+                                  //   onTap: () {
+                                  //     setState(() {
+                                  //       widget.productNumber++;
+                                  //     });
+                                  //   },
+                                  //   child: Icon(
+                                  //     Icons.add,
+                                  //     size: MediaQuery.of(context)
+                                  //             .textScaleFactor *
+                                  //         16,
+                                  //   ),
+                                  // ),
                                   Spacer(),
                                 ],
                               ),

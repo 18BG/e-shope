@@ -1,7 +1,9 @@
+import 'package:e_shope/widgets/dialogue_widget.dart';
 import 'package:e_shope/widgets/product_view_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../models/achat_produit.dart';
 import '../models/produit_model.dart';
 import '../provider/provider.dart';
 import 'AchatScreen.dart';
@@ -54,11 +56,19 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
               Expanded(
                 child: GestureDetector(
                   onTap: () {
+                    final achat = AchatProduitModel(
+                        nom: widget.produit.nom,
+                        description: widget.produit.description,
+                        prix: widget.produit.prix,
+                        image: widget.produit.image,
+                        qteCommande: 1,
+                        like: widget.produit.like);
+                    provider.panierList.first.produit.add(achat);
                     Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => AchatScreen(
-                                  produit: widget.produit,
+                                  produit: provider.panierList.first,
                                 )));
                   },
                   child: Container(
@@ -87,7 +97,21 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
           color: Colors.transparent,
           child: GestureDetector(
             onTap: () {
-              provider.addToPaannier(widget.produit);
+              final achat = AchatProduitModel(
+                  nom: widget.produit.nom,
+                  description: widget.produit.description,
+                  prix: widget.produit.prix,
+                  image: widget.produit.image,
+                  qteCommande: 1,
+                  like: widget.produit.like);
+              provider.addToPaannier(achat);
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return Dialogue(
+                        message: "Produit ajouter au pannier avec succes");
+                  });
+              setState(() {});
             },
             child: Row(
               children: [

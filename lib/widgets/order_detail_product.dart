@@ -1,23 +1,13 @@
+import 'package:e_shope/models/produit_model.dart';
 import 'package:flutter/material.dart';
+
+import '../models/achat_produit.dart';
 
 // ignore: must_be_immutable
 class OrderProductDetailWidget extends StatelessWidget {
-  OrderProductDetailWidget({
-    Key? key,
-    required this.productCurrentPrice,
-    required this.imageUrl,
-    required this.productDescription,
-    required this.productTitle,
-    required this.productNumber,
-    this.productlastPrice,
-  }) : super(key: key);
+  OrderProductDetailWidget({Key? key, required this.produit}) : super(key: key);
 
-  int productNumber;
-  final String imageUrl;
-  final String productTitle;
-  final String productDescription;
-  final double productCurrentPrice;
-  final double? productlastPrice;
+  AchatProduitModel produit;
 
   final double _baseFontSize = 16.0;
 
@@ -33,8 +23,8 @@ class OrderProductDetailWidget extends StatelessWidget {
               width: MediaQuery.of(context).size.width * 0.25,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8.0),
-                child: Image.asset(
-                  imageUrl,
+                child: Image.network(
+                  produit.image,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -47,7 +37,7 @@ class OrderProductDetailWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      productTitle,
+                      produit.nom,
                       style: TextStyle(
                         fontSize: 18 * MediaQuery.of(context).textScaleFactor,
                         fontWeight: FontWeight.bold,
@@ -57,7 +47,7 @@ class OrderProductDetailWidget extends StatelessWidget {
                     ),
                     SizedBox(height: 4),
                     Text(
-                      productDescription,
+                      produit.description,
                       style: TextStyle(
                         fontSize: _baseFontSize *
                             MediaQuery.of(context).textScaleFactor,
@@ -67,10 +57,7 @@ class OrderProductDetailWidget extends StatelessWidget {
                     ),
                     SizedBox(height: 4),
                     Text(
-                      "CFA $productCurrentPrice" +
-                          (productlastPrice != null && productlastPrice! > 0
-                              ? " ${productlastPrice!}"
-                              : ""),
+                      "CFA ${produit.prix}${produit.prix > 0 ? " ${produit.prix}" : ""}",
                       style: TextStyle(
                         color: Colors.lightGreenAccent,
                         fontWeight: FontWeight.bold,
@@ -94,7 +81,7 @@ class OrderProductDetailWidget extends StatelessWidget {
                         MediaQuery.of(context).size.width * 0.04,
                         0),
                     decoration: BoxDecoration(border: Border.all(width: 2)),
-                    child: Text("$productNumber"),
+                    child: Text(produit.qteCommande.toString()),
                   ),
                   Spacer()
                 ],

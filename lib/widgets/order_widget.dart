@@ -1,24 +1,16 @@
+import 'package:e_shope/models/commande_model.dart';
 import 'package:flutter/material.dart';
 
 class OrderWidget extends StatelessWidget {
   const OrderWidget({
     Key? key,
-    required this.productCurrentPrice,
-    required this.imageUrl,
-    required this.productDescription,
-    required this.productTitle,
+    required this.result,
+    required this.commande,
     required this.ico,
-    required this.resultText,
-    this.productlastPrice,
   }) : super(key: key);
-
-  final String resultText;
-  final String imageUrl;
-  final String productTitle;
-  final String productDescription;
-  final double productCurrentPrice;
-  final double? productlastPrice;
+  final CommandeModel commande;
   final IconData ico;
+  final String result;
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +24,8 @@ class OrderWidget extends StatelessWidget {
               width: MediaQuery.of(context).size.width * 0.25,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8.0),
-                child: Image.asset(
-                  imageUrl,
+                child: Image.network(
+                  commande.produit.first.produit.first.image,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -46,7 +38,7 @@ class OrderWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      productTitle,
+                      commande.firebaseToken!,
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -56,7 +48,7 @@ class OrderWidget extends StatelessWidget {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      "Qty: 3",
+                      "${commande.produit.length}",
                       style: TextStyle(
                         fontSize: 12,
                       ),
@@ -83,12 +75,14 @@ class OrderWidget extends StatelessWidget {
                 children: [
                   Icon(
                     ico,
-                    color: Colors.green,
+                    color: commande.etatCommande == false
+                        ? Colors.green
+                        : Colors.red,
                     size: 15,
                   ),
                   SizedBox(width: 4),
                   Text(
-                    resultText,
+                    result,
                     style: TextStyle(fontSize: 12),
                   ),
                 ],

@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_shope/models/commande_model.dart';
 import 'package:e_shope/models/like_model.dart';
 import 'package:e_shope/models/panier_model.dart';
 import 'package:e_shope/models/produit_model.dart';
 import 'package:flutter/material.dart';
 
+import '../models/achat_produit.dart';
 import '../models/categorie_model.dart';
 import '../models/client_model.dart';
 import '../services/firebase_management.dart';
@@ -20,6 +22,7 @@ class UserProvider with ChangeNotifier {
   List<LikeModel> likeList = [];
   List<PanierModel> panierList = [];
   List<ProduitModel> listProduit = [];
+  List<CommandeModel> commandeList = [];
   String? image;
   String? password;
   String? creation;
@@ -104,6 +107,7 @@ class UserProvider with ChangeNotifier {
     }
     likeList = await firebase.getLikedList(token!);
     panierList = await firebase.getAllPannier(token!);
+    commandeList = await firebase.getAllCommande(token!);
     return element;
     // Une fois la connexion réussie, mettez à jour les informations de l'utilisateur
   }
@@ -118,11 +122,44 @@ class UserProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<bool> addToPaannier(ProduitModel produit) async {
+  Future<bool> addCommande(CommandeModel commande) async {
     if (token != null) {
-      PanierModel pannier =
-          PanierModel(produit: produit, prixTotal: produit.prix, qteProduit: 1);
-      firebase.createPannier(token!, pannier);
+      firebase.createCommande(token!, commande);
+      deletePannier(commande.produit.first);
+      commandeList = await firebase.getAllCommande(token!);
+      notifyListeners();
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Future<bool> addToPaannier(AchatProduitModel produit) async {
+    if (token != null) {
+      if (panierList.isEmpty) {
+        PanierModel pannier = PanierModel(
+            produit: [produit], prixTotal: produit.prix, qteProduit: 1);
+        firebase.createPannier(token!, pannier);
+        panierList = await firebase.getAllPannier(token!);
+        notifyListeners();
+      } else {
+        firebase.updatePannier(token, produit, panierList.first.firebaseToken);
+        panierList = await firebase.getAllPannier(token!);
+        notifyListeners();
+      }
+
+      notifyListeners();
+      print(token);
+      return true;
+    } else {
+      print(false);
+      return false;
+    }
+  }
+
+  Future<bool> diseToPannierProduct(PanierModel pannier, produit) async {
+    if (token != null) {
+      firebase.deleteProductPannier(token!, pannier, produit);
       panierList = await firebase.getAllPannier(token!);
       notifyListeners();
       print(token);
@@ -133,10 +170,11 @@ class UserProvider with ChangeNotifier {
     }
   }
 
-  Future<bool> diseToPannierProduct(PanierModel pannier) async {
+  Future<bool> deletePannier(pannier) async {
     if (token != null) {
       firebase.deletePannier(token!, pannier);
       panierList = await firebase.getAllPannier(token!);
+      panierList.clear();
       notifyListeners();
       print(token);
       return true;
@@ -182,7 +220,9 @@ class UserProvider with ChangeNotifier {
     address = null;
     username = null;
     email = null;
-
+    panierList = [];
+    likeList = [];
+    commandeList = [];
     notifyListeners();
   }
 
