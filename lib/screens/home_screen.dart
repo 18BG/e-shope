@@ -47,17 +47,17 @@ class _HomeScreenState extends State<HomeScreen> {
     return Consumer<UserProvider>(
       builder: (context, value, child) {
         return value.isLoading
-            ? Center(
+            ? const Center(
                 child: CircularProgressIndicator(),
               )
             : SingleChildScrollView(
                 child: Center(
                   child: Column(
-                    // mainAxisAlignment: MainAxisAlignment.center,
-                    // crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
-                        //margin: EdgeInsets.all(width * 0.03),
+                        margin: EdgeInsets.all(width * 0.03),
                         width: width * 0.99,
                         height: height / 1.65,
                         color: const Color.fromARGB(255, 241, 238, 238),

@@ -7,6 +7,7 @@ import 'package:e_shope/models/produit_model.dart';
 import 'package:e_shope/utilities/constants.dart';
 //import 'package:firebase_storage/firebase_storage.dart';
 
+import '../models/achat_produit.dart';
 import '../models/categorie_model.dart';
 
 class FirebaseManagement {
@@ -183,31 +184,93 @@ class FirebaseManagement {
   }
 
   //function to create commande
-  createCommande(ClientModel client, CommandeModel commande) async {
-    final commandeRef = await _db
-        .collection("Client")
-        .doc(client.firebaseToken)
-        .collection("Commande")
-        .add({
+  createCommande(String client, CommandeModel commande) async {
+    final commandeRef =
+        await _db.collection("Client").doc(client).collection("Commande").add({
       "Date": commande.dateCommande,
       "Etat": commande.etatCommande,
       "qteStock": commande.qteCommande,
+      "Adresse": commande.adresseLivraison,
+      "PrixTotal": commande.prix
     });
     final newRef = commandeRef.id;
     for (final cmd in commande.produit) {
-      await _db
+      final rf = await _db
           .collection("Client")
-          .doc(client.firebaseToken)
+          .doc(client)
           .collection("Commande")
           .doc(newRef)
-          .collection("Produits")
+          .collection("Pannier")
           .add({
-        "Nom": cmd.nom,
-        "Description": cmd.description,
-        "Prix": cmd.prix,
-        "Image": cmd.image,
-        "qteStock": cmd.qteStock,
+        "qteProduit": cmd.qteProduit,
+        "prixTotal": cmd.prixTotal,
       });
+      for (final prod in commande.produit.first.produit) {
+        await _db
+            .collection("Client")
+            .doc(client)
+            .collection("Commande")
+            .doc(newRef)
+            .collection("Pannier")
+            .doc(rf.id)
+            .collection("Produits")
+            .add({
+          "Nom": prod.nom,
+          "Description": prod.description,
+          "Prix": prod.prix,
+          "Like": false,
+          "Image": prod.image,
+          "qteCommande": prod.qteCommande,
+        });
+      }
+    }
+  }
+
+  Future<List<CommandeModel>> getAllCommande(String client) async {
+    try {
+      final data = await _db
+          .collection("Client")
+          .doc(client)
+          .collection("Commande")
+          .get();
+      final commandes =
+          data.docs.map((e) => CommandeModel.fromSnapshot(e)).toList();
+
+      for (final i in commandes) {
+        // Obtenir la liste spécifique des produits de la catégorie à partir de Firebase
+        final products = await _db
+            .collection("Client")
+            .doc(client)
+            .collection("Commande")
+            .doc(i.firebaseToken)
+            .collection('Pannier')
+            .get();
+        // Ajouter la liste des produits à la liste des produits du client
+        final pannierListe =
+            products.docs.map((e) => PanierModel.fromSnapshot(e)).toList();
+        for (final p in pannierListe) {
+          final product = await _db
+              .collection("Client")
+              .doc(client)
+              .collection("Commande")
+              .doc(i.firebaseToken)
+              .collection('Pannier')
+              .doc(p.firebaseToken)
+              .collection(productCollection)
+              .get();
+          // Ajouter la liste des produits à la liste des produits du client
+          final produitListe = product.docs
+              .map((e) => AchatProduitModel.fromSnapshot(e))
+              .toList();
+          p.produit = produitListe;
+        }
+        i.produit = pannierListe;
+      }
+
+      return commandes;
+    } catch (e) {
+      print(e);
+      return List.empty();
     }
   }
 
@@ -238,12 +301,12 @@ class FirebaseManagement {
           .doc(newRef)
           .collection(productCollection)
           .add({
-        "Nom": pannier.produit.nom,
-        "Description": pannier.produit.description,
-        "Prix": pannier.produit.prix,
+        "Nom": pannier.produit.last.nom,
+        "Description": pannier.produit.last.description,
+        "Prix": pannier.produit.last.prix,
         "Like": false,
-        "Image": pannier.produit.image,
-        "qteStock": pannier.produit.qteStock,
+        "Image": pannier.produit.last.image,
+        "qteCommande": pannier.produit.last.qteCommande,
       });
     }
   }
@@ -258,7 +321,7 @@ class FirebaseManagement {
       final paniers =
           data.docs.map((e) => PanierModel.fromSnapshot(e)).toList();
 
-      await Future.forEach(paniers, (PanierModel i) async {
+      for (final i in paniers) {
         // Obtenir la liste spécifique des produits de la catégorie à partir de Firebase
         final products = await _db
             .collection("Client")
@@ -268,10 +331,12 @@ class FirebaseManagement {
             .collection(productCollection)
             .get();
         // Ajouter la liste des produits à la liste des produits du client
-        final productListe =
-            products.docs.map((e) => ProduitModel.fromSnapshot(e)).toList();
-        i.produit = productListe.first;
-      });
+        final productListe = products.docs
+            .map((e) => AchatProduitModel.fromSnapshot(e))
+            .toList();
+        i.produit = productListe;
+      }
+      ;
 
       return paniers;
     } catch (e) {
@@ -280,20 +345,32 @@ class FirebaseManagement {
   }
 
   //function to update pannier
-  updatePannier(ClientModel client, PanierModel pannier) async {
+  updatePannier(client, AchatProduitModel pannier, pannierToken) async {
     await _db
         .collection("Client")
-        .doc(client.firebaseToken)
+        .doc(client)
         .collection("Pannier")
-        .doc(pannier.firebaseToken)
+        .doc(pannierToken)
         .collection("Produits")
         .add({
-      "Nom": pannier.produit.nom,
-      "Description": pannier.produit.description,
-      "Prix": pannier.produit.prix,
-      "Image": pannier.produit.image,
-      "qteStock": pannier.produit.qteStock,
+      "Nom": pannier.nom,
+      "Description": pannier.description,
+      "Prix": pannier.prix,
+      "Image": pannier.image,
+      "qteCommande": pannier.qteCommande,
+      "Like": false,
     });
+  }
+
+  deleteProductPannier(client, PanierModel panier, produit) async {
+    await _db
+        .collection("Client")
+        .doc(client)
+        .collection("Pannier")
+        .doc(panier.firebaseToken)
+        .collection(productCollection)
+        .doc(produit)
+        .delete();
   }
 
   deletePannier(client, PanierModel panier) async {

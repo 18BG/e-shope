@@ -65,13 +65,15 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
                             provide.likeProduct(widget.produit);
                           }
                         } else {
-                          provide.diseLikeProduct(
-                              provide.likeList.firstWhere((element) {
-                            return element.nom == widget.produit.nom &&
-                                widget.produit.description ==
-                                    element.description &&
-                                element.prix == widget.produit.prix;
-                          }));
+                          if (provide.likeList.isNotEmpty) {
+                            provide.diseLikeProduct(
+                                provide.likeList.firstWhere((element) {
+                              return element.nom == widget.produit.nom &&
+                                  widget.produit.description ==
+                                      element.description &&
+                                  element.prix == widget.produit.prix;
+                            }));
+                          }
                         }
                       });
                     },

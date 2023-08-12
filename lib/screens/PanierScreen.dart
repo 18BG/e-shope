@@ -1,16 +1,24 @@
 import 'package:e_shope/provider/provider.dart';
+import 'package:e_shope/widgets/dialogue_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/all_products.dart';
 import '../widgets/panier_widget.dart';
 import '../widgets/screen_title_bar.dart';
+import 'AchatScreen.dart';
 
-class PanierListScreen extends StatelessWidget {
+class PanierListScreen extends StatefulWidget {
   const PanierListScreen({Key? key}) : super(key: key);
 
   @override
+  State<PanierListScreen> createState() => _PanierListScreenState();
+}
+
+class _PanierListScreenState extends State<PanierListScreen> {
+  @override
   Widget build(BuildContext context) {
+    int productNumber = 1;
     return Scaffold(
       body: Consumer<UserProvider>(
         builder: (context, child, _) => Container(
@@ -27,16 +35,65 @@ class PanierListScreen extends StatelessWidget {
                         child: ListView.builder(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
-                          itemCount: child.panierList.length,
+                          itemCount: child.panierList.isNotEmpty
+                              ? child.panierList.firstOrNull!.produit.length
+                              : 0,
                           itemBuilder: (context, index) {
                             return PanierWidget(
                               ico: Icons.restore,
-                              productNumber: 3,
-                              pannier: child.panierList[index],
+                              pan: child.panierList.first,
+                              productNumber: 1,
+                              pannier: child.panierList.first.produit[index],
                             );
                           },
                         ),
                       ),
+                      child.panierList.isEmpty
+                          ? Center(
+                              child: Text("Panier vide pour le moment"),
+                            )
+                          : Container(
+                              child: Row(
+                                children: [
+                                  Spacer(),
+                                  ElevatedButton(
+                                      style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all(
+                                                Colors.red),
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          Dialogue(
+                                              message:
+                                                  "Panier vider avec succes");
+                                          child.deletePannier(
+                                              child.panierList.first);
+                                        });
+                                      },
+                                      child: Text("videz le pannier")),
+                                  Spacer(),
+                                  ElevatedButton(
+                                      style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all(
+                                                Colors.green),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    AchatScreen(
+                                                        produit: child
+                                                            .panierList
+                                                            .first)));
+                                      },
+                                      child: Text("Valider la commande")),
+                                  Spacer()
+                                ],
+                              ),
+                            ),
                       const AllProducts(),
                     ],
                   ),

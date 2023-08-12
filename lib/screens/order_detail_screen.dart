@@ -1,10 +1,11 @@
+import 'package:e_shope/models/commande_model.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/order_detail_product.dart';
 
 class OrderDetailScreen extends StatefulWidget {
-  const OrderDetailScreen({super.key});
-
+  OrderDetailScreen({required this.commande, super.key});
+  CommandeModel commande;
   @override
   State<OrderDetailScreen> createState() => _OrderDetailScreenState();
 }
@@ -27,7 +28,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                 decoration: BoxDecoration(
                     color: Colors.white24,
                     borderRadius: BorderRadius.circular(10)),
-                child: const Card(
+                child: Card(
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 10),
                     child: Column(
@@ -35,15 +36,15 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Spacer(),
-                          Text("01 Dec, 2022"),
+                          Text(widget.commande.dateCommande.toString()),
                           Spacer(),
                           Row(children: [
                             Text("Order ID :"),
-                            Text("#1240350000"),
+                            Text(widget.commande.firebaseToken.toString()),
                             Spacer(),
                             Text("Amount :"),
                             Text(
-                              "#234",
+                              widget.commande.prix.toString(),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             )
                           ]),
@@ -57,14 +58,10 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                 child: ListView.builder(
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
-                    itemCount: 3,
+                    itemCount: widget.commande.produit.first.produit.length,
                     itemBuilder: (context, i) {
                       return OrderProductDetailWidget(
-                        productCurrentPrice: 250,
-                        productDescription: "Capi",
-                        productTitle: "best all",
-                        productNumber: 20,
-                        imageUrl: "assets/images/vic0.jpeg",
+                        produit: widget.commande.produit.first.produit[i],
                       );
                     }),
               )

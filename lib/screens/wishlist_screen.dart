@@ -8,6 +8,7 @@ import 'package:e_shope/widgets/wishItems.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../models/achat_produit.dart';
 import '../provider/provider.dart';
 import '../widgets/input.dart';
 import '../widgets/my_drawer.dart';
@@ -70,38 +71,40 @@ class _WhishListScreenState extends State<WhishListScreen> {
                 Expanded(
                   child: SingleChildScrollView(
                     child: Column(children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ProductViewScreen(
-                                        produit: ProduitModel(
-                                            nom: "",
-                                            description: "",
-                                            prix: 0,
-                                            image: "",
-                                            qteStock: 0,
-                                            like: false),
-                                      )));
-                        },
-                        child: DynamicHeightGridView(
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          itemCount: likeList.length,
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 0,
-                          mainAxisSpacing: 5,
-                          builder: (ctx, index) {
-                            /// return your widget here.
-                            return Padding(
+                      DynamicHeightGridView(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: likeList.length,
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 0,
+                        mainAxisSpacing: 5,
+                        builder: (ctx, index) {
+                          /// return your widget here.
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ProductViewScreen(
+                                            produit: ProduitModel(
+                                                nom: likeList[index].nom,
+                                                description:
+                                                    likeList[index].description,
+                                                prix: likeList[index].prix,
+                                                image: likeList[index].image,
+                                                qteStock:
+                                                    likeList[index].qteStock,
+                                                like: likeList[index].like),
+                                          )));
+                            },
+                            child: Padding(
                               padding: EdgeInsets.fromLTRB(8, 8, 8, 0),
                               child: WishItems(
                                 produit: likeList[index],
                               ),
-                            );
-                          },
-                        ),
+                            ),
+                          );
+                        },
                       ),
                       AllProducts()
                     ]),
