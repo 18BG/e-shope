@@ -1,5 +1,6 @@
 import 'package:e_shope/models/commande_model.dart';
 import 'package:e_shope/models/panier_model.dart';
+import 'package:e_shope/utilities/constants.dart';
 import 'package:e_shope/widgets/dialogue_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -217,7 +218,7 @@ class _AchatScreenState extends State<AchatScreen> {
                                       prix: Total,
                                       produit: [widget.produit],
                                       dateCommande: DateTime.now(),
-                                      etatCommande: false,
+                                      etatCommande: "En attente",
                                       adresseLivraison: _controller.text,
                                       qteCommande:
                                           widget.produit.produit.length);
@@ -242,7 +243,7 @@ class _AchatScreenState extends State<AchatScreen> {
                                       prix: Total,
                                       produit: [widget.produit],
                                       dateCommande: DateTime.now(),
-                                      etatCommande: true,
+                                      etatCommande: "Livré",
                                       adresseLivraison: _controller.text,
                                       qteCommande:
                                           widget.produit.produit.length);

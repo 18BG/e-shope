@@ -1,3 +1,4 @@
+import 'package:e_shope/utilities/constants.dart';
 import 'package:e_shope/widgets/all_products.dart';
 import 'package:e_shope/widgets/my_drawer.dart';
 import 'package:e_shope/widgets/order_widget.dart';
@@ -76,10 +77,10 @@ class _OrderListScreenState extends State<OrderListScreen> {
                                       commande: provider.commandeList[index])));
                         },
                         child: OrderWidget(
-                          ico:
-                              provider.commandeList[index].etatCommande == false
-                                  ? Icons.restore
-                                  : Icons.stay_current_landscape_sharp,
+                          ico: provider.commandeList[index].etatCommande ==
+                                  "Livré"
+                              ? Icons.restore
+                              : Icons.stay_current_landscape_sharp,
                           result: "restored",
                           commande: provider.commandeList[index],
                         ),
