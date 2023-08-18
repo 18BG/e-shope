@@ -7,6 +7,8 @@ const appName = "Victoire";
 const productCollection = "Produits";
 const categoriCollection = "Categorie";
 
+enum Etat {livrer, attente, annuller }
+
 const customer = "Client";
 const firstName = "Prénom";
 const lastName = "Nom";

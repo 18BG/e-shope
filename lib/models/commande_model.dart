@@ -2,9 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_shope/models/panier_model.dart';
 import 'package:e_shope/models/produit_model.dart';
 
+import '../utilities/constants.dart';
+
 class CommandeModel {
   DateTime dateCommande;
-  bool etatCommande;
+  String etatCommande;
   String adresseLivraison;
   num prix;
   String? firebaseToken;
