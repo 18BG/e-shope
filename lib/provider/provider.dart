@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_shope/models/commande_model.dart';
 import 'package:e_shope/models/like_model.dart';
+import 'package:e_shope/models/new_produit.dart';
 import 'package:e_shope/models/panier_model.dart';
 import 'package:e_shope/models/produit_model.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,7 @@ class UserProvider with ChangeNotifier {
   List<LikeModel> likeList = [];
   List<PanierModel> panierList = [];
   List<ProduitModel> listProduit = [];
+  List<NewProductModel> newsList = [];
   List<CommandeModel> commandeList = [];
   String? image;
   String? password;
@@ -67,6 +69,10 @@ class UserProvider with ChangeNotifier {
         element.listProduit!.forEach((element) {
           listProduit.add(element);
         });
+        element.listNews!.forEach((element) {
+          newsList.add(element);
+        });
+        print("new lis lenght: ${newsList.length}");
       });
       categoryList = result;
       print(result.length);

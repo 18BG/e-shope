@@ -16,19 +16,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  bool isLike = false;
-  List<Map<String, dynamic>> map = [
-    {"Képi": 0},
-    {"marque": 1},
-    {"complet": 2},
-    {"Pull": 3},
-    {"Shirt": 4},
-    {"Sport": 5},
-    {"Képi1": 6},
-    {"pull": 7},
-    {"Victoire": 8},
-    {"shirt": 9}
-  ];
   late UserProvider provider;
   @override
   void initState() {
@@ -59,11 +46,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       Container(
                         margin: EdgeInsets.all(width * 0.03),
                         width: width * 0.99,
-                        height: height / 1.65,
+                        height: height / 1.59,
                         color: const Color.fromARGB(255, 241, 238, 238),
                         child: const Column(
                           children: [
-                            HomeCard(),
+                            Expanded(child: HomeCard()),
                             HomeCategorie(),
                           ],
                         ),
@@ -71,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       BestSale(
                         nbBestSale: 4,
                       ),
-                      const AllProducts()
+                      AllProducts()
                     ],
                   ),
                 ),

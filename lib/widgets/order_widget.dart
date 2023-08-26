@@ -40,7 +40,7 @@ class OrderWidget extends StatelessWidget {
                     Text(
                       commande.firebaseToken!,
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: MediaQuery.of(context).textScaleFactor * 16,
                         fontWeight: FontWeight.bold,
                       ),
                       maxLines: 1,
@@ -50,7 +50,7 @@ class OrderWidget extends StatelessWidget {
                     Text(
                       "${commande.produit.length}",
                       style: TextStyle(
-                        fontSize: 12,
+                        fontSize: MediaQuery.of(context).textScaleFactor * 12,
                       ),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
@@ -61,7 +61,7 @@ class OrderWidget extends StatelessWidget {
                       style: TextStyle(
                         color: Colors.red,
                         fontWeight: FontWeight.bold,
-                        fontSize: 13,
+                        fontSize: MediaQuery.of(context).textScaleFactor * 13,
                       ),
                     ),
                   ],
@@ -70,20 +70,24 @@ class OrderWidget extends StatelessWidget {
             ),
             const Spacer(),
             SizedBox(
-              width: MediaQuery.of(context).size.width * 0.2,
+              width: MediaQuery.of(context).size.width * 0.225,
               child: Row(
                 children: [
                   Icon(
                     ico,
-                    color: commande.etatCommande == false
+                    color: commande.etatCommande == "Livré"
                         ? Colors.green
-                        : Colors.red,
-                    size: 15,
+                        : commande.etatCommande == "En attente"
+                            ? Colors.orange
+                            : Colors.red,
+                    size: MediaQuery.of(context).devicePixelRatio * 8,
                   ),
-                  SizedBox(width: 4),
+                  SizedBox(width: MediaQuery.of(context).textScaleFactor * 4),
                   Text(
                     result,
-                    style: TextStyle(fontSize: 12),
+                    overflow: TextOverflow.fade,
+                    style: TextStyle(
+                        fontSize: MediaQuery.of(context).textScaleFactor * 12),
                   ),
                 ],
               ),

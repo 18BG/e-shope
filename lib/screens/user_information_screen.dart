@@ -36,8 +36,9 @@ class _UserInformationState extends State<UserInformation> {
             child: Column(
               children: [
                 Container(
-                  padding:
-                      EdgeInsets.all(MediaQuery.of(context).size.width / 30),
+                  padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).size.width / 30,
+                      top: MediaQuery.of(context).padding.top),
                   child: Row(
                     children: [
                       Container(

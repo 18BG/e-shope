@@ -55,7 +55,7 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
             children: [
               Expanded(
                 child: GestureDetector(
-                  onTap: () {
+                  onTap: () async {
                     final achat = AchatProduitModel(
                         nom: widget.produit.nom,
                         description: widget.produit.description,
@@ -63,7 +63,7 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
                         image: widget.produit.image,
                         qteCommande: 1,
                         like: widget.produit.like);
-                    provider.panierList.first.produit.add(achat);
+                    await provider.addToPaannier(achat);
                     Navigator.push(
                         context,
                         MaterialPageRoute(

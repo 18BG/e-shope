@@ -1,5 +1,7 @@
 import 'package:e_shope/models/categorie_model.dart';
 import 'package:e_shope/provider/provider.dart';
+import 'package:e_shope/screens/AllCategoriesScreen.dart';
+import 'package:e_shope/widgets/all_products.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -13,18 +15,6 @@ class HomeCategorie extends StatefulWidget {
 }
 
 class _HomeCategorieState extends State<HomeCategorie> {
-  List<Map<String, dynamic>> map = [
-    {"Képi": 0},
-    {"marque": 1},
-    {"complet": 2},
-    {"Pull": 3},
-    {"Shirt": 4},
-    {"Sport": 5},
-    {"Képi1": 6},
-    {"pull": 7},
-    {"Victoire": 8},
-    {"shirt": 9}
-  ];
   late UserProvider provider;
   @override
   void initState() {
@@ -71,32 +61,44 @@ class _HomeCategorieState extends State<HomeCategorie> {
                           scrollDirection: Axis.horizontal,
                           shrinkWrap: true,
                           itemBuilder: (BuildContext context, index) {
-                            return Column(
-                              children: [
-                                Container(
-                                  width: height * 0.09,
-                                  height: height * 0.09,
-                                  decoration: BoxDecoration(
-                                      color: (index % 2 == 0)
-                                          ? Colors.teal
-                                          : Colors.green,
-                                      borderRadius: BorderRadius.circular(50)),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(50),
-                                    child: provider.isLoading
-                                        ? const CircularProgressIndicator()
-                                        : Image(
-                                            image: NetworkImage(
-                                                categorie[index].image!)),
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            AllCategorieScreen(
+                                              value: categorie[index].nom,
+                                            )));
+                              },
+                              child: Column(
+                                children: [
+                                  Container(
+                                    width: height * 0.09,
+                                    height: height * 0.09,
+                                    decoration: BoxDecoration(
+                                        color: (index % 2 == 0)
+                                            ? Colors.teal
+                                            : Colors.green,
+                                        borderRadius:
+                                            BorderRadius.circular(50)),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(50),
+                                      child: provider.isLoading
+                                          ? const CircularProgressIndicator()
+                                          : Image(
+                                              image: NetworkImage(
+                                                  categorie[index].image!)),
+                                    ),
                                   ),
-                                ),
-                                SizedBox(
-                                  height: height * 0.005,
-                                ),
-                                SizedBox(
-                                    height: height * 0.035,
-                                    child: Text(categorie[index].nom))
-                              ],
+                                  SizedBox(
+                                    height: height * 0.005,
+                                  ),
+                                  SizedBox(
+                                      height: height * 0.035,
+                                      child: Text(categorie[index].nom))
+                                ],
+                              ),
                             );
                           },
                           separatorBuilder: ((context, index) => SizedBox(

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_shope/models/client_model.dart';
 import 'package:e_shope/models/commande_model.dart';
 import 'package:e_shope/models/like_model.dart';
+import 'package:e_shope/models/new_produit.dart';
 import 'package:e_shope/models/panier_model.dart';
 import 'package:e_shope/models/produit_model.dart';
 import 'package:e_shope/utilities/constants.dart';
@@ -169,12 +170,19 @@ class FirebaseManagement {
             .collection(productCollection)
             .get();
         print(i.nom);
-        print(i.firebaseToken);
+        final newproducts = await _db
+            .collection(categoriCollection)
+            .doc(i.firebaseToken)
+            .collection(newProductCollection)
+            .get();
         //add products list to client product list
-
+        final newList = newproducts.docs
+            .map((e) => NewProductModel.fromSnapshot(e))
+            .toList();
         final productListe =
             products.docs.map((e) => ProduitModel.fromSnapshot(e)).toList();
         i.listProduit = productListe;
+        i.listNews = newList;
       }
     } catch (e) {
       print("errorin Firebase : $e");

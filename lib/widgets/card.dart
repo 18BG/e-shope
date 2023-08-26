@@ -1,4 +1,8 @@
+import 'package:e_shope/models/new_produit.dart';
+import 'package:e_shope/provider/provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:provider/provider.dart';
 
 class HomeCard extends StatefulWidget {
   const HomeCard({super.key});
@@ -8,7 +12,42 @@ class HomeCard extends StatefulWidget {
 }
 
 class _HomeCardState extends State<HomeCard> {
-  Nouveaute? _selectedCharacter;
+  int currentIndex = 0;
+  PageController _pageController = PageController();
+  late UserProvider provider;
+
+  @override
+  void initState() {
+    provider = Provider.of<UserProvider>(context, listen: false);
+    super.initState();
+    startAutoScroll();
+  }
+
+  void startAutoScroll() {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      Future.delayed(const Duration(seconds: 3), () {
+        if (mounted) {
+          if (currentIndex < provider.newsList.length - 1) {
+            currentIndex++;
+          } else {
+            currentIndex = 0;
+          }
+          _pageController.animateToPage(
+            currentIndex,
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.easeInOut,
+          );
+          startAutoScroll();
+        }
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,77 +56,87 @@ class _HomeCardState extends State<HomeCard> {
     return Container(
       margin: EdgeInsets.all(width * 0.03),
       width: width * 0.93,
-      height: height / 2.9,
+      height: height / 2.8,
       child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
-        ),
+        // shape: RoundedRectangleBorder(
+        //   borderRadius: BorderRadius.circular(15),
+        // ),
         elevation: 15,
-        child: Row(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            SizedBox(
-              width: width * 0.45,
-              height: height / 3,
-              child: Column(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.only(left: 15),
-                    width: width * 0.45,
-                    height: height / 6.19,
-                    child: const Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
+            Expanded(
+              child: PageView.builder(
+                controller: _pageController,
+                itemCount: provider.newsList.length,
+                onPageChanged: (index) {
+                  setState(() {
+                    currentIndex = index;
+                  });
+                },
+                itemBuilder: (context, index) {
+                  return Container(
+                    padding: EdgeInsets.only(
+                        left: MediaQuery.of(context).devicePixelRatio * 5,
+                        right: MediaQuery.of(context).devicePixelRatio * 5,
+                        bottom: MediaQuery.of(context).devicePixelRatio * 1),
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "news",
+                          "Nouveauté",
                           style: TextStyle(
-                            fontSize: 20,
+                            fontSize:
+                                MediaQuery.of(context).textScaleFactor * 16,
                             fontWeight: FontWeight.bold,
+                            color: Colors.grey[600],
                           ),
                         ),
+                        SizedBox(
+                            height: MediaQuery.of(context).textScaleFactor * 8),
                         Text(
-                          "Chaussures de sports",
+                          provider.newsList[index].description,
                           style: TextStyle(
-                            fontSize: 20,
+                            fontSize:
+                                MediaQuery.of(context).textScaleFactor * 20,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
+                        SizedBox(
+                            height: MediaQuery.of(context).textScaleFactor * 8),
+                        Container(
+                          padding: EdgeInsets.only(
+                              bottom:
+                                  MediaQuery.of(context).textScaleFactor * 2),
+                          width: width * 0.9,
+                          height: height / 3.5,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                spreadRadius: 2,
+                                blurRadius: 5,
+                                offset: Offset(0,
+                                    MediaQuery.of(context).textScaleFactor * 3),
+                              ),
+                            ],
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.network(
+                              provider.newsList[index].imageUrl,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                            height:
+                                MediaQuery.of(context).textScaleFactor * 12),
                       ],
                     ),
-                  ),
-                  SizedBox(
-                    width: width * 0.45,
-                    height: height / 6.19,
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: Nouveaute.values
-                            .map((character) => Container(
-                                  alignment: Alignment.bottomLeft,
-                                  child: Radio<Nouveaute>(
-                                    value: character,
-                                    groupValue: _selectedCharacter,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        _selectedCharacter = value;
-                                      });
-                                    },
-                                  ),
-                                ))
-                            .toList(),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              width: width * 0.45,
-              height: height / 3,
-              child: Image.asset(
-                'assets/images/vic6.jpeg',
-                height: height / 2.8,
+                  );
+                },
               ),
             ),
           ],
@@ -96,5 +145,3 @@ class _HomeCardState extends State<HomeCard> {
     );
   }
 }
-
-enum Nouveaute { Babry, Aymane, Ayman }

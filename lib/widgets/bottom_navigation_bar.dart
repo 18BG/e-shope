@@ -12,8 +12,9 @@ import 'package:flutter/material.dart';
 List<Widget>? screens;
 
 class BottomNavBar extends StatefulWidget {
-  BottomNavBar({super.key, this.isOk});
+  BottomNavBar({super.key, this.isOk, this.index});
   bool? isOk;
+  int? index;
 
   @override
   State<BottomNavBar> createState() => _BottomNavBarState();
@@ -40,6 +41,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
+    widget.index != null ? _selectedIndex = widget.index! : _selectedIndex = 0;
   }
 
   @override
