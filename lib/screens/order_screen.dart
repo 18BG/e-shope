@@ -1,5 +1,6 @@
 import 'package:e_shope/utilities/constants.dart';
 import 'package:e_shope/widgets/all_products.dart';
+import 'package:e_shope/widgets/my_app_bar.dart';
 import 'package:e_shope/widgets/my_drawer.dart';
 import 'package:e_shope/widgets/order_widget.dart';
 import 'package:flutter/material.dart';
@@ -24,39 +25,40 @@ class _OrderListScreenState extends State<OrderListScreen> {
     final widht = MediaQuery.of(context).size.width;
     return Scaffold(
       drawer: MyDrawer(),
-      appBar: AppBar(
-        automaticallyImplyLeading: true,
-        iconTheme: IconThemeData(color: Colors.black),
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        title: Row(
-          children: [
-            Container(
-              width: widht * 0.6,
-              child: Input(
-                hintText: 'Recherche',
-                prefixIcon: true,
-                iconType: Icons.search,
-                rayon: 15.0,
-              ),
-            ),
-          ],
-        ),
-        actions: [
-          Container(
-            child: ClipRRect(
-              child: Image.asset(
-                'assets/images/victoire.jpeg',
-                fit: BoxFit.contain,
-                width: widht * 0.092,
-              ),
-            ),
-          ),
-          SizedBox(
-            width: widht * 0.064,
-          ),
-        ],
-      ),
+      // appBar: AppBar(
+      //   automaticallyImplyLeading: true,
+      //   iconTheme: IconThemeData(color: Colors.black),
+      //   elevation: 0,
+      //   backgroundColor: Colors.transparent,
+      //   title: Row(
+      //     children: [
+      //       Container(
+      //         width: widht * 0.6,
+      //         child: Input(
+      //           hintText: 'Recherche',
+      //           prefixIcon: true,
+      //           iconType: Icons.search,
+      //           rayon: 15.0,
+      //         ),
+      //       ),
+      //     ],
+      //   ),
+      //   actions: [
+      //     Container(
+      //       child: ClipRRect(
+      //         child: Image.asset(
+      //           'assets/images/victoire.jpeg',
+      //           fit: BoxFit.contain,
+      //           width: widht * 0.092,
+      //         ),
+      //       ),
+      //     ),
+      //     SizedBox(
+      //       width: widht * 0.064,
+      //     ),
+      //   ],
+      // ),
+      appBar: MyAppBar(),
       body: Container(
         color: Colors.white,
         child: Column(
@@ -79,9 +81,18 @@ class _OrderListScreenState extends State<OrderListScreen> {
                         child: OrderWidget(
                           ico: provider.commandeList[index].etatCommande ==
                                   "Livré"
-                              ? Icons.restore
-                              : Icons.stay_current_landscape_sharp,
-                          result: "restored",
+                              ? Icons.delivery_dining
+                              : provider.commandeList[index].etatCommande ==
+                                      "En attente"
+                                  ? Icons.wifi_protected_setup_sharp
+                                  : Icons.cancel,
+                          result: provider.commandeList[index].etatCommande ==
+                                  "Livré"
+                              ? "Livré"
+                              : provider.commandeList[index].etatCommande ==
+                                      "En attente"
+                                  ? "En attente"
+                                  : "Annuler",
                           commande: provider.commandeList[index],
                         ),
                       );

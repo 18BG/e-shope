@@ -2,6 +2,7 @@ import 'package:e_shope/models/commande_model.dart';
 import 'package:e_shope/models/panier_model.dart';
 import 'package:e_shope/utilities/constants.dart';
 import 'package:e_shope/widgets/dialogue_widget.dart';
+import 'package:e_shope/widgets/my_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/produit_model.dart';
@@ -40,34 +41,7 @@ class _AchatScreenState extends State<AchatScreen> {
       Total += element.prix;
     });
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: true,
-        iconTheme: const IconThemeData(color: Colors.black),
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        title: SizedBox(
-          width: width * 0.6,
-          child: const Input(
-            hintText: 'Recherche',
-            prefixIcon: true,
-            iconType: Icons.search,
-            rayon: 15.0,
-          ),
-        ),
-        actions: [
-          Container(
-            margin: EdgeInsets.only(right: width * 0.04),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(8.0),
-              child: Image.asset(
-                'assets/images/victoire.jpeg',
-                fit: BoxFit.contain,
-                width: width * 0.092,
-              ),
-            ),
-          ),
-        ],
-      ),
+      appBar: MyAppBar(),
       body: Container(
         color: Colors.white,
         child: Column(

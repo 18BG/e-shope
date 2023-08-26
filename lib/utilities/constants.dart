@@ -6,8 +6,9 @@ const appName = "Victoire";
 //Fields Name
 const productCollection = "Produits";
 const categoriCollection = "Categorie";
+const newProductCollection = "newProduct";
 
-enum Etat {livrer, attente, annuller }
+enum Etat { livrer, attente, annuller }
 
 const customer = "Client";
 const firstName = "Prénom";

@@ -1,3 +1,5 @@
+import 'package:e_shope/screens/home_screen.dart';
+import 'package:e_shope/widgets/bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
 import '../screens/PanierScreen.dart';
@@ -67,7 +69,9 @@ class _DialogueState extends State<Dialogue> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => PanierListScreen()));
+                              builder: (context) => BottomNavBar(
+                                    index: 2,
+                                  )));
                     });
                   },
                   child: Text(

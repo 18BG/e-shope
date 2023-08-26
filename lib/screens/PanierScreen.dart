@@ -18,7 +18,6 @@ class PanierListScreen extends StatefulWidget {
 class _PanierListScreenState extends State<PanierListScreen> {
   @override
   Widget build(BuildContext context) {
-    int productNumber = 1;
     return Scaffold(
       body: Consumer<UserProvider>(
         builder: (context, child, _) => Container(
@@ -50,7 +49,16 @@ class _PanierListScreenState extends State<PanierListScreen> {
                       ),
                       child.panierList.isEmpty
                           ? Center(
-                              child: Text("Panier vide pour le moment"),
+                              heightFactor:
+                                  MediaQuery.of(context).size.height * 0.004,
+                              child: Text(
+                                "Panier vide pour le moment",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize:
+                                        MediaQuery.of(context).textScaleFactor *
+                                            18),
+                              ),
                             )
                           : Container(
                               child: Row(
@@ -94,7 +102,7 @@ class _PanierListScreenState extends State<PanierListScreen> {
                                 ],
                               ),
                             ),
-                      const AllProducts(),
+                      AllProducts(),
                     ],
                   ),
                 ),
