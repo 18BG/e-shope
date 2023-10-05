@@ -58,65 +58,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       BestSale(
                         nbBestSale: 4,
                       ),
-                      AllProducts()
+                      AllProducts(
+                        isTrue: false,
+                      )
                     ],
                   ),
                 ),
               );
       },
-    );
-  }
-}
-
-enum Nouveaute { lafayette, jefferson, Babry, Aymane, Ayman }
-
-// ignore: must_be_immutable
-class ProductItemWidget extends StatelessWidget {
-  int index;
-  ProductItemWidget({super.key, required this.index});
-
-  @override
-  Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-    return InkWell(
-      onTap: () {
-        // Action when the product is tapped
-      },
-      child: SizedBox(
-        width: width * 0.5,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Image.asset(
-              "assets/images/vic$index.jpeg",
-              width: width * 0.37,
-              height: 160,
-              fit: BoxFit.cover,
-            ),
-            const SizedBox(height: 8),
-            const SizedBox(
-              height: 70,
-              child: Column(
-                children: [
-                  Text(
-                    "Pull",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    'Price: \$10',
-                    style: TextStyle(fontSize: 14),
-                  ),
-                  Text(
-                    'Popularity: recommende',
-                    style: TextStyle(fontSize: 14),
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
     );
   }
 }

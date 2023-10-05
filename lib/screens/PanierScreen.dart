@@ -24,7 +24,10 @@ class _PanierListScreenState extends State<PanierListScreen> {
           color: Colors.white,
           child: Column(
             children: [
-              ScreenTitleBar(title: "Mon Pannier"),
+              ScreenTitleBar(
+                title: "Mon Pannier",
+                isTrue: true,
+              ),
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(
@@ -102,7 +105,9 @@ class _PanierListScreenState extends State<PanierListScreen> {
                                 ],
                               ),
                             ),
-                      AllProducts(),
+                      AllProducts(
+                        isTrue: true,
+                      ),
                     ],
                   ),
                 ),

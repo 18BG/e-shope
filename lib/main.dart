@@ -1,4 +1,5 @@
 import 'package:e_shope/provider/provider.dart';
+import 'package:e_shope/screens/splachScreen.dart';
 import 'package:e_shope/widgets/bottom_navigation_bar.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -23,6 +24,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
-        home: BottomNavBar());
+        home: SplashScreen());
   }
 }

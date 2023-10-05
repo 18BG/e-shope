@@ -1,14 +1,13 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:e_shope/models/commande_model.dart';
 import 'package:e_shope/models/panier_model.dart';
-import 'package:e_shope/utilities/constants.dart';
 import 'package:e_shope/widgets/dialogue_widget.dart';
 import 'package:e_shope/widgets/my_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../models/produit_model.dart';
 import '../provider/provider.dart';
 import '../widgets/cartproduct.dart';
-import '../widgets/input.dart';
 import '../widgets/screen_title_bar.dart';
 
 class AchatScreen extends StatefulWidget {
@@ -36,7 +35,6 @@ class _AchatScreenState extends State<AchatScreen> {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<UserProvider>(context, listen: false);
-    final width = MediaQuery.of(context).size.width;
     widget.produit.produit.forEach((element) {
       Total += element.prix;
     });
@@ -63,7 +61,7 @@ class _AchatScreenState extends State<AchatScreen> {
                             ico: Icons.restore,
                             productNumber:
                                 widget.produit.produit[index].qteCommande,
-                            imageUrl: widget.produit.produit[index].image,
+                            imageUrl: widget.produit.produit[index].imageUrl,
                             productCurrentPrice:
                                 widget.produit.produit[index].prix,
                             productDescription:
@@ -217,15 +215,25 @@ class _AchatScreenState extends State<AchatScreen> {
                                       prix: Total,
                                       produit: [widget.produit],
                                       dateCommande: DateTime.now(),
-                                      etatCommande: "Livré",
+                                      etatCommande: "En attente",
                                       adresseLivraison: _controller.text,
                                       qteCommande:
                                           widget.produit.produit.length);
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) => Dialogue(
-                                          message:
-                                              "Commande effectuer avec success"));
+                                  var isOk =
+                                      await provider.addCommande(commande!);
+                                  if (isOk == true) {
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) => Dialogue(
+                                            message:
+                                                "Achat effectuer avec success"));
+                                  } else {
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) => Dialogue(
+                                            message:
+                                                "Erruer lors de l'envoi de la commande"));
+                                  }
                                 }
                               },
                               child: const Text("Acheter"),

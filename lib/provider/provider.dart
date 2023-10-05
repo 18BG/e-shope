@@ -63,6 +63,7 @@ class UserProvider with ChangeNotifier {
   }
 
   Future<bool> getCategoryProvider() async {
+    print("Entrer");
     try {
       var result = await firebase.getCategorieAndProduc();
       result.forEach((element) {
@@ -73,7 +74,18 @@ class UserProvider with ChangeNotifier {
           newsList.add(element);
         });
         print("new lis lenght: ${newsList.length}");
+        print("list lenght: ${listProduit.length}");
       });
+
+      // for (final cat in result) {
+      //   for (final prod in cat.listProduit!) {
+      //     listProduit.add(prod);
+      //   }
+      //   for (final prod in cat.listNews!) {
+      //     newsList.add(prod);
+      //   }
+      // }
+
       categoryList = result;
       print(result.length);
     } catch (e) {

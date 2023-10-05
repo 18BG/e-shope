@@ -1,4 +1,3 @@
-import 'package:e_shope/models/new_produit.dart';
 import 'package:e_shope/provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -58,9 +57,6 @@ class _HomeCardState extends State<HomeCard> {
       width: width * 0.93,
       height: height / 2.8,
       child: Card(
-        // shape: RoundedRectangleBorder(
-        //   borderRadius: BorderRadius.circular(15),
-        // ),
         elevation: 15,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -76,63 +72,66 @@ class _HomeCardState extends State<HomeCard> {
                 },
                 itemBuilder: (context, index) {
                   return Container(
-                    padding: EdgeInsets.only(
-                        left: MediaQuery.of(context).devicePixelRatio * 5,
-                        right: MediaQuery.of(context).devicePixelRatio * 5,
-                        bottom: MediaQuery.of(context).devicePixelRatio * 1),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    padding: EdgeInsets.all(width * 0.03),
+                    child: Row(
+                      mainAxisAlignment:
+                          MainAxisAlignment.center, // Centrer horizontalement
+                      crossAxisAlignment:
+                          CrossAxisAlignment.center, // Centrer verticalement
                       children: [
-                        Text(
-                          "Nouveauté",
-                          style: TextStyle(
-                            fontSize:
-                                MediaQuery.of(context).textScaleFactor * 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey[600],
-                          ),
-                        ),
-                        SizedBox(
-                            height: MediaQuery.of(context).textScaleFactor * 8),
-                        Text(
-                          provider.newsList[index].description,
-                          style: TextStyle(
-                            fontSize:
-                                MediaQuery.of(context).textScaleFactor * 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(
-                            height: MediaQuery.of(context).textScaleFactor * 8),
-                        Container(
-                          padding: EdgeInsets.only(
-                              bottom:
-                                  MediaQuery.of(context).textScaleFactor * 2),
-                          width: width * 0.9,
-                          height: height / 3.5,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 2,
-                                blurRadius: 5,
-                                offset: Offset(0,
-                                    MediaQuery.of(context).textScaleFactor * 3),
+                        Expanded(
+                          flex: 2, // 20% of the available space
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Nouveauté",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey[600],
+                                ),
+                              ),
+                              SizedBox(height: 8),
+                              Container(
+                                height: height / 3.5,
+                                child: Text(
+                                  provider.newsList[index].description,
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  maxLines: 3, // Limit the number of lines
+                                  overflow: TextOverflow
+                                      .ellipsis, // Show ellipsis if overflow
+                                ),
                               ),
                             ],
                           ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: Image.network(
-                              provider.newsList[index].imageUrl,
-                              fit: BoxFit.cover,
+                        ),
+                        Expanded(
+                          flex: 8, // 80% of the available space
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 2,
+                                  blurRadius: 5,
+                                  offset: Offset(0, 3),
+                                ),
+                              ],
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Image.network(
+                                provider.newsList[index].imageUrl,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                         ),
-                        SizedBox(
-                            height:
-                                MediaQuery.of(context).textScaleFactor * 12),
                       ],
                     ),
                   );

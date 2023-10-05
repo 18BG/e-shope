@@ -8,10 +8,7 @@ import 'package:e_shope/widgets/wishItems.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../models/achat_produit.dart';
 import '../provider/provider.dart';
-import '../widgets/input.dart';
 import '../widgets/my_drawer.dart';
 import '../widgets/screen_title_bar.dart';
 
@@ -25,7 +22,6 @@ class WhishListScreen extends StatefulWidget {
 class _WhishListScreenState extends State<WhishListScreen> {
   @override
   Widget build(BuildContext context) {
-    final widht = MediaQuery.of(context).size.width;
     return Scaffold(
       drawer: const MyDrawer(),
       appBar: MyAppBar(),
@@ -55,7 +51,7 @@ class _WhishListScreenState extends State<WhishListScreen> {
                             )
                           : DynamicHeightGridView(
                               shrinkWrap: true,
-                              physics: NeverScrollableScrollPhysics(),
+                              physics: const NeverScrollableScrollPhysics(),
                               itemCount: likeList.length,
                               crossAxisCount: 2,
                               crossAxisSpacing: 0,
@@ -70,6 +66,8 @@ class _WhishListScreenState extends State<WhishListScreen> {
                                             builder: (context) =>
                                                 ProductViewScreen(
                                                   produit: ProduitModel(
+                                                      imageUrl: likeList[index]
+                                                          .imageUrl,
                                                       nom: likeList[index].nom,
                                                       description:
                                                           likeList[index]
@@ -93,7 +91,9 @@ class _WhishListScreenState extends State<WhishListScreen> {
                                 );
                               },
                             ),
-                      AllProducts()
+                      AllProducts(
+                        isTrue: true,
+                      )
                     ]),
                   ),
                 ),

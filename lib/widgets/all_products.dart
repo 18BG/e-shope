@@ -19,8 +19,9 @@ import 'package:provider/provider.dart';
 import '../models/client_model.dart';
 
 class AllProducts extends StatefulWidget {
-  AllProducts({super.key, this.value});
+  AllProducts({super.key, this.value, required this.isTrue});
   String? value;
+  bool isTrue;
   @override
   State<AllProducts> createState() => _MyWidgetState();
 }
@@ -35,7 +36,7 @@ class _MyWidgetState extends State<AllProducts> {
     super.initState();
     provider = Provider.of<UserProvider>(context, listen: false);
     if (provider.categoryList.isEmpty) {
-      provider.getCategoryProvider();
+      //provider.getCategoryProvider();
     }
     provider.categoryList.forEach((element) {
       items.add(element.nom);
@@ -80,83 +81,88 @@ class _MyWidgetState extends State<AllProducts> {
                         fontSize: MediaQuery.of(context).textScaleFactor * 19),
                   ),
                   Spacer(),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.25,
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton2<String>(
-                        isExpanded: true,
-                        hint: const Row(
-                          children: [
-                            Expanded(
-                              child: Text(
-                                'Filtrer',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
+                  widget.isTrue == false
+                      ? Container()
+                      : SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.25,
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton2<String>(
+                              isExpanded: true,
+                              hint: const Row(
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      'Filtrer',
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              items: items
+                                  .map(
+                                      (String item) => DropdownMenuItem<String>(
+                                            value: item,
+                                            child: Text(
+                                              item,
+                                              style: const TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black,
+                                              ),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ))
+                                  .toList(),
+                              value: selectedValue,
+                              onChanged: (String? value) {
+                                setState(() {
+                                  produits.clear();
+                                  selectedValue = value;
+                                  var cat = child.categoryList;
+                                  for (final categorie in cat) {
+                                    if (categorie.nom == selectedValue) {
+                                      categorie.listProduit!.forEach((element) {
+                                        produits.add(element);
+                                      });
+                                    }
+                                  }
+                                });
+                                allProduct = child.listProduit;
+                              },
+                              iconStyleData: IconStyleData(icon: Icon(null)),
+                              buttonStyleData: ButtonStyleData(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.05,
+                                width: MediaQuery.of(context).size.width * 0.35,
+                                padding:
+                                    const EdgeInsets.only(left: 14, right: 14),
+                              ),
+                              dropdownStyleData: DropdownStyleData(
+                                maxHeight: 200,
+                                width: MediaQuery.of(context).size.width * 0.5,
+                                decoration: const BoxDecoration(
+                                  //borderRadius: BorderRadius.circular(14),
+                                  color: Colors.grey,
                                 ),
-                                overflow: TextOverflow.ellipsis,
+                                offset: const Offset(-20, 0),
+                                // scrollbarTheme: ScrollbarThemeData(
+                                //   //radius: const Radius.circular(40),
+                                //   thickness: MaterialStateProperty.all<double>(6),
+                                //   thumbVisibility: MaterialStateProperty.all<bool>(true),
+                                // ),
+                              ),
+                              menuItemStyleData: const MenuItemStyleData(
+                                height: 40,
+                                padding: EdgeInsets.only(left: 14, right: 14),
                               ),
                             ),
-                          ],
-                        ),
-                        items: items
-                            .map((String item) => DropdownMenuItem<String>(
-                                  value: item,
-                                  child: Text(
-                                    item,
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
-                                    ),
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ))
-                            .toList(),
-                        value: selectedValue,
-                        onChanged: (String? value) {
-                          setState(() {
-                            produits.clear();
-                            selectedValue = value;
-                            var cat = child.categoryList;
-                            for (final categorie in cat) {
-                              if (categorie.nom == selectedValue) {
-                                categorie.listProduit!.forEach((element) {
-                                  produits.add(element);
-                                });
-                              }
-                            }
-                          });
-                          allProduct = child.listProduit;
-                        },
-                        iconStyleData: IconStyleData(icon: Icon(null)),
-                        buttonStyleData: ButtonStyleData(
-                          height: MediaQuery.of(context).size.height * 0.05,
-                          width: MediaQuery.of(context).size.width * 0.35,
-                          padding: const EdgeInsets.only(left: 14, right: 14),
-                        ),
-                        dropdownStyleData: DropdownStyleData(
-                          maxHeight: 200,
-                          width: MediaQuery.of(context).size.width * 0.5,
-                          decoration: const BoxDecoration(
-                            //borderRadius: BorderRadius.circular(14),
-                            color: Colors.grey,
                           ),
-                          offset: const Offset(-20, 0),
-                          // scrollbarTheme: ScrollbarThemeData(
-                          //   //radius: const Radius.circular(40),
-                          //   thickness: MaterialStateProperty.all<double>(6),
-                          //   thumbVisibility: MaterialStateProperty.all<bool>(true),
-                          // ),
-                        ),
-                        menuItemStyleData: const MenuItemStyleData(
-                          height: 40,
-                          padding: EdgeInsets.only(left: 14, right: 14),
-                        ),
-                      ),
-                    ),
-                  )
+                        )
                 ],
               ),
             ),

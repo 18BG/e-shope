@@ -1,17 +1,18 @@
-import 'package:e_shope/screens/home_screen.dart';
+import 'package:e_shope/screens/login_screen.dart';
+import 'package:e_shope/screens/register_screen.dart';
 import 'package:e_shope/widgets/bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
-import '../screens/PanierScreen.dart';
+class LoginDialog extends StatefulWidget {
+  final String message;
 
-class Dialogue extends StatefulWidget {
-  Dialogue({super.key, required this.message});
-  String message;
+  LoginDialog({Key? key, required this.message}) : super(key: key);
+
   @override
-  State<Dialogue> createState() => _DialogueState();
+  State<LoginDialog> createState() => _LoginDialogState();
 }
 
-class _DialogueState extends State<Dialogue> {
+class _LoginDialogState extends State<LoginDialog> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -47,35 +48,31 @@ class _DialogueState extends State<Dialogue> {
             ),
             SizedBox(height: 20),
             Icon(
-              Icons.shopping_cart,
+              Icons.person, // Change to the desired icon, e.g., Icons.person
               size: MediaQuery.of(context).textScaleFactor * 60,
-              color: Colors.green,
+              color: Colors.blue, // Change the color of the icon
             ),
             SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.green),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(24),
-                      ),
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.green,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24),
                     ),
                   ),
                   onPressed: () {
-                    setState(() {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ConvexAppExample(
-                                    index: 2,
-                                  )));
-                    });
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LoginScreen(),
+                      ),
+                    );
                   },
                   child: Text(
-                    "Voir le pannier",
+                    "Connectez-vous",
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
@@ -83,21 +80,22 @@ class _DialogueState extends State<Dialogue> {
                   ),
                 ),
                 ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.red),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(24),
-                      ),
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.blue,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24),
                     ),
                   ),
                   onPressed: () {
-                    setState(() {
-                      Navigator.pop(context);
-                    });
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => RegisterScreen(),
+                      ),
+                    );
                   },
                   child: Text(
-                    "Fermer",
+                    "Créer un compte ",
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,

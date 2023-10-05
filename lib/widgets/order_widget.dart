@@ -25,7 +25,7 @@ class OrderWidget extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8.0),
                 child: Image.network(
-                  commande.produit.first.produit.first.image,
+                  commande.produit.first.produit.first.imageUrl,
                   fit: BoxFit.cover,
                 ),
               ),

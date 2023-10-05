@@ -24,7 +24,7 @@ class OrderProductDetailWidget extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8.0),
                 child: Image.network(
-                  produit.image,
+                  produit.imageUrl,
                   fit: BoxFit.cover,
                 ),
               ),

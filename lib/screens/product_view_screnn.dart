@@ -1,4 +1,8 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:e_shope/models/Image_model.dart';
 import 'package:e_shope/widgets/dialogue_widget.dart';
+import 'package:e_shope/widgets/logindialogue.dart';
 import 'package:e_shope/widgets/product_view_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,11 +14,6 @@ import 'AchatScreen.dart';
 
 class ProductViewScreen extends StatefulWidget {
   ProductViewScreen({super.key, required this.produit});
-  // final String imageUrl;
-  // final String productTitle;
-  // final String productDescription;
-  // final double productCurrentPrice;
-  // final double? productlastPrice;
   ProduitModel produit;
 
   @override
@@ -29,6 +28,7 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
   num productCurrentPrice = 0;
   double? productlastPrice;
   List<Image> image = [];
+  List<Images> images = [];
 
   int _currentTabIndex = 0;
 
@@ -39,9 +39,12 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
     productCurrentPrice = widget.produit.prix;
     productTitle = widget.produit.nom;
     productDescription = widget.produit.description;
-    image.add(
-      Image.network(widget.produit.image),
-    );
+
+    widget.produit.image!.forEach((element) {
+      image.add(
+        Image.network(element.image),
+      );
+    });
   }
 
   @override
@@ -56,20 +59,29 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
               Expanded(
                 child: GestureDetector(
                   onTap: () async {
-                    final achat = AchatProduitModel(
-                        nom: widget.produit.nom,
-                        description: widget.produit.description,
-                        prix: widget.produit.prix,
-                        image: widget.produit.image,
-                        qteCommande: 1,
-                        like: widget.produit.like);
-                    await provider.addToPaannier(achat);
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => AchatScreen(
-                                  produit: provider.panierList.first,
-                                )));
+                    if (provider.firstName != null) {
+                      final achat = AchatProduitModel(
+                          imageUrl: widget.produit.imageUrl,
+                          nom: widget.produit.nom,
+                          description: widget.produit.description,
+                          prix: widget.produit.prix,
+                          image: widget.produit.image,
+                          qteCommande: 1,
+                          like: widget.produit.like);
+                      await provider.addToPaannier(achat);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AchatScreen(
+                                    produit: provider.panierList.first,
+                                  )));
+                    } else {
+                      showAdaptiveDialog(
+                          context: context,
+                          builder: (conext) => LoginDialog(
+                              message:
+                                  "Vous ne pouvez pas acheter de produis veuillez vous connecter s'il vous plais"));
+                    }
                   },
                   child: Container(
                     color: Colors.green,
@@ -97,21 +109,30 @@ class _ProductViewScreenState extends State<ProductViewScreen> {
           color: Colors.transparent,
           child: GestureDetector(
             onTap: () {
-              final achat = AchatProduitModel(
-                  nom: widget.produit.nom,
-                  description: widget.produit.description,
-                  prix: widget.produit.prix,
-                  image: widget.produit.image,
-                  qteCommande: 1,
-                  like: widget.produit.like);
-              provider.addToPaannier(achat);
-              showDialog(
-                  context: context,
-                  builder: (context) {
-                    return Dialogue(
-                        message: "Produit ajouter au pannier avec succes");
-                  });
-              setState(() {});
+              if (provider.firstName != null) {
+                final achat = AchatProduitModel(
+                    nom: widget.produit.nom,
+                    imageUrl: widget.produit.imageUrl,
+                    description: widget.produit.description,
+                    prix: widget.produit.prix,
+                    image: widget.produit.image,
+                    qteCommande: 1,
+                    like: widget.produit.like);
+                provider.addToPaannier(achat);
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return Dialogue(
+                          message: "Produit ajouter au pannier avec succes");
+                    });
+                setState(() {});
+              } else {
+                showAdaptiveDialog(
+                    context: context,
+                    builder: (context) => LoginDialog(
+                        message:
+                            "Vous ne pouvez pas ajouter de produis veuillez vous connecter s'il vous plais"));
+              }
             },
             child: Row(
               children: [

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_shope/models/Image_model.dart';
 import 'package:e_shope/models/client_model.dart';
 import 'package:e_shope/models/commande_model.dart';
 import 'package:e_shope/models/like_model.dart';
@@ -6,7 +7,6 @@ import 'package:e_shope/models/new_produit.dart';
 import 'package:e_shope/models/panier_model.dart';
 import 'package:e_shope/models/produit_model.dart';
 import 'package:e_shope/utilities/constants.dart';
-//import 'package:firebase_storage/firebase_storage.dart';
 
 import '../models/achat_produit.dart';
 import '../models/categorie_model.dart';
@@ -69,9 +69,6 @@ class FirebaseManagement {
 
   //de la fonction
   updateClientInformation(ClientModel client) async {
-    print("updateClientInformation");
-    print(client.firebaseToken);
-    print("D2RGnRKFu4zgPemFWgiL");
     try {
       await _db.collection("Client").doc(client.firebaseToken).update({
         lastName: client.nom,
@@ -92,13 +89,11 @@ class FirebaseManagement {
   // Méthode de mise à jour de l'image de profil
   Future<bool> updateProfileImage(String token, String imageUrl) async {
     try {
-      print("ffffffffffffhhhhhhhhh");
       await _db.collection("Client").doc(token).update({
         "Image": imageUrl,
       });
       return true;
     } catch (e) {
-      print(e);
       return false;
     }
   }
@@ -181,6 +176,19 @@ class FirebaseManagement {
             .toList();
         final productListe =
             products.docs.map((e) => ProduitModel.fromSnapshot(e)).toList();
+        for (ProduitModel prod in productListe) {
+          final img = await _db
+              .collection(categoriCollection)
+              .doc(i.firebaseToken)
+              .collection(productCollection)
+              .doc(prod.firebaseToken)
+              .collection("Images")
+              .get();
+          //add products list to client product list
+          final imagesList =
+              img.docs.map((e) => Images.fromSnapshot(e)).toList();
+          prod.image = imagesList;
+        }
         i.listProduit = productListe;
         i.listNews = newList;
       }
@@ -214,7 +222,7 @@ class FirebaseManagement {
         "prixTotal": cmd.prixTotal,
       });
       for (final prod in commande.produit.first.produit) {
-        await _db
+        var img = await _db
             .collection("Client")
             .doc(client)
             .collection("Commande")
@@ -224,12 +232,25 @@ class FirebaseManagement {
             .collection("Produits")
             .add({
           "Nom": prod.nom,
+          "Image": prod.imageUrl,
           "Description": prod.description,
           "Prix": prod.prix,
           "Like": false,
-          "Image": prod.image,
           "qteCommande": prod.qteCommande,
         });
+        for (final imges in prod.image!) {
+          await _db
+              .collection("Client")
+              .doc(client)
+              .collection("Commande")
+              .doc(newRef)
+              .collection("Pannier")
+              .doc(rf.id)
+              .collection("Produits")
+              .doc(img.id)
+              .collection("Images")
+              .add({"image": imges.image});
+        }
       }
     }
   }
@@ -302,7 +323,7 @@ class FirebaseManagement {
             {'qteProduit': pannier.qteProduit, 'prixTotal': pannier.prixTotal});
     final newRef = pannierRef.id;
     {
-      await _db
+      final img = await _db
           .collection("Client")
           .doc(client)
           .collection("Pannier")
@@ -310,12 +331,23 @@ class FirebaseManagement {
           .collection(productCollection)
           .add({
         "Nom": pannier.produit.last.nom,
+        "Image": pannier.produit.last.imageUrl,
         "Description": pannier.produit.last.description,
         "Prix": pannier.produit.last.prix,
         "Like": false,
-        "Image": pannier.produit.last.image,
         "qteCommande": pannier.produit.last.qteCommande,
       });
+      for (final imges in pannier.produit.last.image!) {
+        await _db
+            .collection("Client")
+            .doc(client)
+            .collection("Pannier")
+            .doc(newRef)
+            .collection(productCollection)
+            .doc(img.id)
+            .collection("Images")
+            .add({"image": imges.image});
+      }
     }
   }
 
@@ -354,7 +386,7 @@ class FirebaseManagement {
 
   //function to update pannier
   updatePannier(client, AchatProduitModel pannier, pannierToken) async {
-    await _db
+    final img = await _db
         .collection("Client")
         .doc(client)
         .collection("Pannier")
@@ -362,12 +394,23 @@ class FirebaseManagement {
         .collection("Produits")
         .add({
       "Nom": pannier.nom,
+      "Image": pannier.imageUrl,
       "Description": pannier.description,
       "Prix": pannier.prix,
-      "Image": pannier.image,
       "qteCommande": pannier.qteCommande,
       "Like": false,
     });
+    for (final i in pannier.image!) {
+      await _db
+          .collection("Client")
+          .doc(client)
+          .collection("Pannier")
+          .doc(pannierToken)
+          .collection("Produits")
+          .doc(img.id)
+          .collection("Images")
+          .add({"image": i.image});
+    }
   }
 
   deleteProductPannier(client, PanierModel panier, produit) async {
@@ -392,15 +435,25 @@ class FirebaseManagement {
 
   //function to like product
   addToLike(String client, ProduitModel like) async {
-    await _db.collection("Client").doc(client).collection("Like").add({
+    final img =
+        await _db.collection("Client").doc(client).collection("Like").add({
       "Nom": like.nom,
       "Description": like.description,
+      "Image": like.imageUrl,
       "Prix": like.prix,
-      "Image": like.image,
       "qteStock": like.qteStock,
       "Like": like.like,
       "FirebaseToken": like.firebaseToken
     });
+    for (final i in like.image!) {
+      await _db
+          .collection("Client")
+          .doc(client)
+          .collection("Like")
+          .doc(img.id)
+          .collection("Images")
+          .add({"image": i.image});
+    }
   }
 
   //fuction to get liked product

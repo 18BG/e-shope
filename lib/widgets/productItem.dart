@@ -1,6 +1,7 @@
 import 'package:e_shope/models/categorie_model.dart';
 import 'package:e_shope/models/produit_model.dart';
 import 'package:e_shope/provider/provider.dart';
+import 'package:e_shope/widgets/logindialogue.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -42,7 +43,7 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
                 widget.produit.image == ""
                     ? CircularProgressIndicator()
                     : Image.network(
-                        widget.produit.image,
+                        widget.produit.imageUrl,
                         width: width * 0.37,
                         height: MediaQuery.of(context).size.height * 0.09,
                         fit: BoxFit.cover,
@@ -52,30 +53,38 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
                   right: 10,
                   child: GestureDetector(
                     onTap: () {
-                      setState(() {
-                        isLiked = !isLiked;
-                        if (isLiked == true) {
-                          widget.produit.like = isLiked;
-                          bool isOk = provide.likeList.any((element) =>
-                              element.nom == widget.produit.nom &&
-                              widget.produit.description ==
-                                  element.description &&
-                              element.prix == widget.produit.prix);
-                          if (!isOk) {
-                            provide.likeProduct(widget.produit);
+                      if (provide.firstName != null) {
+                        setState(() {
+                          isLiked = !isLiked;
+                          if (isLiked == true) {
+                            widget.produit.like = isLiked;
+                            bool isOk = provide.likeList.any((element) =>
+                                element.nom == widget.produit.nom &&
+                                widget.produit.description ==
+                                    element.description &&
+                                element.prix == widget.produit.prix);
+                            if (!isOk) {
+                              provide.likeProduct(widget.produit);
+                            }
+                          } else {
+                            if (provide.likeList.isNotEmpty) {
+                              provide.diseLikeProduct(
+                                  provide.likeList.firstWhere((element) {
+                                return element.nom == widget.produit.nom &&
+                                    widget.produit.description ==
+                                        element.description &&
+                                    element.prix == widget.produit.prix;
+                              }));
+                            }
                           }
-                        } else {
-                          if (provide.likeList.isNotEmpty) {
-                            provide.diseLikeProduct(
-                                provide.likeList.firstWhere((element) {
-                              return element.nom == widget.produit.nom &&
-                                  widget.produit.description ==
-                                      element.description &&
-                                  element.prix == widget.produit.prix;
-                            }));
-                          }
-                        }
-                      });
+                        });
+                      } else {
+                        showAdaptiveDialog(
+                            context: context,
+                            builder: (context) => LoginDialog(
+                                message:
+                                    "Vous ne pouvez pas aimer de produits veuillez vous connecter s'il vous plais"));
+                      }
                     },
                     child: Container(
                       padding: EdgeInsets.all(5),
@@ -106,13 +115,6 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
                   Text(
                     widget.produit.nom,
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  Spacer(),
-                  Text(
-                    widget.produit.description,
-                    style: TextStyle(
-                        fontSize: MediaQuery.of(context).textScaleFactor * 12,
-                        fontWeight: FontWeight.w100),
                   ),
                   Spacer(),
                   Row(

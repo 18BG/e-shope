@@ -51,7 +51,7 @@ class _PanierWidgetState extends State<PanierWidget> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8.0),
                   image: DecorationImage(
-                    image: NetworkImage(widget.pannier.image),
+                    image: NetworkImage(widget.pannier.nom),
                     fit: BoxFit.cover,
                   ),
                 ),

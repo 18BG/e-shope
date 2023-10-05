@@ -33,6 +33,7 @@ class _AllCategorieScreenState extends State<AllCategorieScreen> {
               child: SingleChildScrollView(
                 child: AllProducts(
                   value: widget.value,
+                  isTrue: true,
                 ),
               ),
             ),

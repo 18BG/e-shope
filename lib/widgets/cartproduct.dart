@@ -95,20 +95,6 @@ class _CartWidgetState extends State<CartWidget> {
                                                   .textScaleFactor *
                                               18)),
                                   Spacer(),
-                                  // GestureDetector(
-                                  //   onTap: () {
-                                  //     setState(() {
-                                  //       widget.productNumber--;
-                                  //     });
-                                  //   },
-                                  //   child: Icon(
-                                  //     Icons.remove,
-                                  //     size: MediaQuery.of(context)
-                                  //             .textScaleFactor *
-                                  //         16,
-                                  //   ),
-                                  // ),
-                                  // Spacer(),
                                   Text(
                                     "${widget.productNumber}",
                                     style: TextStyle(
@@ -119,20 +105,6 @@ class _CartWidgetState extends State<CartWidget> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  // Spacer(),
-                                  // GestureDetector(
-                                  //   onTap: () {
-                                  //     setState(() {
-                                  //       widget.productNumber++;
-                                  //     });
-                                  //   },
-                                  //   child: Icon(
-                                  //     Icons.add,
-                                  //     size: MediaQuery.of(context)
-                                  //             .textScaleFactor *
-                                  //         16,
-                                  //   ),
-                                  // ),
                                   Spacer(),
                                 ],
                               ),

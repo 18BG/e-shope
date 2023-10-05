@@ -46,7 +46,7 @@ class _WishItemsState extends State<WishItems> {
                     alignment: Alignment.center,
                     height: MediaQuery.of(context).size.height * 0.12,
                     child: Image.network(
-                      widget.produit.image,
+                      widget.produit.imageUrl,
                       fit: BoxFit.cover,
                     ),
                   ),

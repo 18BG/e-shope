@@ -26,7 +26,9 @@ class _ScreenTitleBarState extends State<ScreenTitleBar> {
           GestureDetector(
             child: backArrow,
             onTap: () {
-              Navigator.pop(context);
+              if (widget.isTrue == false) {
+                Navigator.pop(context);
+              }
             },
           ),
           Spacer(),

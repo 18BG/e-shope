@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:e_shope/models/produit_model.dart';
 import 'package:e_shope/utilities/constants.dart';
 
 import 'achat_produit.dart';
